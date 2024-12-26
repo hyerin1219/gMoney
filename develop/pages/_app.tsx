@@ -1,3 +1,4 @@
+import ComponentWrap from "../src/components/common/componentWrap/componentWrap";
 import LayoutFooter from "../src/components/common/layout/footer/LayoutFooter";
 import LayoutHeader from "../src/components/common/layout/header/LayoutHeader";
 import "../styles/globals.css";
@@ -7,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <LayoutHeader></LayoutHeader>
-      <Component {...pageProps} />
+      <ComponentWrap>
+        <Component {...pageProps} />
+      </ComponentWrap>
       <LayoutFooter></LayoutFooter>
     </>
   )
