@@ -5,9 +5,11 @@ export default function StoreSearchComponent():JSX.Element{
 
   return (
     <>
-      <A.contentWrap>
-        <SearchComponent></SearchComponent>
-      </A.contentWrap>
+      <div className="container">
+        <A.contentWrap>
+          <SearchComponent></SearchComponent>
+        </A.contentWrap>
+      </div>
     </>
   )
 }
