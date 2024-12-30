@@ -9,7 +9,7 @@ export const FooterContent = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    font-size: 18px;
+    font-size: 15px;
     padding: 25px 50px;
 `
 export const FooterContentTopArea = styled.div`

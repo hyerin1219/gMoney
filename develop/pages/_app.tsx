@@ -7,11 +7,13 @@ import type { AppProps } from "next/app";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <LayoutHeader></LayoutHeader>
-      <ComponentWrap>
-        <Component {...pageProps} />
-      </ComponentWrap>
-      <LayoutFooter></LayoutFooter>
+      <div className="mainWrap">
+        <LayoutHeader></LayoutHeader>
+          <ComponentWrap>
+            <Component {...pageProps} />
+          </ComponentWrap>
+        <LayoutFooter></LayoutFooter>
+      </div>
     </>
   )
 }

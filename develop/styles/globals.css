@@ -46,3 +46,13 @@ button {
   background-color: transparent;
   border: none;
 }
+
+.mainWrap {
+  position: relative;
+  max-width: 2560px;
+}
+
+.Container {
+  width: 80%;
+  margin: 0 auto;
+}
