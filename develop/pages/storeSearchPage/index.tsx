@@ -1,9 +1,9 @@
-import StoreSearchComponent from "../../src/components/units/storeSearch/storeSearch"
+import StoreListComponent from "../../src/components/units/storeList/storeListComponent"
 
 export default function storeSearchPage():JSX.Element {
   return (
     <>
-      <StoreSearchComponent></StoreSearchComponent>
+      <StoreListComponent></StoreListComponent>
     </>
   )
 }

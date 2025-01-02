@@ -1,15 +1,18 @@
+import * as A from "./storeList.styles";
 import SearchComponent from "../../common/search/searchComponent";
-import * as A from "./searchComponent.styles"
 
-export default function StoreSearchComponent():JSX.Element{
+export default function StoreListComponent():JSX.Element{
+
 
   return (
     <>
+
       <div className="container">
         <A.contentWrap>
-          <SearchComponent></SearchComponent>
+            <SearchComponent></SearchComponent>
+            <div id="map"></div>
         </A.contentWrap>
       </div>
     </>
   )
-}
+};
