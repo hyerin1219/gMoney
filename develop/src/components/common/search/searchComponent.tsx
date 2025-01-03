@@ -3,8 +3,6 @@ import * as A from "./searchComponent.styles"
 
 export default function SearchComponent():JSX.Element {
 
-  const [businessInfoData, setBusinessInfoData] = useState<any>(null);
-
   const onChangeValue = (event:ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     console.log (value)

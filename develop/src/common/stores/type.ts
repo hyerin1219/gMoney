@@ -1,6 +1,6 @@
 export type BusinessInfo = {
-  BIZREGNO: string;              // 사업자등록번호 (문자열)
-  CLSBIZ_DAY: string | null;     // 폐업일 (null일 수도 있음)
+  BIZREGNO: string ;              // 사업자등록번호 (문자열)
+  CLSBIZ_DAY: string  ;     // 폐업일 (null일 수도 있음)
   CMPNM_NM: string;              // 회사명 (문자열)
   FRCS_NO: string;               // 사업장등록번호 (문자열)
   INDUTYPE_CD: string;           // 산업분류 코드 (문자열)

@@ -36,6 +36,7 @@ export default function Navigation():JSX.Element {
       third: false,
       [menuKey]: !menuState[menuKey], // 클릭된 메뉴는 토글
     });
+
   };
 
   return (

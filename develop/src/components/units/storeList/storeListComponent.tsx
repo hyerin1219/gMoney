@@ -3,20 +3,33 @@ import SearchComponent from "../../common/search/searchComponent";
 import { useEffect } from "react";
 
 declare const window: typeof globalThis & {
-    kakao: any;
-    IMP: any;
+  kakao: any;
+  IMP: any;
 };
 
-export default function StoreListComponent():JSX.Element{
+export default function StoreListComponent(): JSX.Element {
+  useEffect(() => {
+    // Kakao 지도 API 스크립트 로드
+    const script = document.createElement('script');
+    script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=b2f7deca5ab3989231a32111ffa2246b&autoload=false&libraries=services';
+    document.head.appendChild(script);
 
-  const userAddress = "d"
+    // 로컬 스토리지에서 데이터를 가져옵니다.
+    const cachedData = localStorage.getItem("BusinessInfoData");
 
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=b2f7deca5ab3989231a32111ffa2246b&autoload=false&libraries=services';
-        document.head.appendChild(script);
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData);
 
-        script.onload = () => {
+      // 데이터를 기반으로 사용자 주소를 추출
+      const userAddress = parsedData?.RegionMnyFacltStus?.[1]?.row?.[0]?.REFINE_ZIPNO;
+
+      
+
+    } else {
+      console.error("로컬 스토리지에 데이터가 없습니다.");
+    }
+
+script.onload = () => {
             window.kakao.maps.load(() => {
                 const container = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
                 const map = new window.kakao.maps.Map(container, {
@@ -26,7 +39,7 @@ export default function StoreListComponent():JSX.Element{
 
                 const geocoder = new window.kakao.maps.services.Geocoder();
 
-                geocoder.addressSearch(userAddress, function (result: any, status: any) {
+                geocoder.addressSearch(function (result: any, status: any) {
                     if (status === window.kakao.maps.services.Status.OK) {
                         const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
 
@@ -38,7 +51,7 @@ export default function StoreListComponent():JSX.Element{
 
                         // 인포윈도우로 장소에 대한 설명을 표시합니다
                         const infowindow = new window.kakao.maps.InfoWindow({
-                            content: `<div style="padding:5px;">${userAddress}</div>`,
+                            
                         });
                         infowindow.open(map, marker);
 
@@ -48,20 +61,18 @@ export default function StoreListComponent():JSX.Element{
                 });
             });
         };
-    }, [userAddress]); // userAddress가 변경될 때마다 다시 실행됩니다.
+    
+  }, []); // 컴포넌트가 마운트 될 때만 실행
 
   return (
-
     <>
       <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
       <div className="container">
         <A.contentWrap>
-            <SearchComponent></SearchComponent>
-            <div id="map">
-
-            </div>
+          <SearchComponent />
+          <div id="map" style={{ width: '500px', height: '400px' }}></div> {/* 지도 영역 크기 설정 */}
         </A.contentWrap>
       </div>
     </>
-  )
-};
+  );
+}
