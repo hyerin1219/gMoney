@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { Space } from 'antd';
 
 export const FooterWrapper = styled.div`
     background-color: #2a2f33;
@@ -21,3 +22,7 @@ export const FooterContentTopArea = styled.div`
     padding: 20px;
 ` 
 
+export const SpaceBox = styled(Space)`
+    cursor: pointer;
+    width: 200px;
+`;

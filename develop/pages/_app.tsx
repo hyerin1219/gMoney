@@ -1,3 +1,4 @@
+import SettingPage from "../src/common/stores";
 import ComponentWrap from "../src/components/common/componentWrap/componentWrap";
 import LayoutFooter from "../src/components/common/layout/footer/LayoutFooter";
 import LayoutHeader from "../src/components/common/layout/header/LayoutHeader";
@@ -8,11 +9,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <div className="mainWrap">
-        <LayoutHeader></LayoutHeader>
+        <LayoutHeader/>
           <ComponentWrap>
             <Component {...pageProps} />
           </ComponentWrap>
-        <LayoutFooter></LayoutFooter>
+        <LayoutFooter/>
       </div>
     </>
   )

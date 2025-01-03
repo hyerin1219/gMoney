@@ -7,13 +7,13 @@ import { schema } from "./registration.validation";
 import { collection, addDoc, getFirestore } from 'firebase/firestore/lite'
 import {firebaseApp} from "../../../common/libraries/firebase"
 
-
 interface IFormData {
     id: string;
     number: number;
     name: string;
     representative: string;
     category: string;
+    addressDetail: string;
 }
 
 export default function RegistrationComponent(): JSX.Element {
@@ -38,6 +38,7 @@ export default function RegistrationComponent(): JSX.Element {
         mode: 'onChange',
     });
 
+    // firebase 등록하기 기능
   const onClickSubmit = async (data:IFormData):Promise<void> => {
     
     const registrationStore = collection(getFirestore(firebaseApp), "registrationStore")
@@ -46,9 +47,13 @@ export default function RegistrationComponent(): JSX.Element {
             number: data.number,
             name: data.name,
             representative: data.representative,
-            category: data.category
+            category: data.category,
+            storeAddress: {
+              zipcode,
+              address,
+              addressDetail: data.addressDetail,
+            }
         })
-
   }
 
 
@@ -132,10 +137,11 @@ export default function RegistrationComponent(): JSX.Element {
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>사업장 소재지</A.ListTitle>
                   <A.ListBox>
                     <div>
-                      <A.ListInput type="text" readOnly placeholder="07250"></A.ListInput>
+                      <A.ListInput type="text" readOnly placeholder="07250" value={zipcode? zipcode : ""}></A.ListInput>
                       <A.ListButton type="button" onClick={onClickAddressSearch}>우편번호검색</A.ListButton>
                     </div>
-                    <A.ListInput type="text" placeholder="나머지 주소"></A.ListInput>
+                    <A.ListInput type="text" placeholder="주소" value={address? address : ""} {...register('addressDetail')}></A.ListInput>
+                    <A.ErrorBox>{formState.errors.addressDetail?.message}</A.ErrorBox>
                   </A.ListBox>
                 </A.ContentList>
 

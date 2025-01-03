@@ -56,7 +56,10 @@ export const ListInput = styled.input`
   font-size: 20px;
   outline: none;
   padding: 5px;
-  width: 700px;
+  width: 40%;
+  min-width: 250px;
+
+  :not(:first-child) {margin-top:5px;}
 `
 export const ListButton = styled.button`
   background-color: #2a2f33;
@@ -71,8 +74,8 @@ export const submitButton = styled.button`
   color: #fff;
   font-size: 22px;
   border-radius: 10px;
-  padding: 15px;
-  margin: 10px auto;
+  padding: 10px 15px;
+  margin: 20px auto 0;
 `
 
 export const ErrorBox = styled.div`
@@ -85,3 +88,8 @@ export const ErrorBox = styled.div`
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcode)``;
+
+
+export const GMoneyBox = styled.div`
+  
+`

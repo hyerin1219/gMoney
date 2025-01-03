@@ -50,10 +50,10 @@ export default function LayoutFooter():JSX.Element {
 
             <Dropdown menu={{ items }} trigger={['click']}>
               <a onClick={(e) => e.preventDefault()}>
-                <Space>
+                <A.SpaceBox>
                   관련기관 바로가기
                   <DownOutlined />
-                </Space>
+                </A.SpaceBox>
               </a>
             </Dropdown>
 

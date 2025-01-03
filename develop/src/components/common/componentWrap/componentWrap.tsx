@@ -5,6 +5,7 @@ interface ILayoutProps {
 }
 export default function ComponentWrap(props: ILayoutProps):JSX.Element {
 
+
   return (
     <>
       <A.componentWrap>{props.children}</A.componentWrap>
