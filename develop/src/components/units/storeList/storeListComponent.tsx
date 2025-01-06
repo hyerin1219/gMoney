@@ -1,6 +1,6 @@
 import * as A from "./storeList.styles";
 import SearchComponent from "../../common/search/searchComponent";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -9,9 +9,18 @@ declare const window: typeof globalThis & {
 
 export default function StoreListComponent(): JSX.Element {
   useEffect(() => {
+
+    const metaTag = document.createElement("meta");
+    metaTag.name = "referrer";
+    metaTag.content = "no-referrer-when-downgrade";
+    document.head.appendChild(metaTag);
+
     // Kakao 지도 API 스크립트 로드
+    const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_API_KEY;
     const script = document.createElement('script');
-    script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=b2f7deca5ab3989231a32111ffa2246b&autoload=false&libraries=services';
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false&libraries=services`;
+    script.async = true;
+    script.defer = true;
     document.head.appendChild(script);
 
     // 로컬 스토리지에서 데이터를 가져옵니다.
@@ -21,15 +30,11 @@ export default function StoreListComponent(): JSX.Element {
       const parsedData = JSON.parse(cachedData);
 
       // 데이터를 기반으로 사용자 주소를 추출
-      const userAddress = parsedData?.RegionMnyFacltStus?.[1]?.row?.[0]?.REFINE_ZIPNO;
+      const userAddress = parsedData?.RegionMnyFacltStus?.[1]?.row?.[0]?.REFINE_LOTNO_ADDR;
 
-      
+      console.log(userAddress)
 
-    } else {
-      console.error("로컬 스토리지에 데이터가 없습니다.");
-    }
-
-script.onload = () => {
+      script.onload = () => {
             window.kakao.maps.load(() => {
                 const container = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
                 const map = new window.kakao.maps.Map(container, {
@@ -39,9 +44,11 @@ script.onload = () => {
 
                 const geocoder = new window.kakao.maps.services.Geocoder();
 
-                geocoder.addressSearch(function (result: any, status: any) {
+                geocoder.addressSearch(userAddress, function (result: any, status: any) {
                     if (status === window.kakao.maps.services.Status.OK) {
                         const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+
+                        console.log("coords" , coords)
 
                         // 결과값으로 받은 위치를 마커로 표시합니다
                         const marker = new window.kakao.maps.Marker({
@@ -51,7 +58,7 @@ script.onload = () => {
 
                         // 인포윈도우로 장소에 대한 설명을 표시합니다
                         const infowindow = new window.kakao.maps.InfoWindow({
-                            
+                            content: `<div style="padding:5px;">${userAddress}</div>`,
                         });
                         infowindow.open(map, marker);
 
@@ -61,7 +68,10 @@ script.onload = () => {
                 });
             });
         };
-    
+
+    } else {
+      console.error("로컬 스토리지에 데이터가 없습니다.");
+    }
   }, []); // 컴포넌트가 마운트 될 때만 실행
 
   return (
@@ -70,7 +80,7 @@ script.onload = () => {
       <div className="container">
         <A.contentWrap>
           <SearchComponent />
-          <div id="map" style={{ width: '500px', height: '400px' }}></div> {/* 지도 영역 크기 설정 */}
+          <A.MapBox id="map"></A.MapBox> {/* 지도 영역 크기 설정 */}
         </A.contentWrap>
       </div>
     </>
