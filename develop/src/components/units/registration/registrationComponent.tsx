@@ -68,36 +68,17 @@ export default function RegistrationComponent(): JSX.Element {
         <A.ContentWrap>
           <A.MainBox>
             <form onSubmit={handleSubmit(onClickSubmit)}>
-              <A.GuideBox><A.GuideBoxEm>*</A.GuideBoxEm>표시는 필수입력 항목입니다.</A.GuideBox>
-
-              <A.ContentBox>
-                <A.ContentList>
-                  <A.ListTitle>
-                    <A.GuideBoxEm>*</A.GuideBoxEm>지역화폐
-                  </A.ListTitle>
-
-                  <A.ListBox>
-                    
-                  </A.ListBox>
-                </A.ContentList>
-
-                <A.ContentList>
-                  <A.ListTitle>발행종류</A.ListTitle>
-
-                  <A.ListBox></A.ListBox>
-                </A.ContentList>
-              </A.ContentBox>
 
               <A.GuideBox><A.GuideBoxEm>*</A.GuideBoxEm>표시는 필수입력 항목입니다.</A.GuideBox>
 
               <A.ContentBox>
-                <A.ContentList>
+                {/* <A.ContentList>
                   <A.ListTitle>아이디</A.ListTitle>
                   <A.ListBox>
                     <A.ListInput type="text" {...register('id')}></A.ListInput>
                     <A.ErrorBox>{formState.errors.id?.message}</A.ErrorBox>
                   </A.ListBox>
-                </A.ContentList>
+                </A.ContentList> */}
 
                 <A.ContentList>
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>사업자등록번호</A.ListTitle>
@@ -117,18 +98,26 @@ export default function RegistrationComponent(): JSX.Element {
                   
                 </A.ContentList>
 
-                <A.ContentList>
+                {/* <A.ContentList>
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>대표자</A.ListTitle>
                   <A.ListBox>
                     <A.ListInput type="text" {...register('representative')}></A.ListInput> <A.GuideBoxEm>* 대표자 명의로 된 아이디로 신청 해주시기 바랍니다.</A.GuideBoxEm>
                     <A.ErrorBox>{formState.errors.representative?.message}</A.ErrorBox>
                   </A.ListBox>
-                </A.ContentList>
+                </A.ContentList> */}
 
                 <A.ContentList>
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>업종</A.ListTitle>
                   <A.ListBox>
                     <A.ListInput type="text" {...register('category')}></A.ListInput> <A.GuideBoxEm>* 사업자등록증의 업종을 기입하세요.</A.GuideBoxEm>
+                    <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
+                  </A.ListBox>
+                </A.ContentList>
+
+                <A.ContentList>
+                  <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>신고 내용</A.ListTitle>
+                  <A.ListBox>
+                    <A.ListInput type="text" {...register('category')}></A.ListInput>
                     <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
                   </A.ListBox>
                 </A.ContentList>

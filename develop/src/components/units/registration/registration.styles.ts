@@ -61,6 +61,19 @@ export const ListInput = styled.input`
 
   :not(:first-child) {margin-top:5px;}
 `
+
+export const ListTextarea = styled.textarea`
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  font-size: 20px;
+  outline: none;
+  padding: 5px;
+  width: 40%;
+  min-width: 250px;
+
+  :not(:first-child) {margin-top:5px;}
+`
+
 export const ListButton = styled.button`
   background-color: #2a2f33;
   color: #fff;
