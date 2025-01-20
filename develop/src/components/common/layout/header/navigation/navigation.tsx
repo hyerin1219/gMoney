@@ -1,8 +1,30 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as A from "./navigation.styles"
-
+import { useRouter } from "next/router";
+import { FirstsubMenu, SecsubMenu,ThrsubMenu } from "../../../../../common/stores/menuList";
 
 export default function Navigation():JSX.Element {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    // 페이지가 변경될 때 메뉴 상태를 초기화
+    const handleRouteChange = () => {
+      setMenuState({
+        first: false,
+        second: false,
+        third: false,
+      });
+    };
+
+    // 라우터 이벤트에 핸들러 등록
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // 컴포넌트 언마운트 시 이벤트 핸들러 제거
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events]);
 
   const [menuState, setMenuState] = useState({
     first: false,
@@ -10,25 +32,7 @@ export default function Navigation():JSX.Element {
     third: false,
   });
 
-  const FirstsubMenu = [
-      {name:"경기지역화폐란?"},
-      {name:"카드"},
-      {name:"모바일"},
-      {name:"지류"}
-    ]
-
-    const SecsubMenu = [
-      {name:"가맹점신규등록"},
-      {name:"가맹점 등록안내"},
-      {name:"상권분석서비스"}
-    ]
-
-    const ThrsubMenu = [
-      {name:"가맹점찾기"},
-      {name:"할인가맹점"},
-      {name:"차별거래점신고"},
-    ]
-
+  
   const toggleMenu = (menuKey: "first" | "second" | "third") => {
     setMenuState({
       first: false,

@@ -6,13 +6,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from "./registration.validation";
 import { collection, addDoc, getFirestore } from 'firebase/firestore/lite'
 import {firebaseApp} from "../../../common/libraries/firebase"
+import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
 
 interface IFormData {
-    id: string;
     number: number;
     name: string;
-    representative: string;
     category: string;
+    content: string;
     addressDetail: string;
 }
 
@@ -43,10 +43,8 @@ export default function RegistrationComponent(): JSX.Element {
     
     const registrationStore = collection(getFirestore(firebaseApp), "registrationStore")
     await addDoc(registrationStore, {
-            id: data.id,
-            number: data.number,
+            content: data.content,
             name: data.name,
-            representative: data.representative,
             category: data.category,
             storeAddress: {
               zipcode,
@@ -65,6 +63,8 @@ export default function RegistrationComponent(): JSX.Element {
         </A.AddressModal>
     )}
       <div className="Container">
+        <SubPageMenuComponent></SubPageMenuComponent>
+        
         <A.ContentWrap>
           <A.MainBox>
             <form onSubmit={handleSubmit(onClickSubmit)}>
@@ -72,22 +72,6 @@ export default function RegistrationComponent(): JSX.Element {
               <A.GuideBox><A.GuideBoxEm>*</A.GuideBoxEm>표시는 필수입력 항목입니다.</A.GuideBox>
 
               <A.ContentBox>
-                {/* <A.ContentList>
-                  <A.ListTitle>아이디</A.ListTitle>
-                  <A.ListBox>
-                    <A.ListInput type="text" {...register('id')}></A.ListInput>
-                    <A.ErrorBox>{formState.errors.id?.message}</A.ErrorBox>
-                  </A.ListBox>
-                </A.ContentList> */}
-
-                <A.ContentList>
-                  <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>사업자등록번호</A.ListTitle>
-                  <A.ListBox>
-                    <A.ListInput type="number" {...register('number')}></A.ListInput>
-                    <A.ListButton type="button" >조회하기</A.ListButton>
-                    <A.ErrorBox>{formState.errors.number?.message}</A.ErrorBox>
-                  </A.ListBox>
-                </A.ContentList>
 
                 <A.ContentList>
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>상호</A.ListTitle>
@@ -97,14 +81,6 @@ export default function RegistrationComponent(): JSX.Element {
                   </A.ListBox>
                   
                 </A.ContentList>
-
-                {/* <A.ContentList>
-                  <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>대표자</A.ListTitle>
-                  <A.ListBox>
-                    <A.ListInput type="text" {...register('representative')}></A.ListInput> <A.GuideBoxEm>* 대표자 명의로 된 아이디로 신청 해주시기 바랍니다.</A.GuideBoxEm>
-                    <A.ErrorBox>{formState.errors.representative?.message}</A.ErrorBox>
-                  </A.ListBox>
-                </A.ContentList> */}
 
                 <A.ContentList>
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>업종</A.ListTitle>
@@ -117,7 +93,7 @@ export default function RegistrationComponent(): JSX.Element {
                 <A.ContentList>
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>신고 내용</A.ListTitle>
                   <A.ListBox>
-                    <A.ListInput type="text" {...register('category')}></A.ListInput>
+                    <A.ListTextarea rows={8} {...register('content')}></A.ListTextarea>
                     <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
                   </A.ListBox>
                 </A.ContentList>

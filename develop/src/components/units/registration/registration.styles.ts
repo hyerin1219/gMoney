@@ -59,7 +59,7 @@ export const ListInput = styled.input`
   width: 40%;
   min-width: 250px;
 
-  :not(:first-child) {margin-top:5px;}
+  :not(:first-of-type) {margin-top:5px;}
 `
 
 export const ListTextarea = styled.textarea`
@@ -71,7 +71,7 @@ export const ListTextarea = styled.textarea`
   width: 40%;
   min-width: 250px;
 
-  :not(:first-child) {margin-top:5px;}
+  resize: none;
 `
 
 export const ListButton = styled.button`
