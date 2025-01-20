@@ -59,7 +59,7 @@ export const SubMenuWrap = styled.ul`
   background-color: #d2e4c1;
   padding: 10px;
   border-radius: 10px;
-  font-size: 17px;
+  font-size: 16px;
   transition: all 0.3s ease-in-out;
 `
 export const subMenuList = styled.li`
