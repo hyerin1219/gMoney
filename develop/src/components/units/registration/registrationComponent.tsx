@@ -7,6 +7,7 @@ import { schema } from "./registration.validation";
 import { collection, addDoc, getFirestore } from 'firebase/firestore/lite'
 import {firebaseApp} from "../../../common/libraries/firebase"
 import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
+import { ThrsubMenu } from "../../../common/stores/menuList";
 
 interface IFormData {
     number: number;
@@ -21,7 +22,6 @@ export default function RegistrationComponent(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
-
 
   const onClickAddressSearch = (): void => {
         setIsOpen((prev) => !prev);
@@ -63,7 +63,12 @@ export default function RegistrationComponent(): JSX.Element {
         </A.AddressModal>
     )}
       <div className="Container">
-        <SubPageMenuComponent></SubPageMenuComponent>
+        <SubPageMenuComponent
+          subMenuTitle={ThrsubMenu}
+          index={2}
+          menuTitle={"우리동네가맹점"}
+          src={"./images/bg_submenu.png"}
+        />
         
         <A.ContentWrap>
           <A.MainBox>
@@ -93,7 +98,7 @@ export default function RegistrationComponent(): JSX.Element {
                 <A.ContentList>
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>신고 내용</A.ListTitle>
                   <A.ListBox>
-                    <A.ListTextarea rows={8} {...register('content')}></A.ListTextarea>
+                    <A.ListTextarea rows={10} {...register('content')}></A.ListTextarea>
                     <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
                   </A.ListBox>
                 </A.ContentList>

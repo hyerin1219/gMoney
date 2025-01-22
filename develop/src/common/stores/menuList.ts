@@ -12,7 +12,7 @@ export const SecsubMenu = [
     ]
 
 export const ThrsubMenu = [
-      {name:"가맹점찾기"},
+      {name:"가맹점찾기", src:"./storeSearchPage"},
       {name:"할인가맹점"},
-      {name:"차별거래점신고"},
+      {name:"차별거래점신고", src:"./registrationPage"},
     ]

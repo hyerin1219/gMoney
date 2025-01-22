@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import * as A from "./navigation.styles"
 import { useRouter } from "next/router";
-import { FirstsubMenu, SecsubMenu,ThrsubMenu } from "../../../../../common/stores/menuList";
+import { FirstsubMenu, SecsubMenu, ThrsubMenu } from "../../../../../common/stores/menuList";
 
-export default function Navigation():JSX.Element {
+export default function Navigation(): JSX.Element {
 
   const router = useRouter()
 
@@ -32,50 +32,49 @@ export default function Navigation():JSX.Element {
     third: false,
   });
 
-  
+  // 메뉴를 토글하는 함수
   const toggleMenu = (menuKey: "first" | "second" | "third") => {
-    setMenuState({
+    setMenuState((prevState) => ({
       first: false,
       second: false,
       third: false,
-      [menuKey]: !menuState[menuKey], // 클릭된 메뉴는 토글
-    });
+      [menuKey]: !prevState[menuKey], // 클릭된 메뉴는 토글
+    }));
+  };
 
+  // 서브 메뉴 클릭 시 페이지 변경
+  const onClickMenu = (event: any): void => {
+    event.preventDefault(); // 기본 링크 동작 방지
+    router.push(`./${event.currentTarget.id}`); // 클릭된 메뉴의 id로 페이지 이동
   };
 
   return (
     <>
       <A.NavigationWrap>
         <A.MenuWrap>
-          <A.NavigationButton  onClick={() => toggleMenu("first")}>경기지역화폐</A.NavigationButton>
+          <A.NavigationButton onClick={() => toggleMenu("first")}>경기지역화폐</A.NavigationButton>
           <A.SubMenuWrap isopen={menuState.first}>
-            {
-              FirstsubMenu.map((el) => (
-                <A.subMenuList  key={el.name} >{el.name}</A.subMenuList>
-              ))
-            }
+            {FirstsubMenu.map((el) => (
+              <A.subMenuList key={el.name}>{el.name}</A.subMenuList>
+            ))}
           </A.SubMenuWrap>
         </A.MenuWrap>
 
         <A.MenuWrap>
           <A.NavigationButton onClick={() => toggleMenu("second")}>가맹점이용안내</A.NavigationButton>
           <A.SubMenuWrap isopen={menuState.second}>
-            {
-              SecsubMenu.map((el) => (
-                <A.subMenuList  key={el.name} >{el.name}</A.subMenuList>
-              ))
-            }
+            {SecsubMenu.map((el) => (
+              <A.subMenuList key={el.name}>{el.name}</A.subMenuList>
+            ))}
           </A.SubMenuWrap>
         </A.MenuWrap>
 
         <A.MenuWrap>
           <A.NavigationButton onClick={() => toggleMenu("third")}>우리동네가맹점</A.NavigationButton>
           <A.SubMenuWrap isopen={menuState.third}>
-            {
-              ThrsubMenu.map((el) => (
-                <A.subMenuList  key={el.name} >{el.name}</A.subMenuList>
-              ))
-            }
+            {ThrsubMenu.map((el) => (
+              <A.subMenuList onClick={onClickMenu} id={el.src} key={el.name}>{el.name}</A.subMenuList>
+            ))}
           </A.SubMenuWrap>
         </A.MenuWrap>
       </A.NavigationWrap>
