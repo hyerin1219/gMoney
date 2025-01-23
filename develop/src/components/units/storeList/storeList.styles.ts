@@ -43,3 +43,9 @@ export const SearchButton = styled.button`
 export const FormControlBox = styled(FormControl)`
   width: 200px;
 `
+
+// 리스트 표
+
+export const ListBox = styled.div`
+  
+`
