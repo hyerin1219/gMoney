@@ -31,29 +31,25 @@ export default function StoreListComponent(): JSX.Element {
         // 로컬 스토리지에서 데이터를 가져옵니다.
         const cachedData = localStorage.getItem('BusinessInfoData');
         if (cachedData) {
-        const parsedData = JSON.parse(cachedData);
+            const parsedData = JSON.parse(cachedData);
+            script.onload = () => {
 
-
-            // 기본 지도 초기화 (지역 미선택 시)
-            if (!region) {
-                script.onload = () => {
+                  // 기본 지도 초기화 (지역 미선택 시)
+                if (!region) {
                     window.kakao.maps.load(() => {
-                        const mapContainer = document.getElementById('map');
-                        const mapOption = {
-                            center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
-                            level: 3,
-                        };
-                        new window.kakao.maps.Map(mapContainer, mapOption);
-                    });
-                    return;
+                            const mapContainer = document.getElementById('map');
+                            const mapOption = {
+                                center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
+                                level: 3,
+                            };
+                            new window.kakao.maps.Map(mapContainer, mapOption);
+                        });
+                        return;
                 }
-                
-            }
 
-            // 지역 검색 및 지도 업데이트
+                // 지역 검색 및 지도 업데이트
             const performSearch = () => {
-                script.onload = () => {
-                    window.kakao.maps.load(() => {
+                window.kakao.maps.load(() => {
                     const container = document.getElementById('map');
                     const map = new window.kakao.maps.Map(container, {
                         center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
@@ -67,11 +63,14 @@ export default function StoreListComponent(): JSX.Element {
                         if (status === window.kakao.maps.services.Status.OK) {
                             const bounds = new window.kakao.maps.LatLngBounds();
 
-                            console.log(data)
+                            const qqq = parsedData.RegionMnyFacltStus[1].row
 
-                            // data.map((item:any) => (
-                            //     item
-                            // ))
+                            const qqqValues = qqq.map((el:any) => ( el.REFINE_LOTNO_ADDR.slice(3,7) ))
+                            const dataValues = data.map((item:any) => ( item.address_name.slice(3,7) ))
+
+                            const matches = qqqValues.filter(value => dataValues.includes(value));
+
+                            
 
 
                             data.forEach((place: any) => {
@@ -83,7 +82,9 @@ export default function StoreListComponent(): JSX.Element {
                                 // 마커 클릭 이벤트
                                 window.kakao.maps.event.addListener(marker, 'click', () => {
                                     infowindow.setContent(
-                                        `<div style="padding:5px;font-size:12px;">${place.place_name}</div>`
+                                        `
+                                        <button class=""  style="padding:5px;font-size:12px;">${place.place_name}</button>
+                                        `
                                     );
                                     infowindow.open(map, marker);
                                 });
@@ -99,11 +100,14 @@ export default function StoreListComponent(): JSX.Element {
                         }
                     });
                     });
-                }
                 
             };
 
             performSearch();
+            }
+
+
+            
         }
 
 
@@ -142,7 +146,9 @@ export default function StoreListComponent(): JSX.Element {
                 </A.SearchWrap>
 
                 <A.SearchWrap>
-
+                    <A.ListWrap>
+                        <A.scrollBox></A.scrollBox>
+                    </A.ListWrap>
                     <A.MapBox id="map"></A.MapBox> {/* 지도 영역 */}
                 </A.SearchWrap>
             </A.contentWrap>

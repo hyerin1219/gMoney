@@ -6,7 +6,7 @@ export const contentWrap = styled.div`
   margin: 0 auto;
 `
 export const MapBox = styled.div`
-  width: 800px;
+  width: 59%;
   height: 600px;
   margin: 20px auto;
   background-color: tan;
@@ -46,6 +46,22 @@ export const FormControlBox = styled(FormControl)`
 
 // 리스트 표
 
+export const ListWrap = styled.div`
+  background-color: tan;
+  height: 600px;
+  width: 40%;
+  padding: 10px;
+  overflow: hidden;
+  padding: 15px;
+`
+
+export const scrollBox = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: teal;
+`
 export const ListBox = styled.div`
-  
+  display: flex;
+  width: 100%;
 `
