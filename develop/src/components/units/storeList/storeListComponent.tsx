@@ -68,10 +68,10 @@ export default function StoreListComponent(): JSX.Element {
                             const qqqValues = qqq.map((el:any) => ( el.REFINE_LOTNO_ADDR.slice(3,7) ))
                             const dataValues = data.map((item:any) => ( item.address_name.slice(3,7) ))
 
-                            const matches = qqqValues.filter(value => dataValues.includes(value));
+                            console.log("qqqValues", qqqValues)
+                            console.log("dataValues", dataValues)
 
-                            
-
+                            // const matches = qqqValues.filter(value => dataValues.includes(value));
 
                             data.forEach((place: any) => {
                                 const marker = new window.kakao.maps.Marker({

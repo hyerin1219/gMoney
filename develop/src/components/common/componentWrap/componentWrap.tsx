@@ -1,15 +1,16 @@
-import * as A from "./componentWrap.styles"
+import * as A from "./componentWrap.styles";
+
 
 interface ILayoutProps {
-    children: JSX.Element;
+  children: JSX.Element;
 }
-export default function ComponentWrap(props: ILayoutProps):JSX.Element {
+
+export default function ComponentWrap(props: ILayoutProps): JSX.Element {
 
 
   return (
     <>
       <A.componentWrap>{props.children}</A.componentWrap>
     </>
-  )
-
+  );
 }
