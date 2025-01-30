@@ -6,14 +6,6 @@ import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  const saveToCache = async (qqqData:any, url:any, responseData:any) => {
-
-  const cache = await caches.open(qqqData);
-  const response = new Response(JSON.stringify(responseData));
-  await cache.put( "https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json", response);
-  };
-
-
 
   return (
     <>
