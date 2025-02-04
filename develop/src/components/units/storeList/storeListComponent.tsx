@@ -13,10 +13,9 @@ declare const window: typeof globalThis & {
     kakao: any;
 };
 
+
 export default function StoreListComponent(): JSX.Element {
     const [region, setRegion] = useState('');
-
-    const [textValue, setTextValue] = useState("")
 
     const handleChange = (event: SelectChangeEvent) => {
         setRegion(event.target.value as string);
@@ -136,7 +135,7 @@ export default function StoreListComponent(): JSX.Element {
                             ))}
                         </Select>
                     </A.FormControlBox>
-                    <A.SearchInput id='searchInput'  type="text" placeholder="검색어를 입력하세요." />
+                    <A.SearchInput  type="text" placeholder="검색어를 입력하세요." />
                     <A.SearchButton />
                 </A.SearchWrap>
 
