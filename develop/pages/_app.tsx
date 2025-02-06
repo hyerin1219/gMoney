@@ -12,9 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <div className="mainWrap">
         <LayoutHeader />
-        <ComponentWrap>
+        <main>
           <Component {...pageProps} />
-        </ComponentWrap>
+        </main>
         <LayoutFooter />
       </div>
     </>
