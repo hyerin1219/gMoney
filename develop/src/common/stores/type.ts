@@ -1,4 +1,4 @@
-export type BusinessInfo = {
+export type IBusinessInfo = {
   BIZREGNO: string ;              // 사업자등록번호 (문자열)
   CLSBIZ_DAY: string  ;     // 폐업일 (null일 수도 있음)
   CMPNM_NM: string;              // 회사명 (문자열)
