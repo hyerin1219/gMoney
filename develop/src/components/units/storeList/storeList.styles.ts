@@ -47,21 +47,45 @@ export const FormControlBox = styled(FormControl)`
 // 리스트 표
 
 export const ListWrap = styled.div`
-  background-color: tan;
   height: 600px;
   width: 40%;
   padding: 10px;
   overflow: hidden;
   padding: 15px;
+  border: 2px solid #83b871;
 `
 
 export const scrollBox = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  background-color: teal;
+  padding-right: 10px;
+
+  ::-webkit-scrollbar{background-color: #d2e4c1; border-radius: 10px;}
+  ::-webkit-scrollbar-thumb{background-color: #83b871; border-radius: 10px;}
+  ::-webkit-scrollbar-button{display:none;}
 `
 export const ListBox = styled.div`
   display: flex;
   width: 100%;
+`
+
+// scrollBox
+
+export const StoreList = styled.div`
+  font-size: 18px;
+  padding: 10px;
+
+  :not(:last-child) {
+    border-bottom: 1px solid #d2e4c1;
+  }
+`
+export const StoreName = styled.p`
+  font-weight: bold;
+  margin-bottom: 3px;
+`
+
+export const StoreEtc = styled.p`
+  font-size: 0.9em;
+
 `
