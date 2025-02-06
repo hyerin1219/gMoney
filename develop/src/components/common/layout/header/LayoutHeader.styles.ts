@@ -20,6 +20,7 @@ export const PageLogo = styled.div`
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
+    color: #6a78bb;
 `
 export const LoginWrap = styled.div`
     display: flex;

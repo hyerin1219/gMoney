@@ -1,9 +1,16 @@
+import { keyframes } from "@emotion/react"
 import styled from "@emotion/styled"
+import { Interface } from "readline"
+import { boolean } from "yup"
 
 //  공통 레이아웃
 export const ContentWrap = styled.div`
   padding: 50px 0;
   margin: 0 auto;
+
+  @media(max-width: 1285px) {
+    padding: 30px 0;
+  }
 `
 
 export const ListButtonWrap = styled.div`
@@ -25,11 +32,36 @@ export const  ListButton = styled.button`
   font-weight: bold;
   padding: 20px 0;
   border-radius: 30px;
+
+
+
+  @media(max-width: 1285px) {
+    font-size: 18px;
+  }
+
+  @media(max-width: 819px) {
+    width: calc(calc(100% - 50px) / 2);
+  }
+
+  @media(max-width: 819px) {
+    width: 100%;
+    padding: 15px 0;
+  }
 `
 
 export const ListButtonImg = styled.img`
   display: inline-block;
-  width: 54px;
-  height: 54px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
+
+  @media(max-width: 1285px) {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media(max-width: 925px) {
+    width: 20px;
+    height: 20px;
+  }
 `

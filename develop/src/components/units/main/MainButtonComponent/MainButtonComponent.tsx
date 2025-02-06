@@ -12,10 +12,10 @@ export default function MainButtonComponent():JSX.Element {
     }
 
     const ListButtonMenus = [
-      {name:"차별거래 신고", page: "/registrationPage", src: "./images/ico_submit.png"},
-      {name:"가맹점 찾기", page: "/storeSearchPage", src: "./images/ico_map.png"},
-      {name:"이용 안내", page: "/informationPage", src: "./images/ico_information.png"},
-      {name:"인센티브 현황", page: "/incentivesPage", src: "./images/ico_incentives.png"}
+      {name:"차별거래 신고", page: "/registrationPage", src: "./images/ico_submit.png" },
+      {name:"가맹점 찾기", page: "/storeSearchPage", src: "./images/ico_map.png" },
+      {name:"이용 안내", page: "/", src: "./images/ico_information.png"},
+      {name:"인센티브 현황", page: "/", src: "./images/ico_incentives.png"}
     ]
 
   return (

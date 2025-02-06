@@ -50,6 +50,7 @@ button {
 .mainWrap {
   position: relative;
   max-width: 2560px;
+  min-width: 380px;
 }
 
 .Container {

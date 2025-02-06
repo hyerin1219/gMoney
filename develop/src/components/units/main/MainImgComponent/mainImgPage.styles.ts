@@ -4,6 +4,9 @@ import styled from "@emotion/styled"
 export const ContentWrap = styled.div`
   padding: 50px 0;
   margin: 0 auto;
+  @media(max-width: 1285px) {
+    padding: 30px 0;
+  }
 `
 
 
@@ -11,55 +14,54 @@ export const ContentWrap = styled.div`
 export const MainImgWrap = styled.div`
   position: relative;
   width: 100%;
-  height: 750px;
+  height: max-content;
   border-radius: 35px;
   background-color: #a6b0e0;
   padding: 100px ;
+
+  @media(max-width: 1510px) {
+    padding: 55px ;
+  }
+
+  @media(max-width: 825px) {
+    padding: 30px ;
+  }
 `
 
 export const ImgWrap = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 686px;
-  height: 505px;
+  height: 75%;
+
+  @media(max-width: 1510px) {
+    height: 50%;
+  }
+
+  @media(max-width: 825px) {
+    display: none;
+  }
 `
 export const ImgBox = styled.img`
   width: 100%;
   height: 100%;
 `
 
-// 이미지 영역 - 스크롤 다운
-export const IconWrap = styled.div`
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  width: 50px;
-  height: 50px;
-  background-image: url(./images/ico_mouse.png);
-  background-size: 100% 100%;
-  transform: translateX(-50%);
-`
-export const ScrollDownArrow = styled.div`
-  position: absolute;
-  left: 50%;
-  bottom: -40px;
-  width: 45px;
-  height: 45px;
-  background-image: url(./images/ico_arrow_down.png);
-  background-size: 100% 100%;
-  transform: translateX(-50%);
-  animation: ScrollDownArrow 1.2s infinite;
 
-  @keyframes ScrollDownArrow {
-    0% {bottom: -50px;}
-    50% {bottom: -40px;}
-    100% {bottom: -50px;}
-  }
-`
 // 이미지 영역 - 텍스트
 export const TextWrap = styled.div`
   font-size: 80px;
+  word-break: keep-all;
+  @media(max-width: 1510px) {
+    font-size: 60px;
+  }
+  @media(max-width: 825px) {
+    font-size: 45px;
+  }
+
+  @media(max-width: 575px) {
+    font-size: 35px;
+  }
 `
 
 export const MainText = styled.div`
@@ -69,12 +71,20 @@ export const MainText = styled.div`
   margin: 0.3em 0;
   color: #fff;
 
+  @media(max-width: 575px) {
+      color: #6a78bb;
+    }
+
   ::after {
     content: "경기지역화폐";
     position: absolute;
     top: 2px;
     left: -4px;
     color: #6a78bb;
+
+    @media(max-width: 575px) {
+      display: none;
+    }
   }
 `
 export const SubText = styled.div`
@@ -85,6 +95,10 @@ export const SubText = styled.div`
 export const SubSmallText = styled.div`
   font-size: 0.3em;
   color: #fff;
+
+  @media(max-width: 825px) {
+    display: none;
+  }
 `
 
 export const ViewMoreButton = styled.button`
@@ -95,11 +109,26 @@ export const ViewMoreButton = styled.button`
   border-radius: 100%;
   color: #fff;
   font-size: 0.25em;
-  margin-top: 50px;
+  margin-top: 1em;
   transition: all 0.8s;
   box-shadow: 0 0 6px rgba(0,0,0,0.4);
 
   :hover {
     transform: rotate(360deg);
+  }
+
+  @media(max-width: 1510px) {
+    width: 100px;
+    height: 100px;
+  }
+
+  @media(max-width: 575px) {
+    width: fit-content;
+    height: 30px;
+    border-radius: 20px;
+    padding: 10px;
+    :hover {
+    transform: rotate(0);
+  }
   }
 `

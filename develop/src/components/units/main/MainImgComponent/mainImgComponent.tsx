@@ -21,9 +21,6 @@ export default function MainImgComponents():JSX.Element {
               <A.ImgBox src="./images/main.png"/>
             </A.ImgWrap>
 
-            <A.IconWrap>
-              <A.ScrollDownArrow></A.ScrollDownArrow>
-            </A.IconWrap>
           </A.MainImgWrap>
         </A.ContentWrap>
       </div>
