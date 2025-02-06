@@ -1,31 +1,31 @@
-import * as A from "./storeList.styles";
-import React, { useEffect, useState } from "react";
-import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
+import  { useEffect, useState } from "react";
 import { ThrsubMenu } from "../../../common/stores/menuList";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { regionList } from "../../../common/stores/region";
-import { IBusinessInfo } from "../../../common/stores/type";
+import Select from "@mui/material/Select";
+import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
+
+import * as A from "./storeList.styles";
+import { REGION_LIST } from "../../../common/stores/region";
+
+import { IBusinessInfo } from "../../../common/stores/types";
+import type { SelectChangeEvent } from "@mui/material/Select";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-
-
 export default function StoreListComponent(): JSX.Element {
   const [region, setRegion] = useState("");
-  const [stores, setStores] = useState<IBusinessInfo[]>([]); // data를 배열로 설정
-  console.log("stores: ", stores);
-  console.log("region: ", region);
+  const [info, setInfo] = useState<IBusinessInfo[]>([]); // data를 배열로 설정
 
   const handleChange = (event: SelectChangeEvent) => {
     setRegion(event.target.value as string);
   };
 
   useEffect(() => {
+  
     // Kakao 지도 API 스크립트 로드
     const KAKAO_API_KEY = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
     const script = document.createElement("script");
@@ -37,6 +37,12 @@ export default function StoreListComponent(): JSX.Element {
       if (!region) {
         window.kakao.maps.load(() => {
           const mapContainer = document.getElementById("map");
+
+          if (!mapContainer) {
+            console.error("❌ `#map` 요소를 찾을 수 없습니다!");
+            return;
+          }
+
           const mapOption = {
             center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
             level: 3,
@@ -50,12 +56,13 @@ export default function StoreListComponent(): JSX.Element {
         // 경기도 Open API에서 데이터 받아오기
         const response = await fetch(`https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json&SIGUN_NM=${region}`);
         const result = await response.json();
+        console.log("result: ", result);
 
         // Open API 응답에서 필요한 데이터 추출
-        const stores = result.RegionMnyFacltStus[1].row.filter((store: any) => store.SIGUN_NM === region && store.LEAD_TAX_MAN_STATE_CD !== "03"); // 폐업한 store제외
+        const info = result.RegionMnyFacltStus[1].row.filter((store: any) => store.SIGUN_NM === region && store.LEAD_TAX_MAN_STATE_CD !== "03"); // 폐업한 store제외
 
         // 받아온 데이터를 state에 설정
-        setStores(stores);
+        setInfo(info);
 
         // region에 따른 지도 업데이트
         window.kakao.maps.load(() => {
@@ -69,7 +76,7 @@ export default function StoreListComponent(): JSX.Element {
           const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
           const bounds = new window.kakao.maps.LatLngBounds();
 
-          stores.forEach((store: any) => {
+          info.forEach((store: any) => {
             const { REFINE_WGS84_LAT, REFINE_WGS84_LOGT } = store; // 위도, 경도 데이터
 
             const imageSrc = "images/ico_marker.png"; // 마커이미지의 주소입니다
@@ -115,7 +122,7 @@ export default function StoreListComponent(): JSX.Element {
           <A.FormControlBox>
             <InputLabel id="demo-simple-select-label">지역</InputLabel>
             <Select labelId="demo-simple-select-label" id="demo-simple-select" value={region} label="region" onChange={handleChange}>
-              {regionList.map((el) => (
+              {REGION_LIST.map((el) => (
                 <MenuItem key={el.name} value={el.name}>
                   {el.name}
                 </MenuItem>
@@ -130,7 +137,7 @@ export default function StoreListComponent(): JSX.Element {
           <A.ListWrap>
             <A.scrollBox>
               {region ? (
-                stores.map((el) => (
+                info.map((el) => (
                   <A.StoreList key={el.BIZREGNO}>
                     <A.StoreName>{el.CMPNM_NM}</A.StoreName>
                     <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
