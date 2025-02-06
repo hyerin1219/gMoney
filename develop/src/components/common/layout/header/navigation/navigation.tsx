@@ -48,11 +48,12 @@ export default function Navigation(): JSX.Element {
     router.push(`./${event.currentTarget.id}`); // 클릭된 메뉴의 id로 페이지 이동
   };
 
+
   return (
     <>
       <A.NavigationWrap>
         <A.MenuWrap>
-          <A.NavigationButton onClick={() => toggleMenu("first")}>경기지역화폐</A.NavigationButton>
+          <A.NavigationButton isActive={false} onClick={() => toggleMenu("first")}>경기지역화폐</A.NavigationButton>
           <A.SubMenuWrap isopen={menuState.first}>
             {FirstsubMenu.map((el) => (
               <A.subMenuList key={el.name}>{el.name}</A.subMenuList>
@@ -61,7 +62,7 @@ export default function Navigation(): JSX.Element {
         </A.MenuWrap>
 
         <A.MenuWrap>
-          <A.NavigationButton onClick={() => toggleMenu("second")}>가맹점이용안내</A.NavigationButton>
+          <A.NavigationButton isActive={false} onClick={() => toggleMenu("second")}>가맹점이용안내</A.NavigationButton>
           <A.SubMenuWrap isopen={menuState.second}>
             {SecsubMenu.map((el) => (
               <A.subMenuList key={el.name}>{el.name}</A.subMenuList>
@@ -70,7 +71,7 @@ export default function Navigation(): JSX.Element {
         </A.MenuWrap>
 
         <A.MenuWrap>
-          <A.NavigationButton onClick={() => toggleMenu("third")}>우리동네가맹점</A.NavigationButton>
+          <A.NavigationButton isActive={true} onClick={() => toggleMenu("third")}>우리동네가맹점</A.NavigationButton>
           <A.SubMenuWrap isopen={menuState.third}>
             {ThrsubMenu.map((el) => (
               <A.subMenuList onClick={onClickMenu} id={el.src} key={el.name}>{el.name}</A.subMenuList>

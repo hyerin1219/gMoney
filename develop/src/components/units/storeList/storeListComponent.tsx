@@ -59,8 +59,7 @@ export default function StoreListComponent(): JSX.Element {
                 // 받아온 데이터를 state에 설정
                 setData(stores);
 
-
-                // 지도 업데이트
+                // region에 따른 지도 업데이트
                 window.kakao.maps.load(() => {
                     const container = document.getElementById('map');
                     const map = new window.kakao.maps.Map(container, {

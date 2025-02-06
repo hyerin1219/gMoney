@@ -36,6 +36,8 @@ export const NavigationButton = styled.button`
       100% {width: 100%;}
     }
   }
+
+  pointer-events: ${(props: IsActiveTypes) => props.isActive ? "true" : "none"};
 `
 
 export const MenuWrap = styled.div`
@@ -75,5 +77,9 @@ export const subMenuList = styled.li`
   :hover {
     color: #83b871;
   }
+
 `
 
+export interface IsActiveTypes {
+    isActive: boolean
+}

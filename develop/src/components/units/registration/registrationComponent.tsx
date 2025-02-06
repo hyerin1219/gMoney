@@ -65,7 +65,7 @@ export default function RegistrationComponent(): JSX.Element {
       <div className="Container">
         <SubPageMenuComponent
           subMenuTitle={ThrsubMenu}
-          index={2}
+          index={1}
           menuTitle={"우리동네가맹점"}
           src={"./images/bg_submenu.png"}
         />
