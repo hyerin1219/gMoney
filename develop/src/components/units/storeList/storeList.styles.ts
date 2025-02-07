@@ -27,9 +27,9 @@ export const SearchInput = styled.input`
   box-shadow: 0 0 6px rgba(0,0,0,0.3);
   outline: none;
   padding: 10px 20px;
-  font-size: 30px;
+  font-size: 18px;
   ::-webkit-input-placeholder {
-    font-size: 25px;
+    font-size: 18px;
   }
 `
 

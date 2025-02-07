@@ -15,3 +15,7 @@ export const ThrsubMenu = [
       {name:"가맹점찾기", src:"./storeSearchPage"},
       {name:"차별거래점신고", src:"./registrationPage"},
     ]
+
+export const Login = [
+  {name:"로그인", src:"./storeSearchPage"}
+]

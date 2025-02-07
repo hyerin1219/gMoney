@@ -9,6 +9,11 @@ export default function LayoutHeader():JSX.Element {
   const onClickLogo = ():void => {
     void router.push("/")
   }
+
+  const onClickLogin = ():void => {
+    void router.push("/")
+  }
+
   return (
     <>
       <A.HeaderWrapper>
@@ -16,7 +21,7 @@ export default function LayoutHeader():JSX.Element {
           <A.PageLogo onClick={onClickLogo}>경기 지역 화폐</A.PageLogo>
 
           <A.LoginWrap>
-            <A.LoginButton>로그인</A.LoginButton>
+            <A.LoginButton onClick={onClickLogin}>로그인</A.LoginButton>
           </A.LoginWrap>
         </A.HeaderContent>
 

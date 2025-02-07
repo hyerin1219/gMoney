@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import  { ChangeEvent, useEffect, useState } from "react";
 import { ThrsubMenu } from "../../../common/stores/menuList";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -24,6 +24,12 @@ export default function StoreListComponent(): JSX.Element {
     setRegion(event.target.value as string);
   };
 
+  const  [textValue, setTextValue] = useState("")
+
+  const onChangeTextValue = (event:ChangeEvent<HTMLInputElement>):void =>{
+    setTextValue(event.target.value)
+  }
+
   useEffect(() => {
   
     // Kakao 지도 API 스크립트 로드
@@ -48,6 +54,8 @@ export default function StoreListComponent(): JSX.Element {
             level: 3,
           };
           new window.kakao.maps.Map(mapContainer, mapOption);
+
+          
         });
         return;
       }
@@ -56,18 +64,19 @@ export default function StoreListComponent(): JSX.Element {
         // 경기도 Open API에서 데이터 받아오기
         const response = await fetch(`https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json&SIGUN_NM=${region}`);
         const result = await response.json();
-        console.log("result: ", result);
+        // console.log("result: ", result);
 
         // Open API 응답에서 필요한 데이터 추출
-        const info = result.RegionMnyFacltStus[1].row.filter((store: any) => store.SIGUN_NM === region && store.LEAD_TAX_MAN_STATE_CD !== "03"); // 폐업한 store제외
-
+        const info = result.RegionMnyFacltStus[1].row
+        .filter((store: any) => store.SIGUN_NM === region && store.LEAD_TAX_MAN_STATE_CD !== "03"  ) // 폐업한 store제외
+        
         // 받아온 데이터를 state에 설정
         setInfo(info);
 
         // region에 따른 지도 업데이트
         window.kakao.maps.load(() => {
           const container = document.getElementById("map");
-          console.log("container: ", container);
+          // console.log("container: ", container);
           const map = new window.kakao.maps.Map(container, {
             center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
             level: 3,
@@ -85,10 +94,11 @@ export default function StoreListComponent(): JSX.Element {
 
             const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
+
             const marker = new window.kakao.maps.Marker({
               image: markerImage,
               map,
-              position: new window.kakao.maps.LatLng(REFINE_WGS84_LAT, REFINE_WGS84_LOGT),
+              position: new window.kakao.maps.LatLng(REFINE_WGS84_LAT, REFINE_WGS84_LOGT)
             });
 
             // 마커 클릭 이벤트
@@ -102,16 +112,29 @@ export default function StoreListComponent(): JSX.Element {
               infowindow.open(map, marker);
             });
 
+            if (!REFINE_WGS84_LAT || !REFINE_WGS84_LOGT) {
+                  console.warn(`❌ ${store.CMPNM_NM} (좌표 없음)`) 
+                return;
+              }// 위도, 경도 없는 데이터 제외
+
             bounds.extend(new window.kakao.maps.LatLng(REFINE_WGS84_LAT, REFINE_WGS84_LOGT));
           });
 
           map.setBounds(bounds); // 검색 결과에 맞게 지도 범위 조정
+
         });
+
+        
+
       } catch (error) {
         console.error("❌ 데이터 불러오기 실패:", error);
       }
     };
-  }, [region]);
+
+    
+  }, [region,textValue]);
+
+  
 
   return (
     <div className="Container">
@@ -129,8 +152,8 @@ export default function StoreListComponent(): JSX.Element {
               ))}
             </Select>
           </A.FormControlBox>
-          <A.SearchInput type="text" placeholder="검색어를 입력하세요." />
-          <A.SearchButton />
+          <A.SearchInput onChange={onChangeTextValue}  type="text" placeholder="검색어를 입력하세요." />
+          <A.SearchButton  />
         </A.SearchWrap>
 
         <A.SearchWrap>
