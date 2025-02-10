@@ -1,9 +1,9 @@
-import loginComponent from "../../src/components/units/login/loginComponent";
+import LoginComponent from "../../src/components/units/login/loginComponent";
 
-export default function loginPage( ) {
+export default function LoginPage( ) {
   return (
     <>
-      <loginComponent></loginComponent>
+      <LoginComponent />
     </>
   )
 }

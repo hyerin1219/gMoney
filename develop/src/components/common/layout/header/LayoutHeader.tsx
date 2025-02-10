@@ -11,7 +11,7 @@ export default function LayoutHeader():JSX.Element {
   }
 
   const onClickLogin = ():void => {
-    void router.push("/")
+    void router.push("/login")
   }
 
   return (

@@ -95,7 +95,7 @@ export default function StoreListComponent(): JSX.Element {
           }
           mapRef.current = new window.kakao.maps.Map(mapContainer, {
             center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
-            level: 3,
+            level: 4,
           });
         });
         return;
