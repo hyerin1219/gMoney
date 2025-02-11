@@ -34,3 +34,19 @@ export const LoginButton = styled.button`
     font-size: 22px;
     font-weight: bold;
 `
+export const ButtonWrap = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+`
+export const KakaoButton = styled.button`
+    width: calc(366px / 2);
+    height: calc(90px / 2);
+    background-image: url(./images/button_login_kakao.png);
+    background-size: 100% 100%;
+`
+export const userBox = styled.div`
+    font-size: 22px;
+    font-weight: bold;
+`
