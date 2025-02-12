@@ -53,10 +53,10 @@ export default function Navigation(): JSX.Element {
     <>
       <A.NavigationWrap>
         <A.MenuWrap>
-          <A.NavigationButton isActive={false} onClick={() => toggleMenu("first")}>경기지역화폐</A.NavigationButton>
+          <A.NavigationButton isActive={true} onClick={() => toggleMenu("first")}>경기지역화폐</A.NavigationButton>
           <A.SubMenuWrap isopen={menuState.first}>
             {FirstsubMenu.map((el) => (
-              <A.subMenuList key={el.name}>{el.name}</A.subMenuList>
+              <A.subMenuList onClick={onClickMenu} id={el.src} key={el.name}>{el.name}</A.subMenuList>
             ))}
           </A.SubMenuWrap>
         </A.MenuWrap>

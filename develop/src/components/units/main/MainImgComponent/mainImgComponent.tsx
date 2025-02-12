@@ -1,5 +1,13 @@
+import { useRouter } from "next/router"
 import * as A from "./mainImgPage.styles"
 export default function MainImgComponents():JSX.Element {
+
+  const router = useRouter()
+
+  const onClicViewMore = ():void => {
+    router.push("./aboutPage")
+  }
+
   return (
     <>
       <div className="Container">
@@ -14,7 +22,7 @@ export default function MainImgComponents():JSX.Element {
                 발행하고 사용하는 대안화폐입니다.
               </A.SubSmallText>
 
-              <A.ViewMoreButton>자세히 보기</A.ViewMoreButton>
+              <A.ViewMoreButton onClick={onClicViewMore} >자세히 보기</A.ViewMoreButton>
             </A.TextWrap>
 
             <A.ImgWrap>

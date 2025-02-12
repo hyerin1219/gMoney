@@ -4,8 +4,8 @@ import MainImgComponents from "./MainImgComponent/mainImgComponent";
 export default function MainComponents() {
   return (
     <>
-      <MainImgComponents></MainImgComponents>
-      <MainButtonComponent></MainButtonComponent>
+      <MainImgComponents/>
+      <MainButtonComponent/>
     </>
   )
 }
