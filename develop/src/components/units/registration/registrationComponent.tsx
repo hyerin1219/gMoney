@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as A from "./registration.styles"
 import type { Address } from 'react-daum-postcode';
 import { useForm } from 'react-hook-form';
@@ -8,9 +8,9 @@ import { collection, addDoc, getFirestore } from 'firebase/firestore/lite'
 import {firebaseApp} from "../../../common/libraries/firebase"
 import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
 import { ThrsubMenu } from "../../../common/stores/menuList";
+import { useRouter } from "next/router";
 
 interface IFormData {
-    number: number;
     name: string;
     category: string;
     content: string;
@@ -19,18 +19,39 @@ interface IFormData {
 
 export default function RegistrationComponent(): JSX.Element {
 
+  const router = useRouter()
+
   const [isOpen, setIsOpen] = useState(false);
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
 
+  // useRef를 사용하여 마운트 상태 추적
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    // 컴포넌트가 언마운트될 때 isMounted 값을 false로 설정
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const onClickAddressSearch = (): void => {
-        setIsOpen((prev) => !prev);
+        setIsOpen(true);
     };
 
   const onCompleteAddressSearch = (data: Address): void => {
-      setAddress(data.address);
-      setZipcode(data.zonecode);
-      setIsOpen((prev) => !prev);
+    
+     if (isMounted.current) { // 컴포넌트가 마운트된 경우에만 상태 업데이트
+        setAddress(data.address);
+        setZipcode(data.zonecode);
+         // 약간의 지연을 두어 내부 비동기 작업이 완료될 시간을 줍니다.
+        setTimeout(() => {
+          if (isMounted.current) {
+            setIsOpen(false);
+          }
+        }, 300);
+        
+    }
   };
 
   const { formState, register, handleSubmit } = useForm<IFormData>({
@@ -40,18 +61,26 @@ export default function RegistrationComponent(): JSX.Element {
 
     // firebase 등록하기 기능
   const onClickSubmit = async (data:IFormData):Promise<void> => {
-    
-    const registrationStore = collection(getFirestore(firebaseApp), "registrationStore")
-    await addDoc(registrationStore, {
-            content: data.content,
-            name: data.name,
-            category: data.category,
-            storeAddress: {
-              zipcode,
-              address,
-              addressDetail: data.addressDetail,
-            }
-        })
+    console.log("클릭");
+
+    try {
+      const registrationStore = collection(getFirestore(firebaseApp), "registrationStore")
+      await addDoc(registrationStore, {
+              content: data.content,
+              name: data.name,
+              category: data.category,
+              storeAddress: {
+                zipcode,
+                address,
+                addressDetail: data.addressDetail
+              }
+          })
+      console.log("등록 완료")
+      window.alert("등록이 완료되었습니다!")
+      void router.push("/")    
+    } catch (error) {
+        if (error instanceof Error) alert(error.message);
+    }
   }
 
 
@@ -99,7 +128,7 @@ export default function RegistrationComponent(): JSX.Element {
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>신고 내용</A.ListTitle>
                   <A.ListBox>
                     <A.ListTextarea rows={10} {...register('content')}></A.ListTextarea>
-                    <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
+                    <A.ErrorBox>{formState.errors.content?.message}</A.ErrorBox>
                   </A.ListBox>
                 </A.ContentList>
 
@@ -110,18 +139,22 @@ export default function RegistrationComponent(): JSX.Element {
                       <A.ListInput type="text" readOnly placeholder="07250" value={zipcode? zipcode : ""}></A.ListInput>
                       <A.ListButton type="button" onClick={onClickAddressSearch}>우편번호검색</A.ListButton>
                     </div>
-                    <A.ListInput type="text" placeholder="주소" value={address? address : ""} {...register('addressDetail')}></A.ListInput>
-                    <A.ErrorBox>{formState.errors.addressDetail?.message}</A.ErrorBox>
+                    <div><A.ListInput type="text" placeholder="주소" readOnly value={address? address : ""}></A.ListInput></div>
+
+                    <div>
+                      <A.ListInput type="text" placeholder="나머지 주소" {...register('addressDetail')}></A.ListInput>
+                      <A.ErrorBox>{formState.errors.addressDetail?.message}</A.ErrorBox>
+                    </div>
                   </A.ListBox>
                 </A.ContentList>
 
               </A.ContentBox>
 
-              <A.submitButton >등록 하기</A.submitButton>
+              <A.submitButton as="button" type="submit" >등록 하기</A.submitButton>
             </form>
           </A.MainBox>
         </A.ContentWrap>
       </div>
     </>
   )
-};77
+};

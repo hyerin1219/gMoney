@@ -82,6 +82,7 @@ export const ListButton = styled.button`
   margin-left: 10px;
 `
 export const submitButton = styled.button`
+  position: relative;
   display: block;
   background-color: #2a2f33;
   color: #fff;
@@ -89,6 +90,7 @@ export const submitButton = styled.button`
   border-radius: 10px;
   padding: 10px 15px;
   margin: 20px auto 0;
+  z-index: 5;
 `
 
 export const ErrorBox = styled.div`

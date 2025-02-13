@@ -3,7 +3,6 @@ import * as yup from 'yup';
 
 
 export const schema = yup.object({
-    number: yup.number().required('사업자등록번호를 입력해주세요.'),
 
     name: yup.string().required('상호를 입력해주세요.'),
     

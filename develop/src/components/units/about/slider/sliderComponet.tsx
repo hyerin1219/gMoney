@@ -15,29 +15,30 @@ export default function SlideComponent():JSX.Element {
     ]
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const slideIndex = slideContent.length
+  const [direction, setDirection] = useState<string>("next")
 
   const onClickPrev = ():void => {
-    
+    setDirection("prev")
+    setCurrentIndex((prev) => (prev === 0 ? slideIndex - 1 : prev - 1));
   }
 
   const onClickNext = ():void => {
-
+    setDirection("next")
+    setCurrentIndex((prev) => (prev === slideIndex - 1 ? 0 : prev + 1));
   }
+
   return (
     <>
       <A.SliderContainer>
-        <A.SliderPrevButton onClick={onClickPrev}>이전</A.SliderPrevButton>
+        <A.SliderPrevButton onClick={onClickPrev}></A.SliderPrevButton>
         <A.SliderWrap>
-          {
-            slideContent.map((el) => (
-              <A.SliderBox key={el.text}>
-                
-              </A.SliderBox>
-            ))
-          }
-          
+          <A.SliderBox key={slideContent[currentIndex].text} direction={direction}>
+            <A.SlideImg src={slideContent[currentIndex].src} />
+            <A.SlideText>{slideContent[currentIndex].text}</A.SlideText>
+          </A.SliderBox>
         </A.SliderWrap>
-        <A.SliderNextButton onClick={onClickNext}>다음</A.SliderNextButton>
+        <A.SliderNextButton onClick={onClickNext}></A.SliderNextButton>
       </A.SliderContainer>
     </>
   )
