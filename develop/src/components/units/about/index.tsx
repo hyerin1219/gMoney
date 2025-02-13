@@ -28,6 +28,7 @@ export default function AboutComponent(): JSX.Element {
           </A.AboutTitleBox>
 
           <A.ABoutText>경기지역화폐 사용처</A.ABoutText>
+          <A.ABoutTitleText>백화점, 대형마트, 기업형슈퍼마켓(SSM), 프랜차이즈 직영점 및 유흥 사행업소는 사용이 제한되며 연 매출 10억 이하인 소상공인 점포에서만 사용 가능합니다.</A.ABoutTitleText>
 
           <A.SliderBox>
             <SlideComponent />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as A from "./registration.styles"
 import type { Address } from 'react-daum-postcode';
 import { useForm } from 'react-hook-form';
@@ -14,7 +14,6 @@ interface IFormData {
     name: string;
     category: string;
     content: string;
-    addressDetail: string;
 }
 
 export default function RegistrationComponent(): JSX.Element {
@@ -23,14 +22,28 @@ export default function RegistrationComponent(): JSX.Element {
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
 
+  // useRef를 사용하여 마운트 상태 추적
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    // 컴포넌트가 언마운트될 때 isMounted 값을 false로 설정
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const onClickAddressSearch = (): void => {
-        setIsOpen((prev) => !prev);
+        setIsOpen(true);
     };
 
   const onCompleteAddressSearch = (data: Address): void => {
-      setAddress(data.address);
-      setZipcode(data.zonecode);
-      setIsOpen((prev) => !prev);
+    
+     if (isMounted.current) { // 컴포넌트가 마운트된 경우에만 상태 업데이트
+        setAddress(data.address);
+        setZipcode(data.zonecode);
+        setIsOpen(false);
+        
+    }
   };
 
   const { formState, register, handleSubmit } = useForm<IFormData>({
@@ -41,17 +54,20 @@ export default function RegistrationComponent(): JSX.Element {
     // firebase 등록하기 기능
   const onClickSubmit = async (data:IFormData):Promise<void> => {
     
-    const registrationStore = collection(getFirestore(firebaseApp), "registrationStore")
+    try {
+      const registrationStore = collection(getFirestore(firebaseApp), "registrationStore")
     await addDoc(registrationStore, {
             content: data.content,
             name: data.name,
             category: data.category,
             storeAddress: {
               zipcode,
-              address,
-              addressDetail: data.addressDetail,
+              address
             }
         })
+    } catch(error) {
+      console.log("error" , error)
+    }
   }
 
 
@@ -99,7 +115,7 @@ export default function RegistrationComponent(): JSX.Element {
                   <A.ListTitle><A.GuideBoxEm>*</A.GuideBoxEm>신고 내용</A.ListTitle>
                   <A.ListBox>
                     <A.ListTextarea rows={10} {...register('content')}></A.ListTextarea>
-                    <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
+                    <A.ErrorBox>{formState.errors.content?.message}</A.ErrorBox>
                   </A.ListBox>
                 </A.ContentList>
 
@@ -110,8 +126,8 @@ export default function RegistrationComponent(): JSX.Element {
                       <A.ListInput type="text" readOnly placeholder="07250" value={zipcode? zipcode : ""}></A.ListInput>
                       <A.ListButton type="button" onClick={onClickAddressSearch}>우편번호검색</A.ListButton>
                     </div>
-                    <A.ListInput type="text" placeholder="주소" value={address? address : ""} {...register('addressDetail')}></A.ListInput>
-                    <A.ErrorBox>{formState.errors.addressDetail?.message}</A.ErrorBox>
+                    <A.ListInput type="text" placeholder="주소" readOnly value={address? address : ""}></A.ListInput>
+                    
                   </A.ListBox>
                 </A.ContentList>
 
@@ -124,4 +140,4 @@ export default function RegistrationComponent(): JSX.Element {
       </div>
     </>
   )
-};77
+};
