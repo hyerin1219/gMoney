@@ -4,7 +4,7 @@ import DaumPostcode from 'react-daum-postcode';
 
 
 export const ContentWrap = styled.div`
-  padding: 50px 0px;
+  padding: 3rem 0px;
   margin: 0 auto;
 `
 
@@ -15,12 +15,12 @@ export const MainBox = styled.div`
 export const GuideBox = styled.div`
   width: 100%;
   text-align: right;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: bold;
   margin: 10px 0;
 `
 export const GuideBoxEm = styled.em`
-  font-size: 15px;
+  font-size: 1rem;
   color: red;
   margin-right: 5px;
 `

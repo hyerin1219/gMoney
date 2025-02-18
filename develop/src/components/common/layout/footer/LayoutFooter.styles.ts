@@ -12,6 +12,10 @@ export const FooterContent = styled.div`
     width: 100%;
     font-size: 15px;
     padding: 25px 50px;
+
+    @media (max-width: 950px) {
+        font-size: 12px;
+    }
 `
 export const FooterContentTopArea = styled.div`
     display: flex;

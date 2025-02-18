@@ -25,7 +25,7 @@ body {
 }
 
 main {
-  padding: 135px;
+  padding-top: 135px;
 }
 
 * {
@@ -64,3 +64,14 @@ button {
 
 
 li { list-style-type: none; list-style: none;}
+
+@media(max-width:1500px) {
+  main {
+      padding-top: 85px;
+    }
+}
+@media(max-width:575px) {
+  main {
+    padding-top: 55px;
+  }
+}

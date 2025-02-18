@@ -10,6 +10,10 @@ export const NavigationWrap = styled.div`
   justify-content: center;
   width: 100%;
   gap: 5%;
+
+  @media (max-width: 700px) {
+      display: none;
+  }
 `
 export const NavigationButton = styled.button`
   font-size: 25px;
@@ -36,6 +40,12 @@ export const NavigationButton = styled.button`
       100% {width: 100%;}
     }
   }
+
+  @media (max-width: 1500px) {
+        font-size: 20px;
+    }
+
+  
 
   pointer-events: ${(props: IsActiveTypes) => props.isActive ? "true" : "none"};
 `

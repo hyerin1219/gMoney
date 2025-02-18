@@ -32,10 +32,10 @@ export const ImgWrap = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 75%;
+  height: 65%;
 
   @media(max-width: 1510px) {
-    height: 50%;
+    height: 40%;
   }
 
   @media(max-width: 825px) {

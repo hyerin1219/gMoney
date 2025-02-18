@@ -30,8 +30,9 @@ export const  ListButton = styled.button`
   gap: 10px;
   font-size: 25px;
   font-weight: bold;
-  padding: 20px 0;
+  padding: 20px 10px;
   border-radius: 30px;
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.2);
 
 
 
