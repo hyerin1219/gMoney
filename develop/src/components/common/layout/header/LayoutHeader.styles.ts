@@ -1,14 +1,14 @@
 import styled from "@emotion/styled"
 
 export const HeaderWrapper = styled.div`
-    position: fixed;
+    position: relative;
     z-index: 99;
     width: 100%;
     box-shadow: 0 0 6px rgba(0,0,0,0.3);
     padding: 0.8% 5%;
     background-color: #fff;
     @media (max-width: 700px) {
-        padding: 2% 5%;
+        padding: 3% 5%;
     }
     `
 

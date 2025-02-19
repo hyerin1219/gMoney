@@ -34,53 +34,57 @@ export const SliderBox = styled.li`
     100% {transform:translateX(0px)}
   }
 
-  :after {
-    content: "";
-    position: absolute;
-    top: 3px;
-    left: 235px;
-    width: 530px;
-    height: 530px;
-    border-radius: 100%;
-    /* background-color: #fff6db; */
-    background-color: rgba(255, 246, 219, 1);
-    z-index: -1;
-  }
+  
 `
 export const SliderPrevButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: -80px;
+  right: 100%;
   cursor: pointer;
   width: 50px;
   height: 50px;
   background-image: url(/images/button_prev.png);
   background-size: 100% 100%;
+
+  @media(max-width: 550px) {
+    width: 30px;
+  height: 30px;
+  }
 `
 
 export const SliderNextButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: -80px;
+  left: 100%;
   cursor: pointer;
   width: 50px;
   height: 50px;
   background-image: url(/images/button_next.png);
   background-size: 100% 100%;
+  @media(max-width: 550px) {
+    width: 30px;
+  height: 30px;
+  }
 `
 
 export const SlideImg = styled.img`
+  position: relative;
   display: inline-block;
   width: 100%;
   height: 90%;
   object-fit: contain;
   margin: 0 auto;
+
 `
 export const SlideText = styled.div`
   width: 100%;
   font-weight: bold;
   font-size: 2rem;
   text-align: center;
+
+  @media(max-width: 570px) {
+    font-size: 16px;
+  }
 `

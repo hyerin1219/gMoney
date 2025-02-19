@@ -48,7 +48,8 @@ export default function LayoutFooter():JSX.Element {
               <div>© GYEONGGI PROVINCE. All Rights Reserved.</div>
             </div>
 
-            <Dropdown menu={{ items }} trigger={['click']}>
+            <A.DropdownWrap>
+              <Dropdown menu={{ items }} trigger={['click']}>
               <a onClick={(e) => e.preventDefault()}>
                 <A.SpaceBox>
                   관련기관 바로가기
@@ -56,6 +57,7 @@ export default function LayoutFooter():JSX.Element {
                 </A.SpaceBox>
               </a>
             </Dropdown>
+            </A.DropdownWrap>
 
           </A.FooterContentTopArea>
           
