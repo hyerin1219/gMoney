@@ -197,7 +197,11 @@ export default function StoreListComponent(): JSX.Element {
 
   return (
     <div className="Container">
-      <SubPageMenuComponent subMenuTitle={ThrsubMenu} index={0} menuTitle={"우리동네가맹점"} src={"./images/bg_submenu02.png"} />
+      <SubPageMenuComponent 
+      subMenuTitle={ThrsubMenu} 
+      index={0}
+      menuTitle={"우리동네가맹점"} 
+      src={"./images/bg_submenu02.png"} />
 
       <A.contentWrap>
         <A.SearchWrap>
@@ -215,7 +219,7 @@ export default function StoreListComponent(): JSX.Element {
           <A.SearchButton onClick={handleSearchClick} />
         </A.SearchWrap>
 
-        <A.SearchWrap>
+        <A.relsultWrap>
           <A.ListWrap>
 
             {/* 가맹점 리스트 (검색어에 따른 필터링 결과 표시) */}
@@ -239,7 +243,7 @@ export default function StoreListComponent(): JSX.Element {
             </A.scrollBox>
           </A.ListWrap>
           <A.MapBox id="map"></A.MapBox> {/* 지도 영역 */}
-        </A.SearchWrap>
+        </A.relsultWrap>
       </A.contentWrap>
     </div>
   );

@@ -23,10 +23,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/* 
 main {
-  padding: 135px;
-}
+  padding-top: 135px;
+} */
 
 * {
   box-sizing: border-box;
@@ -60,7 +60,9 @@ button {
 .Container {
   width: 80%;
   margin: 0 auto;
+  
 }
 
 
 li { list-style-type: none; list-style: none;}
+

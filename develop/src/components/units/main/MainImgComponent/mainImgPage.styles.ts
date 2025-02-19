@@ -32,10 +32,10 @@ export const ImgWrap = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 75%;
+  height: 65%;
 
   @media(max-width: 1510px) {
-    height: 50%;
+    height: 40%;
   }
 
   @media(max-width: 825px) {
@@ -108,7 +108,7 @@ export const ViewMoreButton = styled.button`
   background-color: #6a78bb;
   border-radius: 100%;
   color: #fff;
-  font-size: 0.25em;
+  font-size: 0.3em;
   margin-top: 1em;
   transition: all 0.8s;
   box-shadow: 0 0 6px rgba(0,0,0,0.4);
@@ -125,6 +125,7 @@ export const ViewMoreButton = styled.button`
   @media(max-width: 575px) {
     width: fit-content;
     height: 30px;
+    line-height: 12px;
     border-radius: 20px;
     padding: 10px;
     :hover {

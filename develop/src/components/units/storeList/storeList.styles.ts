@@ -10,6 +10,13 @@ export const MapBox = styled.div`
   height: 600px;
   margin: 20px auto;
   background-color: tan;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
+  @media (max-width: 600px) {
+    height: 450px;
+  }
 `
 
 export const SearchWrap = styled.div`
@@ -17,6 +24,18 @@ export const SearchWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+`
+export const relsultWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    gap: 5px;
+  }
 `
 
 export const SearchInput = styled.input`
@@ -34,6 +53,7 @@ export const SearchInput = styled.input`
 `
 
 export const SearchButton = styled.button`
+  flex-shrink: 0;
   width: 55px;
   height: 55px;
   background-image: url("../images/ico_search.png");
@@ -53,6 +73,12 @@ export const ListWrap = styled.div`
   overflow: hidden;
   padding: 15px;
   border: 2px solid #83b871;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    height: 400px;
+    padding: 10px;
+  }
 `
 
 export const scrollBox = styled.div`
@@ -78,6 +104,10 @@ export const StoreList = styled.div`
 
   :not(:last-child) {
     border-bottom: 1px solid #d2e4c1;
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 15px;
   }
 `
 export const StoreName = styled.p`

@@ -1,12 +1,15 @@
 import styled from "@emotion/styled"
 
 export const HeaderWrapper = styled.div`
-    position: fixed;
+    position: relative;
     z-index: 99;
     width: 100%;
     box-shadow: 0 0 6px rgba(0,0,0,0.3);
     padding: 0.8% 5%;
     background-color: #fff;
+    @media (max-width: 700px) {
+        padding: 3% 5%;
+    }
     `
 
 export const HeaderContent = styled.div`
@@ -14,6 +17,10 @@ export const HeaderContent = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+
+    @media (max-width: 700px) {
+        margin-bottom: 0px;
+    }
 `
 
 export const PageLogo = styled.div`
@@ -21,6 +28,9 @@ export const PageLogo = styled.div`
     font-weight: bold;
     cursor: pointer;
     color: #6a78bb;
+    @media (max-width: 1500px) {
+        font-size: 20px;
+    }
 `
 export const LoginWrap = styled.div`
     display: flex;
@@ -33,6 +43,9 @@ export const LoginWrap = styled.div`
 export const LoginButton = styled.button`
     font-size: 22px;
     font-weight: bold;
+    @media (max-width: 1500px) {
+        font-size: 15px;
+    }
 `
 export const ButtonWrap = styled.div`
     display: flex;
