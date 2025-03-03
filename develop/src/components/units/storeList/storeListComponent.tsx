@@ -1,4 +1,4 @@
-import  { ChangeEvent, useEffect, useReducer, useRef } from "react";
+import { ChangeEvent, useEffect, useReducer, useRef, useState } from "react";
 import { ThrsubMenu } from "../../../common/stores/menuList";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -11,6 +11,10 @@ import { REGION_LIST } from "../../../common/stores/region";
 
 import { IBusinessInfo } from "../../../common/stores/types";
 import type { SelectChangeEvent } from "@mui/material/Select";
+
+import { getFirestore, doc, getDoc, deleteDoc, setDoc } from 'firebase/firestore/lite'
+import { firebaseApp } from "../../../common/libraries/firebase"
+
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -142,7 +146,9 @@ export default function StoreListComponent(): JSX.Element {
       ? state.info.filter((store) => store.CMPNM_NM.includes(state.searchTerm))
       : state.info;
     updateMarkers(filteredData);
+
   }, [state.info, state.searchTerm]);
+
 
   // 마커 업데이트 함수: 기존 마커 제거 후, 전달받은 데이터로 새 마커 생성
   const updateMarkers = (data: IBusinessInfo[]) => {
@@ -195,13 +201,53 @@ export default function StoreListComponent(): JSX.Element {
     mapRef.current.setBounds(bounds);
   };
 
+  // Firestore 인스턴스
+  const db = getFirestore(firebaseApp);
+
+  // 즐겨찾기 상태 관리
+  const [star, setStar] = useState<{ [key: string]: boolean }>({});
+
+  const onClickStar = async (storeId: string): Promise<void> => {
+
+    // 로그인 안했으면 리턴하기
+    const token = localStorage.getItem("kakao_e203d9a5eda596228bf93e7983cf46a3")
+    if (!token) {
+      window.alert("로그인 후 이용해 주세요")
+      return;
+    }
+
+    // 현재 로그인한 사용자 ID 
+    const userId = token;
+
+    try {
+      const starRef = doc(db, "bookMarkerStore", userId, "stores", storeId);
+
+      // 현재 즐겨찾기 상태 확인
+      const starSnap = await getDoc(starRef);
+      const isStarred = starSnap.exists();
+
+      if (isStarred) {
+        // 즐겨찾기 해제 (Firestore에서 삭제)
+        await deleteDoc(starRef);
+        setStar((prev) => ({ ...prev, [storeId]: false }));
+      } else {
+        // 즐겨찾기 추가
+        await setDoc(starRef, { starred: true });
+        setStar((prev) => ({ ...prev, [storeId]: true }));
+      }
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
+
   return (
     <div className="Container">
-      <SubPageMenuComponent 
-      subMenuTitle={ThrsubMenu} 
-      index={0}
-      menuTitle={"우리동네가맹점"} 
-      src={"./images/bg_submenu02.png"} />
+      <SubPageMenuComponent
+        subMenuTitle={ThrsubMenu}
+        index={0}
+        menuTitle={"우리동네가맹점"}
+        src={"./images/bg_submenu02.png"} />
 
       <A.contentWrap>
         <A.SearchWrap>
@@ -215,7 +261,7 @@ export default function StoreListComponent(): JSX.Element {
               ))}
             </Select>
           </A.FormControlBox>
-          <A.SearchInput  value={state.textValue} onChange={onChangeTextValue}  type="text" placeholder="검색어를 입력하세요." />
+          <A.SearchInput value={state.textValue} onChange={onChangeTextValue} type="text" placeholder="검색어를 입력하세요." />
           <A.SearchButton onClick={handleSearchClick} />
         </A.SearchWrap>
 
@@ -224,17 +270,24 @@ export default function StoreListComponent(): JSX.Element {
 
             {/* 가맹점 리스트 (검색어에 따른 필터링 결과 표시) */}
             <A.scrollBox>
-            {state.region ? (
-              (state.searchTerm
+              {state.region ? (
+                (state.searchTerm
                   ? state.info.filter((store) =>
-                      store.CMPNM_NM.includes(state.searchTerm)
-                    )
+                    store.CMPNM_NM.includes(state.searchTerm)
+                  )
                   : state.info
                 ).map((el) => (
                   <A.StoreList key={el.BIZREGNO}>
-                    <A.StoreName>{el.CMPNM_NM}</A.StoreName>
-                    <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
-                    <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
+                    <div>
+                      <A.StoreName>{el.CMPNM_NM}</A.StoreName>
+                      <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
+                      <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
+                    </div>
+
+                    <A.bookMark
+                      onClick={() => onClickStar(el.BIZREGNO)}
+                      star={star[el.BIZREGNO] || false}
+                    />
                   </A.StoreList>
                 ))
               ) : (
@@ -243,6 +296,7 @@ export default function StoreListComponent(): JSX.Element {
             </A.scrollBox>
           </A.ListWrap>
           <A.MapBox id="map"></A.MapBox> {/* 지도 영역 */}
+
         </A.relsultWrap>
       </A.contentWrap>
     </div>

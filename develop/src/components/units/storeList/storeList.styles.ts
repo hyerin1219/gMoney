@@ -1,15 +1,16 @@
 import styled from "@emotion/styled"
 import FormControl from '@mui/material/FormControl';
+import { number } from "yup";
 
 export const contentWrap = styled.div`
-  padding: 50px 0px;
-  margin: 0 auto;
+  /* padding: 50px 0px;
+  margin: 0 auto; */
 `
 export const MapBox = styled.div`
   width: 59%;
   height: 600px;
-  margin: 20px auto;
-  background-color: tan;
+  margin: 0 auto ;
+  background-color: #ddd;
 
   @media (max-width: 1000px) {
     width: 100%;
@@ -24,6 +25,7 @@ export const SearchWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+  margin: 2% 0;
 `
 export const relsultWrap = styled.div`
   display: flex;
@@ -58,6 +60,11 @@ export const SearchButton = styled.button`
   height: 55px;
   background-image: url("../images/ico_search.png");
   background-size: 100% 100%;
+
+  @media (max-width: 1000px) {
+    width: 35px;
+  height: 35px;
+  }
 `
 
 export const FormControlBox = styled(FormControl)`
@@ -91,14 +98,13 @@ export const scrollBox = styled.div`
   ::-webkit-scrollbar-thumb{background-color: #83b871; border-radius: 10px;}
   ::-webkit-scrollbar-button{display:none;}
 `
-export const ListBox = styled.div`
-  display: flex;
-  width: 100%;
-`
 
 // scrollBox
 
 export const StoreList = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 18px;
   padding: 10px;
 
@@ -119,3 +125,19 @@ export const StoreEtc = styled.p`
   font-size: 0.9em;
 
 `
+// 즐겨찾기
+
+export const bookMark = styled.button`
+  width: 30px;
+  height: 30px;
+  background-image: ${(props: IStarProps) => props.star ? "url(/images/ico_star.png)" : "url(/images/ico_star2.png)"};
+  background-size: 100% 100%;
+
+  :hover {
+    background-image: url(/images/ico_star.png);
+  }
+`
+
+interface IStarProps {
+  onClick: () => Promise<void>; star: boolean;
+}

@@ -1,12 +1,12 @@
 import styled from "@emotion/styled"
 
 export const ContentWrap = styled.div`
-  padding: 50px 0;
+  /* padding: 50px 0;
   margin: 0 auto;
 
 @media(max-width: 1285px) {
     padding: 30px 0;
-  }
+  } */
 `
 
 export const ABoutText = styled.div`

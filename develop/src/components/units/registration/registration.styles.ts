@@ -4,8 +4,8 @@ import DaumPostcode from 'react-daum-postcode';
 
 
 export const ContentWrap = styled.div`
-  padding: 2rem 0px;
-  margin: 0 auto;
+  /* padding: 2rem 0px;
+  margin: 0 auto; */
 `
 
 export const MainBox = styled.div`
