@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from "./registration.validation";
 import { collection, addDoc, getFirestore } from 'firebase/firestore/lite'
 import { firebaseApp } from "../../../common/libraries/firebase"
-import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
+import SubPageMenuComponent from "../../common/subPageMenu";
 import { ThrsubMenu } from "../../../common/stores/menuList";
 import { useRouter } from "next/router";
 

@@ -4,7 +4,7 @@ import { ThrsubMenu } from "../../../common/stores/menuList";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
+import SubPageMenuComponent from "../../common/subPageMenu";
 
 import * as A from "./storeList.styles";
 import { REGION_LIST } from "../../../common/stores/region";

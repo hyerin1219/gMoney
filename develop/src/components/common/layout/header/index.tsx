@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import * as A from "./LayoutHeader.styles"
-import Navigation from "./navigation/navigation"
+import Navigation from "./navigation"
 import { useEffect, useState } from "react";
 
 

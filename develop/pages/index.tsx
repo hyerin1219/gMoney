@@ -1,4 +1,4 @@
-import MainComponents from "../src/components/units/main/mainComponents";
+import MainComponents from "../src/components/units/main";
 
 
 

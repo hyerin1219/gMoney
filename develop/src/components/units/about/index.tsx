@@ -1,6 +1,6 @@
 import { FirstsubMenu } from "../../../common/stores/menuList";
-import SlideComponent from "./slider/sliderComponet";
-import SubPageMenuComponent from "../../common/subPageMenu/subPageMenu";
+import SlideComponent from "./slider";
+import SubPageMenuComponent from "../../common/subPageMenu";
 import * as A from "./index.styles"
 
 export default function AboutComponent(): JSX.Element {
