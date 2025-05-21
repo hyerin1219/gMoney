@@ -27,7 +27,7 @@ export const SearchWrap = styled.div`
   gap: 15px;
   margin: 2% 0;
 `
-export const relsultWrap = styled.div`
+export const ResultWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,9 +107,14 @@ export const StoreList = styled.div`
   align-items: center;
   font-size: 18px;
   padding: 10px;
+  cursor: pointer;
 
   :not(:last-child) {
     border-bottom: 1px solid #d2e4c1;
+  }
+
+  :hover {
+    background-color: #d2e4c1;
   }
 
   @media (max-width: 1000px) {
@@ -140,4 +145,30 @@ export const bookMark = styled.button`
 
 interface IStarProps {
   onClick: () => Promise<void>; star: boolean;
+}
+
+// pagination
+
+export const PaginationWrap = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
+`
+export const PageNumber = styled.button`
+  cursor: pointer;
+  font-size: 20px;
+  color : ${(props:IPageNumberProps) => props.isActive ?  "#83b871" : "#000" };
+`
+export const PageNumberNone = styled.button`
+  cursor: pointer;
+  font-size: 20px;
+  opacity: 0;
+`
+
+interface IPageNumberProps {
+  isActive: boolean;
 }
