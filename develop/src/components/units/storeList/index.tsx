@@ -14,6 +14,7 @@ import type { SelectChangeEvent } from "@mui/material/Select";
 
 import { getFirestore, doc, getDoc, deleteDoc, setDoc } from 'firebase/firestore/lite'
 import { firebaseApp } from "../../../common/libraries/firebase"
+import PageComponent from "../../common/pagination";
 
 
 declare const window: typeof globalThis & {
@@ -63,9 +64,6 @@ function reducer(state: State, action: Action): State {
 export default function StoreListComponent(): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [pageIndex, setPageIndex] = useState(1)
-  const [isActive, setIsActive] = useState(false)
-
   // mapRef: 카카오맵 인스턴스를 저장
   const mapRef = useRef<any>(null);
   // markersRef: 현재 지도에 찍혀있는 마커들을 저장
@@ -112,7 +110,7 @@ export default function StoreListComponent(): JSX.Element {
 
       try {
         const response = await fetch(
-          `https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json&SIGUN_NM=${state.region}&pIndex=${pageIndex}`
+          `https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json&SIGUN_NM=${state.region}`
         );
         const result = await response.json();
         // 폐업한 가맹점 제외 처리
@@ -141,7 +139,7 @@ export default function StoreListComponent(): JSX.Element {
     return () => {
       document.head.removeChild(script);
     };
-  }, [state.region, pageIndex]);
+  }, [state.region]);
 
   // searchTerm이나 info가 변경될 때마다 지도 마커 업데이트 (검색 버튼 클릭 시 searchTerm이 업데이트됨)
   useEffect(() => {
@@ -152,7 +150,7 @@ export default function StoreListComponent(): JSX.Element {
       : state.info;
     updateMarkers(filteredData);
 
-  }, [state.info, state.searchTerm, pageIndex]);
+  }, [state.info, state.searchTerm]);
 
 
   // 마커 업데이트 함수: 기존 마커 제거 후, 전달받은 데이터로 새 마커 생성
@@ -245,11 +243,6 @@ export default function StoreListComponent(): JSX.Element {
     }
   };
 
-  const onClickPage = () => {
-    setPageIndex(pageIndex + 1)
-    setIsActive(true)
-  }
-
 
   return (
     <div className="Container">
@@ -309,28 +302,9 @@ export default function StoreListComponent(): JSX.Element {
 
         </A.ResultWrap>
 
-        {
-          state.region? 
-
-          <A.PaginationWrap>
-            {[...Array(10)].map((_, index) => (
-              <A.PageNumber
-                key={index}
-                onClick={onClickPage}
-                isActive={isActive}
-              >
-                {index + 1}
-              </A.PageNumber>
-            ))}
-            </A.PaginationWrap>
-
-            :
-            <A.PaginationWrap>
-              <A.PageNumberNone>00</A.PageNumberNone>
-            </A.PaginationWrap>
-        }
-
-        
+        <PageComponent 
+          
+        />
       </A.contentWrap>
     </div>
   );
