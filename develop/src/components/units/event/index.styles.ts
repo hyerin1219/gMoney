@@ -5,6 +5,11 @@ export const ContentWrap = styled.div`
 export const GameContainer = styled.div`
   margin: 30px 0;
 `
+export const MainText = styled.h2`
+  font-size: 40px;
+  text-align: center;
+`
+
 export const GameBox = styled.div`
   position: relative;
   width: 800px;
@@ -12,7 +17,7 @@ export const GameBox = styled.div`
   border: 8px solid #cede89;
   box-shadow: 5px 5px 2px #afc93e;
   border-radius: 100%;
-  margin: 0 auto;
+  margin: 50px auto;
 `
 
 export const GameContent = styled.div`

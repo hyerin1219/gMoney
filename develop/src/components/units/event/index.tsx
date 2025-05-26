@@ -4,6 +4,10 @@ import { FirstsubMenu } from "../../../common/stores/menuList";
 
 export default function EventPageComponent(): JSX.Element {
 
+    const rouletteGame = () => {
+
+    }
+
     return (
         <>
             <div className="Container">
@@ -16,12 +20,15 @@ export default function EventPageComponent(): JSX.Element {
 
                 <A.ContentWrap>
                     <A.GameContainer>
+                        <A.MainText>롤렛 돌리고 포인트 받자!!</A.MainText>
+
                         <A.GameBox>
                             <A.GameContent>
-                                <A.StartButton/>
+                                <A.StartButton onClick={rouletteGame} />
                                 <A.ArrowIco/>
                             </A.GameContent>
                         </A.GameBox>
+
                     </A.GameContainer>
                 </A.ContentWrap>
             </div>
