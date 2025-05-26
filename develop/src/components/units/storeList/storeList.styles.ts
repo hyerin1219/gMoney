@@ -150,6 +150,11 @@ export const bookMark = styled.button`
     }
 `;
 
+export const EmptyPage = styled.div`
+    width: 100%;
+    height: 50px;
+`
+
 // Type
 interface IStarProps {
     onClick: () => Promise<void>;

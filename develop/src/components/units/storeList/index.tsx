@@ -64,6 +64,9 @@ function reducer(state: State, action: Action): State {
 export default function StoreListComponent(): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // 페이지 네이션 관리
+  const [pageIndex, setPageIndex] = useState(1)
+
   // mapRef: 카카오맵 인스턴스를 저장
   const mapRef = useRef<any>(null);
   // markersRef: 현재 지도에 찍혀있는 마커들을 저장
@@ -110,7 +113,7 @@ export default function StoreListComponent(): JSX.Element {
 
       try {
         const response = await fetch(
-          `https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json&SIGUN_NM=${state.region}`
+          `https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json&SIGUN_NM=${state.region}&pIndex=${pageIndex}`
         );
         const result = await response.json();
         // 폐업한 가맹점 제외 처리
@@ -139,7 +142,7 @@ export default function StoreListComponent(): JSX.Element {
     return () => {
       document.head.removeChild(script);
     };
-  }, [state.region]);
+  }, [state.region, pageIndex]);
 
   // searchTerm이나 info가 변경될 때마다 지도 마커 업데이트 (검색 버튼 클릭 시 searchTerm이 업데이트됨)
   useEffect(() => {
@@ -150,7 +153,7 @@ export default function StoreListComponent(): JSX.Element {
       : state.info;
     updateMarkers(filteredData);
 
-  }, [state.info, state.searchTerm]);
+  }, [state.info, state.searchTerm, pageIndex]);
 
 
   // 마커 업데이트 함수: 기존 마커 제거 후, 전달받은 데이터로 새 마커 생성
@@ -302,9 +305,21 @@ export default function StoreListComponent(): JSX.Element {
 
         </A.ResultWrap>
 
-        <PageComponent 
-          
-        />
+        {/* pagination */}
+
+        {
+          state.region ? 
+
+          <PageComponent
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
+          />
+
+          : 
+
+          <A.EmptyPage/>
+        }
+
       </A.contentWrap>
     </div>
   );

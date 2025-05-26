@@ -10,6 +10,7 @@ export const PaginationWrap = styled.div`
     gap: 20px;
     width: 100%;
     margin-top: 10px;
+    height: 50px;
 `;
 export const PageNumber = styled.button`
     cursor: pointer;
