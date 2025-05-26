@@ -11,7 +11,7 @@ export default function AboutComponent(): JSX.Element {
         <SubPageMenuComponent
           subMenuTitle={FirstsubMenu}
           index={0}
-          menuTitle={"경기지역화폐란?"}
+          menuTitle={"경기지역화폐"}
           src={"./images/bg_submenu03.png"}
         />
 

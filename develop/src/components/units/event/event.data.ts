@@ -1,0 +1,20 @@
+export const GameData = [
+  {list:"1원"},
+  {list:"꽝"},
+  {list:"2원"},
+  {list:"꽝"},
+  {list:"3원"},
+  {list:"꽝"},
+  {list:"4원"},
+  {list:"5원"},
+  {list:"6원"},
+  {list:"7원"},
+  {list:"8원"},
+  {list:"9원"},
+  {list:"꽝"},
+  {list:"10원"},
+  {list:"꽝"},
+  {list:"100원"},
+  {list:"꽝"},
+  {list:"1000원"}
+]

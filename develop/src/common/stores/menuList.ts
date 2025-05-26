@@ -1,5 +1,6 @@
 export const FirstsubMenu = [
       {name:"경기지역화폐란?", src:"./aboutPage"},
+      {name:"이벤트", src:"./eventPage"},
       // {name:"카드"},
       // {name:"모바일"},
       // {name:"지류"}
