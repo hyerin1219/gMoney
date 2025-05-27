@@ -115,15 +115,15 @@ export const StoreList = styled.div`
     align-items: center;
     font-size: 18px;
     padding: 10px;
-    cursor: pointer;
+    /* cursor: pointer; */
 
     :not(:last-child) {
         border-bottom: 1px solid #d2e4c1;
     }
 
-    :hover {
+    /* :hover {
         background-color: #d2e4c1;
-    }
+    } */
 
     @media (max-width: 1000px) {
         font-size: 15px;
