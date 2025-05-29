@@ -21,6 +21,7 @@ export default function SlideComponent():JSX.Element {
   const onClickPrev = ():void => {
     setDirection("prev")
     setCurrentIndex((prev) => (prev === 0 ? slideIndex - 1 : prev - 1));
+
   }
 
   const onClickNext = ():void => {
@@ -31,15 +32,19 @@ export default function SlideComponent():JSX.Element {
   return (
     <>
       <A.SliderContainer>
-        <A.SliderPrevButton onClick={onClickPrev}></A.SliderPrevButton>
-        <A.SliderWrap>
-          <A.SliderBox key={slideContent[currentIndex].text} direction={direction}>
-            <A.SlideImg src={slideContent[currentIndex].src} />
-            <A.SlideText>{slideContent[currentIndex].text}</A.SlideText>
-          </A.SliderBox>
-        </A.SliderWrap>
-        <A.SliderNextButton onClick={onClickNext}></A.SliderNextButton>
-      </A.SliderContainer>
+      <A.SliderPrevButton onClick={onClickPrev} disabled={currentIndex === 0} />
+      <A.SliderWrap>
+        <A.SliderTrack $currentIndex={currentIndex}>
+          {slideContent.map((item, index) => (
+            <A.SliderBox key={item.text}>
+              <A.SlideImg src={item.src} />
+              <A.SlideText>{item.text}</A.SlideText>
+            </A.SliderBox>
+          ))}
+        </A.SliderTrack>
+      </A.SliderWrap>
+      <A.SliderNextButton onClick={onClickNext} disabled={currentIndex === 7} />
+    </A.SliderContainer>
     </>
   )
 }

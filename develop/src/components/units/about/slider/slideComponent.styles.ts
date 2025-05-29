@@ -18,22 +18,17 @@ export const SliderWrap = styled.ul`
   
 `
 
+export const SliderTrack = styled.ul<{ $currentIndex: number }>`
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  transform: ${({ $currentIndex }) => `translateX(-${$currentIndex * 100}%)`};
+  width: ${({ $currentIndex }) => `${$currentIndex + 1}00%`}; // 안정적 렌더링 위해
+`;
+
 export const SliderBox = styled.li`
   flex-shrink: 0;
   width: 100%;
   height: 100%;
-  animation: ${(props: IsDirectionProps) => props.direction === "next" ? "slideNextAni 0.8s forwards" : "slidePrevAni 0.8s forwards"};
-
-  @keyframes slideNextAni {
-    0% {transform:translateX(-200px)}
-    100% {transform:translateX(0px)}
-  }
-
-  @keyframes slidePrevAni {
-    0% {transform:translateX(200px)}
-    100% {transform:translateX(0px)}
-  }
-
   
 `
 export const SliderPrevButton = styled.button`
@@ -47,9 +42,14 @@ export const SliderPrevButton = styled.button`
   background-image: url(/images/button_prev.png);
   background-size: 100% 100%;
 
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
   @media(max-width: 550px) {
     width: 30px;
-  height: 30px;
+    height: 30px;
   }
 `
 
@@ -63,9 +63,15 @@ export const SliderNextButton = styled.button`
   height: 50px;
   background-image: url(/images/button_next.png);
   background-size: 100% 100%;
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  
   @media(max-width: 550px) {
     width: 30px;
-  height: 30px;
+    height: 30px;
   }
 `
 
