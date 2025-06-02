@@ -54,6 +54,7 @@ export default function LayoutHeader():JSX.Element {
           console.error("카카오 로그인 실패!", err);
         },
       });
+
     } else {
       console.log("카카오 SDK가 준비되지 않았습니다.");
     }
@@ -84,12 +85,12 @@ export default function LayoutHeader():JSX.Element {
     }
   };
 
+
   const onClickUser = () => {
     setShowUserMenu(prev => !prev)
   }
 
   const handleLogOut = () => {
-    const logoutUrl = "https://kauth.kakao.com/oauth/logout"
 
     if (window.Kakao && window.Kakao.Auth) {
       window.Kakao.Auth.logout(() => {
@@ -105,6 +106,11 @@ export default function LayoutHeader():JSX.Element {
     }
   }
 
+  const onClickMyPage = () => {
+    router.push("./myPage");
+    setShowUserMenu(false);
+  }
+
   return (
     <>
       <A.HeaderWrapper>
@@ -118,7 +124,7 @@ export default function LayoutHeader():JSX.Element {
                 <A.UserBox onClick={onClickUser}>
                   {userData.nickname} 님
                   <A.UserMenu showUserMenu={showUserMenu}>
-                    <A.UserMenuList>마이 페이지</A.UserMenuList>
+                    <A.UserMenuList onClick={onClickMyPage}>마이 페이지</A.UserMenuList>
                     <A.UserMenuList onClick={handleLogOut}>로그아웃</A.UserMenuList>
                   </A.UserMenu>
                 </A.UserBox>
