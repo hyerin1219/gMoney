@@ -59,7 +59,38 @@ export const KakaoButton = styled.button`
     background-image: url(./images/button_login_kakao.png);
     background-size: 100% 100%;
 `
-export const userBox = styled.div`
+export const UserBox = styled.div`
+    position: relative;
     font-size: 22px;
     font-weight: bold;
+    cursor: pointer;
 `
+
+export const UserMenu = styled.ul`
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    background-color: #fff;
+
+    opacity:  ${(props: IshowUserMenuProps) => props.showUserMenu ? "0" : "1"};
+    pointer-events:  ${(props: IshowUserMenuProps) => props.showUserMenu ? "none" : "auto"};
+`
+
+export const UserMenuList = styled.li`
+    font-size: 0.6em;
+    text-align: center;
+    margin: 5px 0;
+
+    :hover{
+        color: #6a78bb;
+    }
+`
+
+interface IshowUserMenuProps {
+    showUserMenu: boolean;
+}

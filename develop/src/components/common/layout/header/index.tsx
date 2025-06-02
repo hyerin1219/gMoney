@@ -12,13 +12,16 @@ declare const window: typeof globalThis & {
 export default function LayoutHeader():JSX.Element {
 
   const router = useRouter()
+  const [isKakaoReady, setIsKakaoReady] = useState(false);
+  const [userData, setUserData] = useState<any>(null); 
+
+  const [showUserMenu, setShowUserMenu] = useState(false)
 
   const onClickLogo = ():void => {
     void router.push("/")
   }
 
-  const [isKakaoReady, setIsKakaoReady] = useState(false);
-  const [userData, setUserData] = useState<any>(null); 
+
 
   useEffect(() => {
     const KAKAO_API_KEY = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
@@ -81,6 +84,27 @@ export default function LayoutHeader():JSX.Element {
     }
   };
 
+  const onClickUser = () => {
+    setShowUserMenu(prev => !prev)
+  }
+
+  const handleLogOut = () => {
+    const logoutUrl = "https://kauth.kakao.com/oauth/logout"
+
+    if (window.Kakao && window.Kakao.Auth) {
+      window.Kakao.Auth.logout(() => {
+        console.log("로그아웃 완료");
+        setUserData(null); // 사용자 정보 초기화
+        setShowUserMenu(false); // 메뉴 닫기
+        router.push("/"); // 홈으로 이동
+
+        window.alert("로그아웃이 완료되었습니다.")
+      });
+    } else {
+      console.log("카카오 SDK가 초기화되지 않았습니다.");
+    }
+  }
+
   return (
     <>
       <A.HeaderWrapper>
@@ -91,7 +115,14 @@ export default function LayoutHeader():JSX.Element {
             {
               userData ? 
               (
-                <A.userBox>{userData.nickname} 님</A.userBox>
+                <A.UserBox onClick={onClickUser}>
+                  {userData.nickname} 님
+                  <A.UserMenu showUserMenu={showUserMenu}>
+                    <A.UserMenuList>마이 페이지</A.UserMenuList>
+                    <A.UserMenuList onClick={handleLogOut}>로그아웃</A.UserMenuList>
+                  </A.UserMenu>
+                </A.UserBox>
+
               ) :
               (
                 <A.LoginButton onClick={handleLogin}>로그인</A.LoginButton>
