@@ -27,7 +27,7 @@ export const SearchWrap = styled.div`
   gap: 15px;
   margin: 2% 0;
 `
-export const relsultWrap = styled.div`
+export const resultWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
