@@ -1,10 +1,5 @@
-import * as A from "./index.styles"
+import * as A from './styles';
 
 export default function EventPageComponent(): JSX.Element {
-
-    return (
-        <>
-
-        </>
-    )
+    return <></>;
 }

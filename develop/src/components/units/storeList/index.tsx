@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useReducer } from 'react';
 
-import * as A from './storeList.styles';
+import * as A from './styles';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';

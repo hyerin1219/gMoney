@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import type { Address } from 'react-daum-postcode';
 import { useForm } from 'react-hook-form';
 
-import * as A from './registration.styles';
-import { schema } from './registration.validation';
+import * as A from './styles';
+import { schema } from './validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { collection, addDoc, getFirestore } from 'firebase/firestore/lite';
 import { firebaseApp } from '../../../common/libraries/firebase';
