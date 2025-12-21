@@ -2,11 +2,6 @@ import styled from '@emotion/styled';
 import { Modal } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 
-export const ContentWrap = styled.div`
-    /* padding: 2rem 0px;
-  margin: 0 auto; */
-`;
-
 export const MainBox = styled.div`
     width: 100%;
 `;
@@ -25,11 +20,6 @@ export const GuideBox = styled.div`
 export const GuideBoxEm = styled.em`
     color: red;
     margin-right: 5px;
-`;
-
-export const GuidBoxDiv = styled.div`
-    color: red;
-    font-size: 0.8em;
 `;
 
 export const ContentBox = styled.div`
@@ -109,34 +99,38 @@ export const ListButton = styled.button`
     margin-left: 10px;
 
     @media (max-width: 790px) {
-        font-size: 0.6em;
-        padding: 5px;
         border-radius: 5px;
         margin-left: 5px;
     }
 `;
-export const submitButton = styled.button`
-    position: relative;
-    display: block;
-    background-color: #2a2f33;
-    color: #fff;
-    font-size: 1.2em;
-    border-radius: 10px;
-    padding: 10px 15px;
-    margin: 20px auto 0;
-    z-index: 5;
 
-    @media (max-width: 790px) {
-        font-size: 1em;
+export const submitButton = styled.button`
+    display: block;
+    height: 44px;
+    padding: 0 20px;
+    font-size: 14px;
+    border-radius: 10px;
+    background: #c56b43;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease;
+    margin: 20px auto 0;
+
+    &:hover {
+        transform: translateY(-3px);
     }
 
-    @media (max-width: 500px) {
-        font-size: 0.8em;
+    &:disabled {
+        background: #e3e8ff;
+        color: #8fa1ff;
+        box-shadow: none;
+        cursor: not-allowed;
     }
 `;
 
 export const ErrorBox = styled.div`
-    font-size: 0.5em;
     color: red;
     height: 20px;
     margin-top: 5px;

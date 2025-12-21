@@ -8,8 +8,6 @@ import { schema } from './validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { collection, addDoc, getFirestore } from 'firebase/firestore/lite';
 import { firebaseApp } from '../../../common/libraries/firebase';
-import SubPageMenuComponent from '../../common/subPageMenu/subPageMenu';
-import { ThrsubMenu } from '../../../common/stores/menuList';
 
 interface IFormData {
     name: string;
@@ -81,84 +79,78 @@ export default function RegistrationComponent(): JSX.Element {
     };
 
     return (
-        <>
+        <section className="Wrap">
             {isOpen && (
                 <A.AddressModal open={true}>
                     <A.AddressSearchInput onComplete={onCompleteAddressSearch} />
                 </A.AddressModal>
             )}
-            <div className="Container">
-                <SubPageMenuComponent subMenuTitle={ThrsubMenu} index={1} menuTitle={'우리동네가맹점'} src={'./images/bg_submenu.png'} />
+            <A.MainBox>
+                <form onSubmit={handleSubmit(onClickSubmit)}>
+                    <A.GuideBox>
+                        <A.GuideBoxEm>*</A.GuideBoxEm>표시는 필수입력 항목입니다.
+                    </A.GuideBox>
 
-                <A.ContentWrap>
-                    <A.MainBox>
-                        <form onSubmit={handleSubmit(onClickSubmit)}>
-                            <A.GuideBox>
-                                <A.GuideBoxEm>*</A.GuideBoxEm>표시는 필수입력 항목입니다.
-                            </A.GuideBox>
+                    <A.ContentBox>
+                        <A.ContentList>
+                            <A.ListTitle>
+                                <A.GuideBoxEm>*</A.GuideBoxEm>상호
+                            </A.ListTitle>
+                            <A.ListBox>
+                                <A.ListInput type="text" {...register('name')}></A.ListInput>
+                                <A.ErrorBox>{formState.errors.name?.message}</A.ErrorBox>
+                            </A.ListBox>
+                        </A.ContentList>
 
-                            <A.ContentBox>
-                                <A.ContentList>
-                                    <A.ListTitle>
-                                        <A.GuideBoxEm>*</A.GuideBoxEm>상호
-                                    </A.ListTitle>
-                                    <A.ListBox>
-                                        <A.ListInput type="text" {...register('name')}></A.ListInput>
-                                        <A.ErrorBox>{formState.errors.name?.message}</A.ErrorBox>
-                                    </A.ListBox>
-                                </A.ContentList>
+                        <A.ContentList>
+                            <A.ListTitle>
+                                <A.GuideBoxEm>*</A.GuideBoxEm>업종
+                            </A.ListTitle>
+                            <A.ListBox>
+                                <A.ListInput type="text" {...register('category')}></A.ListInput>
 
-                                <A.ContentList>
-                                    <A.ListTitle>
-                                        <A.GuideBoxEm>*</A.GuideBoxEm>업종
-                                    </A.ListTitle>
-                                    <A.ListBox>
-                                        <A.ListInput type="text" {...register('category')}></A.ListInput>
-                                        <A.GuidBoxDiv>* 사업자등록증의 업종을 기입하세요.</A.GuidBoxDiv>
-                                        <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
-                                    </A.ListBox>
-                                </A.ContentList>
+                                <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
+                            </A.ListBox>
+                        </A.ContentList>
 
-                                <A.ContentList>
-                                    <A.ListTitle>
-                                        <A.GuideBoxEm>*</A.GuideBoxEm>신고 내용
-                                    </A.ListTitle>
-                                    <A.ListBox>
-                                        <A.ListTextarea rows={10} {...register('content')}></A.ListTextarea>
-                                        <A.ErrorBox>{formState.errors.content?.message}</A.ErrorBox>
-                                    </A.ListBox>
-                                </A.ContentList>
+                        <A.ContentList>
+                            <A.ListTitle>
+                                <A.GuideBoxEm>*</A.GuideBoxEm>신고 내용
+                            </A.ListTitle>
+                            <A.ListBox>
+                                <A.ListTextarea rows={10} {...register('content')}></A.ListTextarea>
+                                <A.ErrorBox>{formState.errors.content?.message}</A.ErrorBox>
+                            </A.ListBox>
+                        </A.ContentList>
 
-                                <A.ContentList>
-                                    <A.ListTitle>
-                                        <A.GuideBoxEm>*</A.GuideBoxEm>사업장 소재지
-                                    </A.ListTitle>
-                                    <A.ListBox>
-                                        <A.ListFelxBox>
-                                            <A.ListInput type="text" readOnly placeholder="07250" value={zipcode ? zipcode : ''}></A.ListInput>
-                                            <A.ListButton type="button" onClick={onClickAddressSearch}>
-                                                우편번호검색
-                                            </A.ListButton>
-                                        </A.ListFelxBox>
-                                        <A.MarginBox>
-                                            <A.ListInput type="text" placeholder="주소" readOnly value={address ? address : ''}></A.ListInput>
-                                        </A.MarginBox>
+                        <A.ContentList>
+                            <A.ListTitle>
+                                <A.GuideBoxEm>*</A.GuideBoxEm>사업장 소재지
+                            </A.ListTitle>
+                            <A.ListBox>
+                                <A.ListFelxBox>
+                                    <A.ListInput type="text" readOnly placeholder="07250" value={zipcode ? zipcode : ''}></A.ListInput>
+                                    <A.ListButton type="button" onClick={onClickAddressSearch}>
+                                        우편번호검색
+                                    </A.ListButton>
+                                </A.ListFelxBox>
+                                <A.MarginBox>
+                                    <A.ListInput type="text" placeholder="주소" readOnly value={address ? address : ''}></A.ListInput>
+                                </A.MarginBox>
 
-                                        <A.MarginBox>
-                                            <A.ListInput type="text" placeholder="나머지 주소" {...register('addressDetail')}></A.ListInput>
-                                            <A.ErrorBox>{formState.errors.addressDetail?.message}</A.ErrorBox>
-                                        </A.MarginBox>
-                                    </A.ListBox>
-                                </A.ContentList>
-                            </A.ContentBox>
+                                <A.MarginBox>
+                                    <A.ListInput type="text" placeholder="나머지 주소" {...register('addressDetail')}></A.ListInput>
+                                    <A.ErrorBox>{formState.errors.addressDetail?.message}</A.ErrorBox>
+                                </A.MarginBox>
+                            </A.ListBox>
+                        </A.ContentList>
+                    </A.ContentBox>
 
-                            <A.submitButton as="button" type="submit">
-                                등록 하기
-                            </A.submitButton>
-                        </form>
-                    </A.MainBox>
-                </A.ContentWrap>
-            </div>
-        </>
+                    <A.submitButton as="button" type="submit">
+                        등록 하기
+                    </A.submitButton>
+                </form>
+            </A.MainBox>
+        </section>
     );
 }

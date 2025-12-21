@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import * as A from './styles';
-import Navigation from './navigation';
+
 import { useEffect, useState } from 'react';
 
 declare const window: typeof globalThis & {
@@ -8,14 +8,18 @@ declare const window: typeof globalThis & {
 };
 
 export default function LayoutHeader(): JSX.Element {
+    const [isKakaoReady, setIsKakaoReady] = useState(false);
+    const [userData, setUserData] = useState<any>(null);
     const router = useRouter();
 
+    // 로고 클릭
     const onClickLogo = (): void => {
         void router.push('/');
     };
 
-    const [isKakaoReady, setIsKakaoReady] = useState(false);
-    const [userData, setUserData] = useState<any>(null);
+    const onClickMenu = (link: string): void => {
+        void router.push(`/${link}`);
+    };
 
     useEffect(() => {
         const KAKAO_API_KEY = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
@@ -27,7 +31,7 @@ export default function LayoutHeader(): JSX.Element {
                 if (!window.Kakao.isInitialized()) {
                     window.Kakao.init(KAKAO_API_KEY);
                     setIsKakaoReady(true);
-                    console.log('✅ 카카오 SDK 초기화 완료:', window.Kakao.isInitialized());
+                    console.log('카카오 SDK 초기화 완료:', window.Kakao.isInitialized());
                 }
             }
         };
@@ -70,7 +74,7 @@ export default function LayoutHeader(): JSX.Element {
 
             const data = await response.json();
             console.log('사용자 정보:', data);
-            // 여기서 사용자 정보 처리(예: 사용자 정보로 UI 업데이트 등)
+
             setUserData(data);
         } catch (error) {
             console.error('에러 발생:', error);
@@ -78,16 +82,17 @@ export default function LayoutHeader(): JSX.Element {
     };
 
     return (
-        <>
-            <A.HeaderWrapper>
-                <A.HeaderContent>
-                    <A.PageLogo onClick={onClickLogo}>경기 지역 화폐</A.PageLogo>
+        <A.HeaderWrapper>
+            <A.HeaderContent>
+                <A.PageLogo onClick={onClickLogo}>경기 지역 화폐</A.PageLogo>
 
-                    <A.LoginWrap>{userData ? <A.userBox>{userData.nickname} 님</A.userBox> : <A.LoginButton onClick={handleLogin}>로그인</A.LoginButton>}</A.LoginWrap>
-                </A.HeaderContent>
+                <A.MenuBox>
+                    <A.MenuItem onClick={() => onClickMenu('registrationPage')}>차별거래신고</A.MenuItem>
+                    <A.MenuItem onClick={() => onClickMenu('storeSearchPage')}>가맹점 찾기</A.MenuItem>
+                </A.MenuBox>
 
-                <Navigation></Navigation>
-            </A.HeaderWrapper>
-        </>
+                <A.LoginWrap>{userData ? <A.userBox>{userData.nickname} 님</A.userBox> : <A.LoginButton onClick={handleLogin}>로그인</A.LoginButton>}</A.LoginWrap>
+            </A.HeaderContent>
+        </A.HeaderWrapper>
     );
 }

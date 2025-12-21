@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { IBusinessInfo } from '../common/stores/types';
 
 declare const window: typeof globalThis & { kakao: any };
 
@@ -38,7 +39,7 @@ export function useKakaoMap() {
         document.head.appendChild(script);
     };
 
-    const updateMarkers = (data: any[]) => {
+    const updateMarkers = (data: IBusinessInfo[]) => {
         if (!mapRef.current) return;
 
         // 기존 마커 제거
@@ -53,7 +54,7 @@ export function useKakaoMap() {
             if (!REFINE_WGS84_LAT || !REFINE_WGS84_LOGT) return;
 
             // 마커 이미지 관련
-            const markerImage = new window.kakao.maps.MarkerImage('images/ico_marker.png', new window.kakao.maps.Size(35, 45), { offset: new window.kakao.maps.Point(27, 69) });
+            const markerImage = new window.kakao.maps.MarkerImage('images/icon_marker.png', new window.kakao.maps.Size(25, 33), { offset: new window.kakao.maps.Point(14, 37) });
 
             // 마커 생성
             const marker = new window.kakao.maps.Marker({

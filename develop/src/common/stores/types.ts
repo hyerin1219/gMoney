@@ -1,16 +1,32 @@
 export type IBusinessInfo = {
-  BIZREGNO: string ;              // 사업자등록번호 (문자열)
-  CLSBIZ_DAY: string  ;     // 폐업일 (null일 수도 있음)
-  CMPNM_NM: string;              // 회사명 (문자열)
-  FRCS_NO: string;               // 사업장등록번호 (문자열)
-  INDUTYPE_CD: string;           // 산업분류 코드 (문자열)
-  INDUTYPE_NM: string;           // 산업분류명 (문자열)
-  LEAD_TAX_MAN_STATE: string;    // 세금 상태 (문자열)
-  LEAD_TAX_MAN_STATE_CD: string; // 세금 상태 코드 (문자열)
-  REFINE_LOTNO_ADDR: string;     // 구주소 (문자열)
-  REFINE_ROADNM_ADDR: string;    // 도로명주소 (문자열)
-  REFINE_WGS84_LAT: string;      // 위도 (문자열)
-  REFINE_WGS84_LOGT: string;     // 경도 (문자열)
-  REFINE_ZIPNO: string;          // 우편번호 (문자열)
-  SIGUN_NM: string;              // 시군명 (문자열)
+    BIZREGNO: string; // 사업자등록번호 (문자열)
+    CLSBIZ_DAY: string; // 폐업일 (null일 수도 있음)
+    CMPNM_NM: string; // 회사명 (문자열)
+    FRCS_NO: string; // 사업장등록번호 (문자열)
+    INDUTYPE_CD: string; // 산업분류 코드 (문자열)
+    INDUTYPE_NM: string; // 산업분류명 (문자열) +++++++++
+    LEAD_TAX_MAN_STATE: string; // 세금 상태 (문자열)
+    LEAD_TAX_MAN_STATE_CD: string; // 세금 상태 코드 (문자열)
+    REFINE_LOTNO_ADDR: string; // 구주소 (문자열)
+    REFINE_ROADNM_ADDR: string; // 도로명주소 (문자열)
+    REFINE_WGS84_LAT: string; // 위도 (문자열)
+    REFINE_WGS84_LOGT: string; // 경도 (문자열)
+    REFINE_ZIPNO: string; // 우편번호 (문자열)
+    SIGUN_NM: string; // 시군명 (문자열)
+};
+
+export interface IState {
+    region: string;
+    textValue: string;
+    searchTerm: string;
+    info: IBusinessInfo[];
+}
+
+export type IAction = { type: 'SET_REGION'; payload: string } | { type: 'SET_TEXT_VALUE'; payload: string } | { type: 'SET_SEARCH_TERM'; payload: string } | { type: 'SET_INFO'; payload: IBusinessInfo[] };
+
+export const initialState: IState = {
+    region: '',
+    textValue: '',
+    searchTerm: '',
+    info: [],
 };
