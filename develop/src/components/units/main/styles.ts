@@ -127,7 +127,7 @@ export const MenuSubBox = styled.p`
     }
 `;
 
-export const Contact = styled.button`
+export const Contact = styled.div`
     position: relative;
     display: block;
     width: 50%;
@@ -138,21 +138,7 @@ export const Contact = styled.button`
     color: #333;
     font-weight: bold;
     font-size: 30px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 6px rgba(191, 164, 24, 0.4);
-
-    &:hover {
-        background-color: #e0cd5a;
-        box-shadow: 0 6px 8px rgba(191, 164, 24, 0.5);
-        transform: translateY(-2px);
-    }
-
-    &:active {
-        box-shadow: 0 2px 3px rgba(191, 164, 24, 0.4);
-        transform: translateY(0);
-    }
+    box-shadow: 0 6px 8px rgba(191, 164, 24, 0.5);
 
     @media (max-width: 600px) {
         width: 100%;
@@ -175,8 +161,7 @@ export const Search = styled.button`
     color: #fff;
     font-weight: bold;
     font-size: 30px;
-    border: none;
-    cursor: pointer;
+
     transition: all 0.2s ease-in-out;
     box-shadow: 0 4px 6px rgba(215, 113, 113, 0.4);
 
@@ -208,8 +193,7 @@ export const Report = styled.button`
     color: #fff;
     font-weight: bold;
     font-size: 30px;
-    border: none;
-    cursor: pointer;
+
     transition: all 0.2s ease-in-out;
     box-shadow: 0 4px 6px rgba(5, 148, 194, 0.4);
 

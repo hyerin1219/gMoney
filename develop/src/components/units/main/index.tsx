@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router';
 import * as A from './styles';
 
 export default function Main() {
+    const router = useRouter();
+
     const HowToUse = [
         { id: 'gas', title: '주유소', img: 'gaspump' },
         { id: 'market', title: '전통시장, 골목상권', img: 'basket' },
@@ -11,6 +14,10 @@ export default function Main() {
         { id: 'hygiene', title: '보건위생', img: 'barberpole' },
         { id: 'medical', title: '기타의료기관', img: 'veterinarian' },
     ];
+
+    const onClickMenu = (link: string): void => {
+        void router.push(`/${link}`);
+    };
 
     return (
         <section className="Wrap">
@@ -29,12 +36,12 @@ export default function Main() {
                     </A.Contact>
 
                     <A.MenuSubBox>
-                        <A.Search>
+                        <A.Search onClick={() => onClickMenu('storeSearchPage')}>
                             <A.MenuTitle>
                                 <A.MenuImg src="/images/icon_search.png"></A.MenuImg> 가맹점 찾기
                             </A.MenuTitle>
                         </A.Search>
-                        <A.Report>
+                        <A.Report onClick={() => onClickMenu('registrationPage')}>
                             <A.MenuTitle>
                                 <A.MenuImg src="/images/icon_megaphone.png"></A.MenuImg> 차별거래 신고
                             </A.MenuTitle>
