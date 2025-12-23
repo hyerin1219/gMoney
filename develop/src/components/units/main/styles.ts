@@ -129,12 +129,15 @@ export const MenuSubBox = styled.p`
 
 export const Contact = styled.div`
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 50%;
     margin: 0 auto;
     padding: 30px;
     border-radius: 12px;
-    background-color: #e6d471;
+    background-color: #ffec86;
     color: #333;
     font-weight: bold;
     font-size: 30px;

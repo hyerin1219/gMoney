@@ -31,8 +31,8 @@ export default function Main() {
                         <A.MenuTitle>
                             <A.MenuImg src="/images/icon_phone.png"></A.MenuImg> 문의전화 안내
                         </A.MenuTitle>
-                        <A.MenuSubTitle>운영대행사(코나아이) 1899-7997 카드발급,</A.MenuSubTitle>
-                        <A.MenuSubTitle>결제오류, 결제 단말기 추가등</A.MenuSubTitle>
+                        <A.MenuSubTitle>운영대행사(코나아이) 1899-7997 </A.MenuSubTitle>
+                        <A.MenuSubTitle>카드발급, 결제오류, 결제 단말기 추가등</A.MenuSubTitle>
                     </A.Contact>
 
                     <A.MenuSubBox>

@@ -13,12 +13,16 @@ import { INDUTYPE } from '../../../common/stores/indutpye';
 // 리듀서
 function reducer(state: IState, action: IAction): IState {
     switch (action.type) {
+        // 지역
         case 'SET_REGION':
             return { ...state, region: action.payload, textValue: '', searchTerm: '' };
+        // 검색어
         case 'SET_TEXT_VALUE':
             return { ...state, textValue: action.payload };
+        // 검색 버튼
         case 'SET_SEARCH_TERM':
             return { ...state, searchTerm: action.payload };
+        // 가맹점 정보
         case 'SET_INFO':
             return { ...state, info: action.payload };
         default:
@@ -61,8 +65,6 @@ export default function StoreListComponent(): JSX.Element {
         updateMarkers(filteredData);
     }, [state.info, state.searchTerm]);
 
-    const getTypeCode = (type: string) => type.slice(0, 4);
-
     const filteredStores = state.info.filter((store) => {
         if (!state.region) return false;
 
@@ -76,7 +78,7 @@ export default function StoreListComponent(): JSX.Element {
             const category = INDUTYPE.find((el) => el.title === selectedInduType);
             if (!category) return false;
 
-            const code = getTypeCode(store.INDUTYPE_NM);
+            const code = store.INDUTYPE_CD;
             if (!category.typeNumbers.includes(code)) {
                 return false;
             }

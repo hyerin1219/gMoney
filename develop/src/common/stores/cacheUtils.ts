@@ -16,3 +16,4 @@ export const getFromApi = async (url: string) => {
         return null;
     }
 };
+// 안쓰는 듯;

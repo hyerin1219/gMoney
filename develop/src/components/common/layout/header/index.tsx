@@ -73,7 +73,7 @@ export default function LayoutHeader(): JSX.Element {
             }
 
             const data = await response.json();
-            console.log('사용자 정보:', data);
+            // console.log('사용자 정보:', data);
 
             setUserData(data);
         } catch (error) {

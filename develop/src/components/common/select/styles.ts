@@ -20,7 +20,7 @@ export const StyledInputLabel = styled(InputLabel)`
 `;
 
 export const StyledSelect = styled(Select as React.ComponentType<SelectProps<string>>)`
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'SchoolSafetyRoundedSmile';
     font-size: 16px;
 
     .MuiSelect-select {
