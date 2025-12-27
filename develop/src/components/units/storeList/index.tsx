@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 
 import * as A from './styles';
 
@@ -9,6 +9,7 @@ import { IAction, IBusinessInfo, initialState, IState } from '../../../common/st
 import { useBookmark } from '../../../hooks/useBookmark';
 import { useKakaoMap } from '../../../hooks/useKakaoMap';
 import { INDUTYPE } from '../../../common/stores/indutpye';
+import { fetchStoreList } from '../../../hooks/useStoreList';
 
 // 리듀서
 function reducer(state: IState, action: IAction): IState {
@@ -42,52 +43,33 @@ export default function StoreListComponent(): JSX.Element {
             return;
         }
 
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`https://openapi.gg.go.kr/RegionMnyFacltStus?KEY=caa648fe7b9048bbaac1da9952279c12&Type=json&SIGUN_NM=${state.region}`);
-                const result = await response.json();
-                const infoData = result.RegionMnyFacltStus[1].row.filter((store: IBusinessInfo) => store.SIGUN_NM === state.region && store.LEAD_TAX_MAN_STATE_CD !== '03');
-                dispatch({ type: 'SET_INFO', payload: infoData });
-                initMap('map'); // 지역 선택 시 지도 초기화
-                updateMarkers(infoData);
-
-                console.log('infoData', infoData);
-            } catch (err) {
-                console.error('데이터 불러오기 실패', err);
-            }
-        };
-        fetchData();
+        fetchStoreList(state.region)
+            .then((data) => {
+                dispatch({ type: 'SET_INFO', payload: data });
+                setSelectedInduType(null);
+            })
+            .catch((err) => console.error(err));
     }, [state.region]);
 
-    useEffect(() => {
-        if (!mapRef.current) return;
-        const filteredData = state.searchTerm ? state.info.filter((store) => store.CMPNM_NM.includes(state.searchTerm)) : state.info;
-        updateMarkers(filteredData);
-    }, [state.info, state.searchTerm]);
+    const filteredStores = useMemo(() => {
+        return state.info.filter((store) => {
+            if (!state.region) return false;
 
-    const filteredStores = state.info.filter((store) => {
-        if (!state.region) return false;
-
-        // 검색어
-        if (state.searchTerm && !store.CMPNM_NM.includes(state.searchTerm)) {
-            return false;
-        }
-
-        // 업종
-        if (selectedInduType) {
-            const category = INDUTYPE.find((el) => el.title === selectedInduType);
-            if (!category) return false;
-
-            const code = store.INDUTYPE_CD;
-            if (!category.typeNumbers.includes(code)) {
+            if (state.searchTerm && !store.CMPNM_NM.includes(state.searchTerm)) {
                 return false;
             }
-        }
 
-        return true;
-    });
+            if (selectedInduType) {
+                const category = INDUTYPE.find((el) => el.title === selectedInduType);
+                if (!category) return false;
 
-    //
+                return category.typeNumbers.includes(store.INDUTYPE_CD);
+            }
+
+            return true;
+        });
+    }, [state.info, state.region, state.searchTerm, selectedInduType]);
+
     useEffect(() => {
         if (!mapRef.current) return;
 
@@ -121,13 +103,13 @@ export default function StoreListComponent(): JSX.Element {
                             <div>지역을 선택하세요.</div>
                         ) : filteredStores.length ? (
                             filteredStores.map((el) => (
-                                <A.StoreList key={el.BIZREGNO}>
+                                <A.StoreList key={`${el.BIZREGNO}-${el.CMPNM_NM}`}>
                                     <div>
                                         <A.StoreName>{el.CMPNM_NM}</A.StoreName>
                                         <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
                                         <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
                                     </div>
-                                    <A.BookMark onClick={() => onClickStar(el.BIZREGNO)} star={star[el.BIZREGNO] || false} />
+                                    {/* <A.BookMark onClick={() => onClickStar(el.BIZREGNO)} star={star[el.BIZREGNO] || false} /> */}
                                 </A.StoreList>
                             ))
                         ) : (
