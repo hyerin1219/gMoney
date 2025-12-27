@@ -78,7 +78,7 @@ export default function StoreListComponent(): JSX.Element {
 
     return (
         <section className="Wrap">
-            <RegionSearch state={state} dispatch={dispatch} />
+            <RegionSearch state={state} dispatch={dispatch} setSelectedInduType={setSelectedInduType} />
 
             {state.region && (
                 <A.InduTypeBox>
@@ -102,16 +102,20 @@ export default function StoreListComponent(): JSX.Element {
                         {!state.region ? (
                             <div>지역을 선택하세요.</div>
                         ) : filteredStores.length ? (
-                            filteredStores.map((el) => (
-                                <A.StoreList key={`${el.BIZREGNO}-${el.CMPNM_NM}`}>
-                                    <div>
-                                        <A.StoreName>{el.CMPNM_NM}</A.StoreName>
-                                        <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
-                                        <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
-                                    </div>
-                                    {/* <A.BookMark onClick={() => onClickStar(el.BIZREGNO)} star={star[el.BIZREGNO] || false} /> */}
-                                </A.StoreList>
-                            ))
+                            filteredStores.map((el) => {
+                                const storeKey = `${el.BIZREGNO}-${el.CMPNM_NM}`;
+
+                                return (
+                                    <A.StoreList key={storeKey}>
+                                        <div>
+                                            <A.StoreName>{el.CMPNM_NM}</A.StoreName>
+                                            <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
+                                            <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
+                                        </div>
+                                        <A.BookMark onClick={() => onClickStar(storeKey)} star={star[storeKey] || false} />
+                                    </A.StoreList>
+                                );
+                            })
                         ) : (
                             <div>조건에 맞는 가맹점이 없습니다.</div>
                         )}

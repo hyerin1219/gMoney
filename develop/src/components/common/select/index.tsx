@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 import * as A from './styles';
 
@@ -12,9 +12,10 @@ import { REGION_LIST } from '../../../common/stores/region';
 interface RegionSearchProps {
     state: IState;
     dispatch: React.Dispatch<IAction>;
+    setSelectedInduType: Dispatch<SetStateAction<string | null>>;
 }
 
-export default function RegionSearch({ state, dispatch }: RegionSearchProps) {
+export default function RegionSearch({ state, dispatch, setSelectedInduType }: RegionSearchProps) {
     // 지역 선택
     const handleRegionChange = (event: SelectChangeEvent) => {
         dispatch({ type: 'SET_REGION', payload: event.target.value });
@@ -23,11 +24,13 @@ export default function RegionSearch({ state, dispatch }: RegionSearchProps) {
     // 입력 값 변경
     const onChangeTextValue = (event: ChangeEvent<HTMLInputElement>) => {
         dispatch({ type: 'SET_TEXT_VALUE', payload: event.target.value });
+        setSelectedInduType(null);
     };
 
     // 검색 버튼 클릭
     const handleSearchClick = () => {
         dispatch({ type: 'SET_SEARCH_TERM', payload: state.textValue });
+        setSelectedInduType(null);
     };
 
     return (

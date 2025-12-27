@@ -149,10 +149,12 @@ export const StoreEtc = styled.p`
 export const BookMark = styled.button`
     width: 30px;
     height: 30px;
-    // background-image: ${(props: IStarProps) => (props.star ? 'url(/images/ico_star.png)' : 'url(/images/ico_star2.png)')};
+    background-image: url(/images/icon_star.png);
+    background-size: 100% 100%;
+    filter: ${(props: IStarProps) => (props.star ? 'grayscale(0)' : 'grayscale(100)')};
     background-size: 100% 100%;
 
     :hover {
-        background-image: url(/images/ico_star.png);
+        filter: grayscale(0);
     }
 `;

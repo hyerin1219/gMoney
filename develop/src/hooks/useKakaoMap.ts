@@ -54,7 +54,7 @@ export function useKakaoMap() {
             if (!REFINE_WGS84_LAT || !REFINE_WGS84_LOGT) return;
 
             // 마커 이미지 관련
-            const markerImage = new window.kakao.maps.MarkerImage('images/icon_marker.png', new window.kakao.maps.Size(25, 33), { offset: new window.kakao.maps.Point(14, 37) });
+            const markerImage = new window.kakao.maps.MarkerImage('images/icon_marker.png', new window.kakao.maps.Size(29, 40), { offset: new window.kakao.maps.Point(5, 2) });
 
             // 마커 생성
             const marker = new window.kakao.maps.Marker({
@@ -67,8 +67,8 @@ export function useKakaoMap() {
             window.kakao.maps.event.addListener(marker, 'click', () => {
                 infowindow.setContent(`
                     <div style="padding:5px;font-size:12px; width: max-content;">
-                    <p>${store.CMPNM_NM}</p>
-                    <p>${store.REFINE_LOTNO_ADDR}</p>
+                        <p>${store.CMPNM_NM}</p>
+                        <p>${store.REFINE_LOTNO_ADDR}</p>
                     </div>
                 `);
                 infowindow.open(mapRef.current, marker);
