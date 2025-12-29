@@ -8,15 +8,52 @@ export const Content = styled.div`
     width: 100%;
 `;
 
-export const Title = styled.h2`
+export const TitleBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    @media (max-width: 875px) {
+        flex-direction: column;
+    }
+`;
+
+export const TitleImg = styled.img`
+    width: 400px;
+
+    @media (max-width: 875px) {
+        width: 450px;
+    }
+
+    @media (max-width: 600px) {
+        width: 280px;
+    }
+`;
+
+export const TitleSubTit = styled.p`
     font-size: 30px;
-    text-align: center;
+    font-weight: bold;
+    color: #c56b43;
 
-    line-height: 1.5;
-    // color: #243d43;
+    @media (max-width: 600px) {
+        font-size: 20px;
+    }
+`;
+export const TitleSubTxt = styled.p`
+    font-size: 30px;
+    text-align: justify;
+    @media (max-width: 600px) {
+        font-size: 20px;
+    }
+`;
 
-    @media (max-width: 400px) {
-        padding: 25px;
+export const Title = styled.h2`
+    font-size: 80px;
+    color: #243d43;
+    margin: 15px 0;
+    @media (max-width: 600px) {
+        font-size: 50px;
     }
 `;
 

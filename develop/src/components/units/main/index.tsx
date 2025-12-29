@@ -23,7 +23,14 @@ export default function Main() {
         <section className="Wrap">
             <A.Content>
                 {/* 경기지역화폐 */}
-                <A.Title>경기지역화폐는 지역경제 활성화를 위해 31개 시,군에서 발행하고 사용하는 대안화폐 입니다.</A.Title>
+                <A.TitleBox>
+                    <div>
+                        <A.TitleSubTit>쓰면 쓸수록, 경기돕니다.</A.TitleSubTit>
+                        <A.Title>경기지역화폐</A.Title>
+                        <A.TitleSubTxt>경기지역화폐는 지역경제 활성화를 위해 31개 시,군에서 발행하고 사용하는 대안화폐 입니다.</A.TitleSubTxt>
+                    </div>
+                    <A.TitleImg src="/images/img_01.png" alt="카드 이미지 " />
+                </A.TitleBox>
 
                 {/* 메뉴 */}
                 <A.MenuListBox>
@@ -58,7 +65,7 @@ export default function Main() {
                             {HowToUse.map((el) => (
                                 <A.CategoryCard key={el.id}>
                                     <A.CategoryIconBox>
-                                        <A.CategoryIcon alt={el.title} src={`/images/icon_${el.img}.png`} />
+                                        <A.CategoryIcon alt={el.title} src={`/images/howtouse/icon_${el.img}.png`} />
                                     </A.CategoryIconBox>
                                     <A.CategoryLabel>{el.title}</A.CategoryLabel>
                                 </A.CategoryCard>
@@ -67,7 +74,7 @@ export default function Main() {
                             {HowToUse.map((el) => (
                                 <A.CategoryCard key={`${el.id}-clone`}>
                                     <A.CategoryIconBox>
-                                        <A.CategoryIcon alt={el.title} src={`/images/icon_${el.img}.png`} />
+                                        <A.CategoryIcon alt={el.title} src={`/images/howtouse/icon_${el.img}.png`} />
                                     </A.CategoryIconBox>
                                     <A.CategoryLabel>{el.title}</A.CategoryLabel>
                                 </A.CategoryCard>
