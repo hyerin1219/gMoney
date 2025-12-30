@@ -22,10 +22,6 @@ export const TitleBox = styled.div`
 export const TitleImg = styled.img`
     width: 400px;
 
-    @media (max-width: 875px) {
-        width: 450px;
-    }
-
     @media (max-width: 600px) {
         width: 280px;
     }
@@ -42,7 +38,9 @@ export const TitleSubTit = styled.p`
 `;
 export const TitleSubTxt = styled.p`
     font-size: 30px;
+    font-weight: bold;
     text-align: justify;
+    line-height: 1.2;
     @media (max-width: 600px) {
         font-size: 20px;
     }

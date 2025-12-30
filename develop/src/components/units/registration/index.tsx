@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import type { Address } from 'react-daum-postcode';
+
 import { useForm } from 'react-hook-form';
+import type { Address } from 'react-daum-postcode';
 
 import * as A from './styles';
 import { schema } from './validation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { collection, addDoc, getFirestore } from 'firebase/firestore/lite';
 import { firebaseApp } from '../../../common/libraries/firebase';
+import { useAlert } from '../../common/Alert/AlertProvider';
+import { collection, addDoc, getFirestore } from 'firebase/firestore/lite';
 
 interface IFormData {
     name: string;
@@ -18,37 +20,19 @@ interface IFormData {
 
 export default function RegistrationComponent(): JSX.Element {
     const router = useRouter();
-
+    const { triggerAlert } = useAlert();
     const [isOpen, setIsOpen] = useState(false);
-    const [zipcode, setZipcode] = useState('');
-    const [address, setAddress] = useState('');
+    const [storeAddress, setStoreAddress] = useState({
+        zipcode: '',
+        address: '',
+    });
 
-    // useRef를 사용하여 마운트 상태 추적
-    const isMounted = useRef(true);
-
-    useEffect(() => {
-        // 컴포넌트가 언마운트될 때 isMounted 값을 false로 설정
-        return () => {
-            isMounted.current = false;
-        };
-    }, []);
-
-    const onClickAddressSearch = (): void => {
-        setIsOpen(true);
-    };
-
-    const onCompleteAddressSearch = (data: Address): void => {
-        if (isMounted.current) {
-            // 컴포넌트가 마운트된 경우에만 상태 업데이트
-            setAddress(data.address);
-            setZipcode(data.zonecode);
-            // 약간의 지연을 두어 내부 비동기 작업이 완료될 시간을 줍니다.
-            setTimeout(() => {
-                if (isMounted.current) {
-                    setIsOpen(false);
-                }
-            }, 300);
-        }
+    const onCompleteAddressSearch = (data: Address) => {
+        setStoreAddress({
+            zipcode: data.zonecode,
+            address: data.address,
+        });
+        setIsOpen(false);
     };
 
     const { formState, register, handleSubmit } = useForm<IFormData>({
@@ -65,14 +49,15 @@ export default function RegistrationComponent(): JSX.Element {
                 name: data.name,
                 category: data.category,
                 storeAddress: {
-                    zipcode,
-                    address,
+                    ...storeAddress,
                     addressDetail: data.addressDetail,
                 },
             });
-            console.log('등록 완료');
-            window.alert('등록이 완료되었습니다!');
-            void router.push('/');
+            triggerAlert('등록이 완료되었습니다.');
+
+            setTimeout(() => {
+                void router.push('/');
+            }, 2500); // alert 시간과 맞추기
         } catch (error) {
             if (error instanceof Error) alert(error.message);
         }
@@ -80,11 +65,14 @@ export default function RegistrationComponent(): JSX.Element {
 
     return (
         <section className="Wrap">
+            {/* 우편번호 모달 */}
             {isOpen && (
-                <A.AddressModal open={true}>
+                <A.AddressModal>
                     <A.AddressSearchInput onComplete={onCompleteAddressSearch} />
                 </A.AddressModal>
             )}
+
+            {/* form  */}
             <A.MainBox>
                 <form onSubmit={handleSubmit(onClickSubmit)}>
                     <A.GuideBox>
@@ -129,13 +117,13 @@ export default function RegistrationComponent(): JSX.Element {
                             </A.ListTitle>
                             <A.ListBox>
                                 <A.ListFelxBox>
-                                    <A.ListInput type="text" readOnly placeholder="07250" value={zipcode ? zipcode : ''}></A.ListInput>
-                                    <A.ListButton type="button" onClick={onClickAddressSearch}>
+                                    <A.ListInput type="text" readOnly placeholder="07250" value={storeAddress.zipcode ? storeAddress.zipcode : ''}></A.ListInput>
+                                    <A.ListButton type="button" onClick={() => setIsOpen(true)}>
                                         우편번호검색
                                     </A.ListButton>
                                 </A.ListFelxBox>
                                 <A.MarginBox>
-                                    <A.ListInput type="text" placeholder="주소" readOnly value={address ? address : ''}></A.ListInput>
+                                    <A.ListInput type="text" placeholder="주소" readOnly value={storeAddress.address ? storeAddress.address : ''}></A.ListInput>
                                 </A.MarginBox>
 
                                 <A.MarginBox>
