@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useAlert } from '../components/common/Alert/AlertProvider';
+import { useAlert } from '../components/common/alert/AlertProvider';
 
 export const useLoginCheck = () => {
     const router = useRouter();
@@ -10,7 +10,7 @@ export const useLoginCheck = () => {
         if (typeof window === 'undefined') return;
 
         const token = localStorage.getItem('kakao_e203d9a5eda596228bf93e7983cf46a3');
-
+        console.log(token);
         if (!token) {
             triggerAlert('로그인 후 이용해 주세요.');
 

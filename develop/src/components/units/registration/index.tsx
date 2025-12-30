@@ -8,8 +8,9 @@ import * as A from './styles';
 import { schema } from './validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { firebaseApp } from '../../../common/libraries/firebase';
-import { useAlert } from '../../common/Alert/AlertProvider';
+import { useAlert } from '../../common/alert/AlertProvider';
 import { collection, addDoc, getFirestore } from 'firebase/firestore/lite';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface IFormData {
     name: string;
@@ -26,6 +27,7 @@ export default function RegistrationComponent(): JSX.Element {
         zipcode: '',
         address: '',
     });
+    const { user } = useAuth();
 
     const onCompleteAddressSearch = (data: Address) => {
         setStoreAddress({
@@ -45,6 +47,7 @@ export default function RegistrationComponent(): JSX.Element {
         try {
             const registrationStore = collection(getFirestore(firebaseApp), 'registrationStore');
             await addDoc(registrationStore, {
+                id: user,
                 content: data.content,
                 name: data.name,
                 category: data.category,

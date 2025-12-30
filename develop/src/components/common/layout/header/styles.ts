@@ -49,7 +49,13 @@ export const KakaoButton = styled.button`
     background-image: url(./images/button_login_kakao.png);
     background-size: 100% 100%;
 `;
-export const userBox = styled.div`
+
+export const UserWrap = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`;
+export const UserBox = styled.span`
     font-size: 20px;
     font-weight: bold;
 
