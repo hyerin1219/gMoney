@@ -70,9 +70,10 @@ export const KakaoButton = styled.button`
     background-size: 100% 100%;
 `;
 
-export const UserBox = styled.span`
+export const UserBox = styled.button`
     font-size: 20px;
     font-weight: bold;
+    color: #edebe5;
 
     @media (max-width: 500px) {
         font-size: 13px;
