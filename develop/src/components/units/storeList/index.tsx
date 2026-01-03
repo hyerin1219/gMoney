@@ -4,11 +4,11 @@ import * as A from './styles';
 
 import RegionSearch from '../../common/select';
 
-import { IAction, IBusinessInfo, initialState, IState } from '../../../common/stores/types';
+import { IAction, initialState, IState } from '../../../common/stores/types';
+import { INDUTYPE } from '../../../common/stores/indutpye';
 
 import { useBookmark } from '../../../hooks/useBookmark';
 import { useKakaoMap } from '../../../hooks/useKakaoMap';
-import { INDUTYPE } from '../../../common/stores/indutpye';
 import { fetchStoreList } from '../../../hooks/useStoreList';
 
 // 리듀서
@@ -37,19 +37,56 @@ export default function StoreListComponent(): JSX.Element {
     const { mapRef, initMap, updateMarkers } = useKakaoMap();
     const [selectedInduType, setSelectedInduType] = useState<string | null>(null);
 
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const PAGE_SIZE = 20;
+
     useEffect(() => {
         if (!state.region) {
             initMap('map');
             return;
         }
 
-        fetchStoreList(state.region)
-            .then((data) => {
-                dispatch({ type: 'SET_INFO', payload: data });
-                setSelectedInduType(null);
-            })
-            .catch((err) => console.error(err));
+        setPage(1);
+        setHasMore(true);
+
+        fetchStoreList({
+            region: state.region,
+            page: 1,
+            size: PAGE_SIZE,
+        }).then((res) => {
+            dispatch({ type: 'SET_INFO', payload: res.data });
+            setSelectedInduType(null);
+
+            if (res.data.length < PAGE_SIZE) {
+                setHasMore(false);
+            }
+        });
     }, [state.region]);
+
+    // 무한 스크롤
+    const loadMore = async () => {
+        if (!hasMore) return;
+
+        const nextPage = page + 1;
+
+        const res = await fetchStoreList({
+            region: state.region,
+            page: nextPage,
+            size: PAGE_SIZE,
+        });
+
+        dispatch({
+            type: 'SET_INFO',
+            payload: [...state.info, ...res.data],
+        });
+
+        setPage(nextPage);
+
+        if (res.data.length < PAGE_SIZE) {
+            setHasMore(false);
+        }
+    };
 
     const filteredStores = useMemo(() => {
         return state.info.filter((store) => {
@@ -98,7 +135,15 @@ export default function StoreListComponent(): JSX.Element {
 
             <A.resultWrap>
                 <A.ListWrap>
-                    <A.ScrollBox>
+                    <A.ScrollBox
+                        onScroll={(e) => {
+                            const target = e.currentTarget;
+
+                            if (target.scrollTop + target.clientHeight >= target.scrollHeight - 20) {
+                                loadMore();
+                            }
+                        }}
+                    >
                         {!state.region ? (
                             <div>지역을 선택하세요.</div>
                         ) : filteredStores.length ? (

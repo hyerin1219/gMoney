@@ -1,27 +1,20 @@
 import { useState } from 'react';
 import { doc, getDoc, deleteDoc, setDoc, getFirestore } from 'firebase/firestore/lite';
 import { firebaseApp } from '../common/libraries/firebase';
+import { useAuth } from './useAuth';
 
 export function useBookmark() {
     // Firestore 인스턴스
     const db = getFirestore(firebaseApp);
-
+    const { user } = useAuth();
     // 즐겨찾기 상태 관리
     const [star, setStar] = useState<{ [key: string]: boolean }>({});
 
     const onClickStar = async (storeId: string): Promise<void> => {
-        // 로그인 안했으면 리턴하기
-        const token = localStorage.getItem('kakao_e203d9a5eda596228bf93e7983cf46a3');
-        if (!token) {
-            window.alert('로그인 후 이용해 주세요');
-            return;
-        }
-
-        // 현재 로그인한 사용자 ID
-        const userId = token;
+        if (!user) return;
 
         try {
-            const starRef = doc(db, 'bookMarkerStore', userId, 'stores', storeId);
+            const starRef = doc(db, 'bookMarkerStore', user, 'stores', storeId);
 
             // 현재 즐겨찾기 상태 확인
             const starSnap = await getDoc(starRef);
