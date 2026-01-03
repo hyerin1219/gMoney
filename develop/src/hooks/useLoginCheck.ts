@@ -9,7 +9,7 @@ export const useLoginCheck = () => {
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
-        const token = localStorage.getItem('kakao_e203d9a5eda596228bf93e7983cf46a3');
+        const token = localStorage.getItem('kakaoToken');
         console.log(token);
         if (!token) {
             triggerAlert('로그인 후 이용해 주세요.');

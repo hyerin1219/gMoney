@@ -40,8 +40,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 });
 
                 const data = await res.json();
-                setUser({ nickname: data.nickname });
-                console.log('data', data);
+                setUser({ nickname: data.nickname, sub: data.sub });
             },
         });
     };

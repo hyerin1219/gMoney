@@ -34,9 +34,29 @@ export const PageLogo = styled.div`
 `;
 export const LoginWrap = styled.div``;
 
+export const LogOutBox = styled.div`
+    position: absolute;
+    top: 1000%
+    display: flex;
+    justify-align: center;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 5px;
+`;
+
 export const LoginButton = styled.button`
     font-size: 15px;
     color: #edebe5;
+
+    @media (max-width: 500px) {
+        font-size: 13px;
+    }
+`;
+export const LogoutButton = styled.button`
+    font-size: 15px;
 
     @media (max-width: 500px) {
         font-size: 13px;
@@ -50,11 +70,6 @@ export const KakaoButton = styled.button`
     background-size: 100% 100%;
 `;
 
-export const UserWrap = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 10px;
-`;
 export const UserBox = styled.span`
     font-size: 20px;
     font-weight: bold;

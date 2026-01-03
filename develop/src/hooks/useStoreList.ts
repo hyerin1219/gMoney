@@ -20,7 +20,7 @@ export const fetchStoreList = async ({ region, page = 1, size = 20 }: IFetchStor
         const rows: IBusinessInfo[] = result?.RegionMnyFacltStus?.[1]?.row ?? [];
 
         const totalCount = result?.RegionMnyFacltStus?.[0]?.head?.[0]?.list_total_count ?? 0;
-        console.log('totalCount', totalCount);
+
         return {
             data: rows.filter((store) => store.SIGUN_NM === region && store.LEAD_TAX_MAN_STATE_CD !== '03'),
             totalCount,

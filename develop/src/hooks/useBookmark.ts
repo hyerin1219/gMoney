@@ -1,20 +1,25 @@
 import { useState } from 'react';
 import { doc, getDoc, deleteDoc, setDoc, getFirestore } from 'firebase/firestore/lite';
 import { firebaseApp } from '../common/libraries/firebase';
+
+import { useAlert } from '../components/common/alert/AlertProvider';
 import { useAuth } from './useAuth';
 
 export function useBookmark() {
-    // Firestore 인스턴스
     const db = getFirestore(firebaseApp);
     const { user } = useAuth();
-    // 즐겨찾기 상태 관리
+    const { triggerAlert } = useAlert();
+
     const [star, setStar] = useState<{ [key: string]: boolean }>({});
 
-    const onClickStar = async (storeId: string): Promise<void> => {
-        if (!user) return;
-
+    const onClickStar = async (region: string, storeId: string): Promise<void> => {
+        if (!user) {
+            triggerAlert('로그인 후 이용해 주세요.');
+            return;
+        }
+        const userSub = user.sub;
         try {
-            const starRef = doc(db, 'bookMarkerStore', user, 'stores', storeId);
+            const starRef = doc(db, 'bookMarkerStore', userSub, 'regions', region, 'stores', storeId);
 
             // 현재 즐겨찾기 상태 확인
             const starSnap = await getDoc(starRef);
@@ -26,7 +31,7 @@ export function useBookmark() {
                 setStar((prev) => ({ ...prev, [storeId]: false }));
             } else {
                 // 즐겨찾기 추가
-                await setDoc(starRef, { starred: true });
+                await setDoc(starRef, { starred: true, region, storeId });
                 setStar((prev) => ({ ...prev, [storeId]: true }));
             }
         } catch (error) {

@@ -2,6 +2,7 @@ import { createContext } from 'react';
 
 export interface IUser {
     nickname: string;
+    sub: string;
 }
 
 interface AuthContextType {
