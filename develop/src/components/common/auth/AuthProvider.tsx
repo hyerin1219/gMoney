@@ -33,7 +33,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         window.Kakao.Auth.login({
             success: async (auth: any) => {
                 console.log('카카오 로그인 성공!', auth);
-                localStorage.setItem('kakaoToken', auth.access_token);
 
                 const res = await fetch('https://kapi.kakao.com/v1/oidc/userinfo', {
                     headers: { Authorization: `Bearer ${auth.access_token}` },
@@ -46,7 +45,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const logout = () => {
-        localStorage.removeItem('kakaoToken');
         setUser(null);
     };
 
