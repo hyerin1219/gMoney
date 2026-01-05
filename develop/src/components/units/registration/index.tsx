@@ -3,14 +3,13 @@ import { useRouter } from 'next/router';
 
 import { useForm } from 'react-hook-form';
 import type { Address } from 'react-daum-postcode';
-
+import { collection, addDoc, getFirestore } from 'firebase/firestore/lite';
 import * as A from './styles';
 import { schema } from './validation';
+import { useAuth } from '../../../hooks/useAuth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { firebaseApp } from '../../../common/libraries/firebase';
 import { useAlert } from '../../common/alert/AlertProvider';
-import { collection, addDoc, getFirestore } from 'firebase/firestore/lite';
-import { useAuth } from '../../../hooks/useAuth';
 
 interface IFormData {
     name: string;

@@ -30,3 +30,10 @@ export const initialState: IState = {
     searchTerm: '',
     info: [],
 };
+
+// bookmark 관련
+export interface IStoreItem {
+    storeId: string;
+    name: string;
+    address: string;
+}

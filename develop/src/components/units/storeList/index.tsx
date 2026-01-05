@@ -7,9 +7,10 @@ import RegionSearch from '../../common/select';
 import { IAction, initialState, IState } from '../../../common/stores/types';
 import { INDUTYPE } from '../../../common/stores/indutpye';
 
-import { useBookmark } from '../../../hooks/useBookmark';
+import { Bookmark } from './bookMark';
 import { useKakaoMap } from '../../../hooks/useKakaoMap';
 import { fetchStoreList } from '../../../hooks/useStoreList';
+import { useBookmark } from '../../../hooks/useBookmark';
 
 // 리듀서
 function reducer(state: IState, action: IAction): IState {
@@ -33,13 +34,20 @@ function reducer(state: IState, action: IAction): IState {
 
 export default function StoreListComponent(): JSX.Element {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { star, onClickStar } = useBookmark();
     const { mapRef, initMap, updateMarkers } = useKakaoMap();
     const [selectedInduType, setSelectedInduType] = useState<string | null>(null);
 
+    // 페이지 스크롤
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const PAGE_SIZE = 20;
+
+    // 북마크 관련
+    const { regions } = useBookmark();
+    const { star, onClickStar } = Bookmark();
+    const isBookmarked = (region: string, storeId: string) => {
+        return regions[region]?.some((store) => store.storeId === storeId) ?? false;
+    };
 
     useEffect(() => {
         if (!state.region) {
@@ -64,7 +72,7 @@ export default function StoreListComponent(): JSX.Element {
         });
     }, [state.region]);
 
-    // 무한 스크롤
+    // 페이지 스크롤
     const loadMore = async () => {
         if (!hasMore) return;
 
@@ -157,7 +165,7 @@ export default function StoreListComponent(): JSX.Element {
                                             <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
                                             <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
                                         </div>
-                                        <A.BookMark onClick={() => onClickStar(el.SIGUN_NM, el.BIZREGNO)} star={star[el.BIZREGNO] || false} />
+                                        <A.BookMark onClick={() => onClickStar(el.SIGUN_NM, el.BIZREGNO, el.CMPNM_NM, el.REFINE_ROADNM_ADDR)} star={isBookmarked(el.SIGUN_NM, el.BIZREGNO)} />
                                     </A.StoreList>
                                 );
                             })

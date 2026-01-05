@@ -33,20 +33,36 @@ export const PageLogo = styled.div`
     }
 `;
 export const LoginWrap = styled.div``;
+export const LoginBox = styled.div`
+    position: relative;
+`;
 
 export const LogOutBox = styled.div`
     position: absolute;
-    top: 1000%
-    display: flex;
-    justify-align: center;
-    align-items: center;
+    top: 30px;
+    left: 50%;
+    width: 100px;
+    padding: 10px;
+    text-align: center;
     background-color: #fff;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
-    padding: 10px;
-    margin-top: 5px;
+    transform: translateX(-50%);
 `;
 
+export const LogoutButton = styled.button`
+    font-size: 15px;
+    padding: 5px 0;
+    border-bottom: 2px solid transparent;
+
+    :hover {
+        border-color: #243d34;
+    }
+
+    @media (max-width: 500px) {
+        font-size: 13px;
+    }
+`;
 export const LoginButton = styled.button`
     font-size: 15px;
     color: #edebe5;
@@ -55,14 +71,6 @@ export const LoginButton = styled.button`
         font-size: 13px;
     }
 `;
-export const LogoutButton = styled.button`
-    font-size: 15px;
-
-    @media (max-width: 500px) {
-        font-size: 13px;
-    }
-`;
-
 export const KakaoButton = styled.button`
     width: calc(366px / 2);
     height: calc(90px / 2);

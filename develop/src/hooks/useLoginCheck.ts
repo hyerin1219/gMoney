@@ -6,7 +6,7 @@ import { useAuth } from './useAuth';
 export const useLoginCheck = () => {
     const router = useRouter();
     const { triggerAlert } = useAlert();
-    const { user, login, logout } = useAuth();
+    const { user } = useAuth();
 
     useEffect(() => {
         if (typeof window === 'undefined') return;

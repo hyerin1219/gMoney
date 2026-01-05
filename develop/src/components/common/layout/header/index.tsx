@@ -42,14 +42,15 @@ export default function LayoutHeader(): JSX.Element {
 
                 <A.LoginWrap>
                     {user ? (
-                        <div ref={dropdownRef}>
+                        <A.LoginBox ref={dropdownRef}>
                             <A.UserBox onClick={() => setOpen((prev) => !prev)}>{user.nickname}</A.UserBox> 님
                             {open && (
                                 <A.LogOutBox>
                                     <A.LogoutButton onClick={logout}>로그아웃</A.LogoutButton>
+                                    <A.LogoutButton onClick={() => router.push('/myPage')}>마이 페이지</A.LogoutButton>
                                 </A.LogOutBox>
                             )}
-                        </div>
+                        </A.LoginBox>
                     ) : (
                         <A.LoginButton onClick={login}>로그인</A.LoginButton>
                     )}
