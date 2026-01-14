@@ -10,7 +10,7 @@ import { INDUTYPE } from '../../../common/stores/indutpye';
 import { Bookmark } from './bookMark';
 import { useKakaoMap } from '../../../hooks/useKakaoMap';
 import { fetchStoreList } from '../../../hooks/useStoreList';
-import { useBookmark } from '../../../hooks/useBookmark';
+import { useBookmark } from '../../../hooks/useBookMark';
 
 // 리듀서
 function reducer(state: IState, action: IAction): IState {

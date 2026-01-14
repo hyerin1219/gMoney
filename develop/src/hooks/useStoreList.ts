@@ -23,6 +23,7 @@ export const fetchStoreList = async ({ region, page = 1, size = 20 }: IFetchStor
 
         return {
             data: rows.filter((store) => store.SIGUN_NM === region && store.LEAD_TAX_MAN_STATE_CD !== '03'),
+
             totalCount,
         };
     } catch (err) {
