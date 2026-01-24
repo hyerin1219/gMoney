@@ -121,7 +121,7 @@ export default function RegistrationComponent(): JSX.Element {
                                 <A.ListFelxBox>
                                     <A.ListInput type="text" readOnly placeholder="07250" value={storeAddress.zipcode ? storeAddress.zipcode : ''}></A.ListInput>
                                     <A.ListButton type="button" onClick={() => setIsOpen(true)}>
-                                        우편번호검색
+                                        우편번호 검색
                                     </A.ListButton>
                                 </A.ListFelxBox>
                                 <A.MarginBox>

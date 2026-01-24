@@ -165,7 +165,7 @@ export default function StoreListComponent(): JSX.Element {
                                             <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
                                             <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
                                         </div>
-                                        <A.BookMark onClick={() => onClickStar(el.SIGUN_NM, el.BIZREGNO, el.CMPNM_NM, el.REFINE_ROADNM_ADDR)} star={isBookmarked(el.SIGUN_NM, el.BIZREGNO)} />
+                                        <A.BookMark onClick={() => onClickStar(el.SIGUN_NM, el.BIZREGNO, el.CMPNM_NM, el.REFINE_ROADNM_ADDR)} star={star[el.BIZREGNO] ?? isBookmarked(el.SIGUN_NM, el.BIZREGNO)} />
                                     </A.StoreList>
                                 );
                             })

@@ -25,16 +25,17 @@ export const GuideBoxEm = styled.em`
 export const ContentBox = styled.div`
     border-top: 2px solid #83b871;
     border-bottom: 2px solid #83b871;
+    padding: 10px 0px;
 `;
 
 export const ContentList = styled.div`
     position: relative;
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
     font-size: 20px;
-    :not(:last-child) {
-        border-bottom: 2px solid #ccc;
-    }
+    // :not(:last-child) {
+    //     border-bottom: 2px solid #ccc;
+    // }
 
     @media (max-width: 910px) {
         font-size: 15px;
@@ -43,17 +44,16 @@ export const ContentList = styled.div`
 export const ListTitle = styled.div`
     display: flex;
     align-items: flex-start;
-    width: 20%;
     font-weight: bold;
     padding: 10px;
-    background-color: #d2e4c1;
+    // background-color: #d2e4c1;
     @media (max-width: 790px) {
         padding: 5px;
         word-break: keep-all;
     }
 `;
 export const ListBox = styled.div`
-    width: 79%;
+    width: 100%;
     padding: 5px;
 `;
 export const ListFelxBox = styled.div`
@@ -61,22 +61,21 @@ export const ListFelxBox = styled.div`
     align-items: center;
 `;
 export const ListInput = styled.input`
-    border-radius: 10px;
+    border-radius: 5px;
     border: 2px solid #ccc;
     font-size: 1em;
     outline: none;
     padding: 5px;
-    width: 50%;
-    min-width: 250px;
+    width: 100%;
 
     :not(:first-of-type) {
         margin-top: 5px;
     }
 
-    @media (max-width: 550px) {
-        width: 70%;
-        min-width: auto;
-    }
+    // @media (max-width: 550px) {
+    //     width: 70%;
+    //     min-width: auto;
+    // }
 `;
 
 export const ListTextarea = styled.textarea`
@@ -85,13 +84,13 @@ export const ListTextarea = styled.textarea`
     font-size: 1em;
     outline: none;
     padding: 5px;
-    width: 50%;
-    min-width: 250px;
+    width: 100%;
 
     resize: none;
 `;
 
 export const ListButton = styled.button`
+    flex-shrink: 0;
     background-color: #2a2f33;
     color: #fff;
     border-radius: 10px;

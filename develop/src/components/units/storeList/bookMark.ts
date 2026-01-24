@@ -10,7 +10,6 @@ export function Bookmark() {
     const db = getFirestore(firebaseApp);
     const { user } = useAuth();
     const { triggerAlert } = useAlert();
-
     const [star, setStar] = useState<Record<string, boolean>>({});
 
     const onClickStar = async (region: string, storeId: string, name: string, address: string) => {
@@ -19,44 +18,43 @@ export function Bookmark() {
             return;
         }
 
-        const ref = doc(db, 'bookMarkerStore', user.sub);
-        const snap = await getDoc(ref);
+        // 1. [낙관적 업데이트] 서버 통신 전에 UI 상태부터 즉시 바꿉니다.
+        // 현재 상태를 반전시켜서 미리 보여줌 (체감 속도 0ms)
+        setStar((prev) => ({ ...prev, [storeId]: !prev[storeId] }));
 
-        const newItem: IStoreItem = { storeId, name, address };
+        try {
+            const ref = doc(db, 'bookMarkerStore', user.sub);
+            const snap = await getDoc(ref);
+            const newItem: IStoreItem = { storeId, name, address };
 
-        // ⭐ 최초 생성
-        if (!snap.exists()) {
-            await setDoc(ref, {
-                regions: {
-                    [region]: [newItem],
-                },
-            });
+            // 최초 생성
+            if (!snap.exists()) {
+                await setDoc(ref, {
+                    regions: { [region]: [newItem] },
+                });
+                return;
+            }
 
-            setStar((prev) => ({ ...prev, [storeId]: true }));
-            return;
-        }
+            const data = snap.data();
+            const regionStores: IStoreItem[] = data.regions?.[region] ?? [];
+            const isStarred = regionStores.some((store) => store.storeId === storeId);
 
-        const data = snap.data();
-        const regionStores: IStoreItem[] = data.regions?.[region] ?? [];
-
-        const isStarred = regionStores.some((store) => store.storeId === storeId);
-
-        // 제거 (마지막이면 region 삭제)
-        if (isStarred) {
-            const filtered = regionStores.filter((store) => store.storeId !== storeId);
-
-            await updateDoc(ref, {
-                ...(filtered.length === 0 ? { [`regions.${region}`]: deleteField() } : { [`regions.${region}`]: filtered }),
-            });
-
-            setStar((prev) => ({ ...prev, [storeId]: false }));
-        } else {
-            // 추가
-            await updateDoc(ref, {
-                [`regions.${region}`]: [...regionStores, newItem],
-            });
-
-            setStar((prev) => ({ ...prev, [storeId]: true }));
+            // 제거 또는 추가 로직 수행
+            if (isStarred) {
+                const filtered = regionStores.filter((store) => store.storeId !== storeId);
+                await updateDoc(ref, {
+                    [`regions.${region}`]: filtered.length === 0 ? deleteField() : filtered,
+                });
+            } else {
+                await updateDoc(ref, {
+                    [`regions.${region}`]: [...regionStores, newItem],
+                });
+            }
+        } catch (error) {
+            console.error('북마크 저장 실패:', error);
+            // 2. 에러 발생 시 UI를 다시 원래대로 되돌립니다 (Rollback)
+            setStar((prev) => ({ ...prev, [storeId]: !prev[storeId] }));
+            triggerAlert('저장에 실패했습니다. 다시 시도해 주세요.');
         }
     };
 
