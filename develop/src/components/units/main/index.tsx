@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import * as A from './styles';
+import Region from './region';
 
 export default function Main() {
     const router = useRouter();
@@ -31,6 +32,9 @@ export default function Main() {
                     </div>
                     <A.TitleImg src="/images/img_01.png" alt="카드 이미지 " />
                 </A.TitleBox>
+
+                {/* 지역별 지역화폐 */}
+                {/* <Region /> */}
 
                 {/* 메뉴 */}
                 <A.MenuListBox>

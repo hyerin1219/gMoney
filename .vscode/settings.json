@@ -2,4 +2,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "liveServer.settings.port": 5501
+    // "prettier.trailingComma": "all",
+    // "prettier.printWidth": 120
 }
