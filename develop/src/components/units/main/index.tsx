@@ -34,7 +34,7 @@ export default function Main() {
                 </A.TitleBox>
 
                 {/* 지역별 지역화폐 */}
-                {/* <Region /> */}
+                <Region />
 
                 {/* 메뉴 */}
                 <A.MenuListBox>
