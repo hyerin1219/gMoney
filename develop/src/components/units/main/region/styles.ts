@@ -77,7 +77,7 @@ export const RegionButton = styled.button`
     justify-content: center;
     align-items: center;
     gap: 4px;
-    width: 70px;
+    width: 75px;
     font-size: 20px;
 
     background: none;
