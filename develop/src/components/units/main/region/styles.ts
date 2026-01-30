@@ -16,17 +16,20 @@ export const Content = styled.div`
     position: relative;
     display: flex;
     width: 100%;
+    height: 500px;
     background-color: #edebe5;
     border-radius: 20px;
 
     @media (max-width: 1035px) {
         flex-direction: column;
+        height: auto;
     }
 `;
 
 // Region
 export const LeftBox = styled.div`
     width: 50%;
+    height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -40,13 +43,19 @@ export const LeftBox = styled.div`
 `;
 
 export const RegionBox = styled.div`
-    width: max-content;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 20px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 
     @media (max-width: 1035px) {
-        grid-template-columns: repeat(8, 1fr);
+        justify-content: center;
+        gap: 5px 10px;
+    }
+    @media (max-width: 600px) {
+        gap: 8px 5px;
     }
 `;
 
@@ -68,7 +77,7 @@ export const RegionButton = styled.button`
     justify-content: center;
     align-items: center;
     gap: 4px;
-    width: fit-content;
+    width: 70px;
     font-size: 20px;
 
     background: none;
@@ -80,12 +89,42 @@ export const RegionButton = styled.button`
     }
 
     @media (max-width: 1035px) {
+        font-size: 18px;
+        width: 60px;
+    }
+    @media (max-width: 600px) {
+        font-size: 16px;
+    }
+`;
+
+// 둥둥 떠 있는 듯한 애니메이션
+const floating = keyframes`
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+`;
+
+export const LogoImg = styled.img`
+    width: 250px;
+    animation: ${floating} 2s ease-in-out infinite;
+
+    @media (max-width: 1110px) {
+        width: 200px;
+    }
+
+    @media (max-width: 1035px) {
+        width: 180px;
+    }
+
+    @media (max-width: 600px) {
+        width: 150px;
     }
 `;
 
 // Card
 export const RightBox = styled.div`
     width: 50%;
+    height: 100%;
     background-color: #fff;
     border-radius: 20px;
 
@@ -95,12 +134,13 @@ export const RightBox = styled.div`
 `;
 
 export const CardBox = styled.div<ILogoProps>`
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     width: 100%;
-
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,6 +150,14 @@ export const CardBox = styled.div<ILogoProps>`
     padding: 20px;
 
     border-color: ${({ bgColor }) => bgColor || 'transparent'};
+
+    @media (max-width: 1035px) {
+        padding-bottom: 120px;
+    }
+
+    @media (max-width: 600px) {
+        padding-bottom: 100px;
+    }
 `;
 const fadeInUp = keyframes`
   from {
@@ -123,13 +171,21 @@ const fadeInUp = keyframes`
 `;
 export const Card = styled.img<ICardProps>`
     width: ${({ count }) => {
-        if (count === 1) return '60%';
+        if (count === 1) return '50%';
         if (count === 2) return '45%';
         if (count === 3) return '30%';
     }};
 
     object-fit: contain;
     animation: ${fadeInUp} 1s ease-in-out forwards;
+
+    @media (max-width: 1035px) {
+        width: ${({ count }) => {
+            if (count === 1) return '40%';
+            if (count === 2) return '35%';
+            if (count === 3) return '20%';
+        }};
+    }
 `;
 
 // TypeImgBox
@@ -149,20 +205,10 @@ export const TypeImg = styled.img`
     width: 200px;
 
     @media (max-width: 1035px) {
+        width: 150px;
     }
-`;
 
-// 둥둥 떠 있는 듯한 애니메이션
-const floating = keyframes`
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-`;
-
-export const LogoImg = styled.img`
-    width: 200px;
-    animation: ${floating} 2s ease-in-out infinite;
-
-    @media (max-width: 1035px) {
+    @media (max-width: 600px) {
+        width: 120px;
     }
 `;

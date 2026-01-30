@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import * as A from './styles';
 import Region from './region';
+import SkipMenu from '../../common/layout/skipMenu';
 
 export default function Main() {
     const router = useRouter();
@@ -34,7 +35,10 @@ export default function Main() {
                 </A.TitleBox>
 
                 {/* 지역별 지역화폐 */}
-                <Region />
+                <div>
+                    <A.SubTitle>지역별 지역화폐</A.SubTitle>
+                    <Region />
+                </div>
 
                 {/* 메뉴 */}
                 <A.MenuListBox>
