@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { useForm } from 'react-hook-form';
@@ -27,6 +27,13 @@ export default function RegistrationComponent(): JSX.Element {
         address: '',
     });
     const { user } = useAuth();
+
+    // 로그아웃 감지 시 메인으로 이동
+    useEffect(() => {
+        if (user === null) {
+            router.replace('/');
+        }
+    }, [user, router]);
 
     const onCompleteAddressSearch = (data: Address) => {
         setStoreAddress({

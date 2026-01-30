@@ -90,7 +90,7 @@ export const UserBox = styled.button`
 
 export const MenuBox = styled.div`
     display: flex;
-    gap: 30px;
+    gap: 20px;
 
     @media (max-width: 500px) {
         gap: 10px;

@@ -38,6 +38,7 @@ export default function LayoutHeader(): JSX.Element {
                 <A.MenuBox>
                     <A.MenuItem onClick={() => router.push('/registrationPage')}>차별거래신고</A.MenuItem>
                     <A.MenuItem onClick={() => router.push('/storeSearchPage')}>가맹점 찾기</A.MenuItem>
+                    <A.MenuItem onClick={() => router.push('/myPage')}>마이 페이지</A.MenuItem>
                 </A.MenuBox>
 
                 <A.LoginWrap>
