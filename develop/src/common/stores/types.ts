@@ -36,4 +36,6 @@ export interface IStoreItem {
     storeId: string;
     name: string;
     address: string;
+    lat: string;
+    logt: string;
 }

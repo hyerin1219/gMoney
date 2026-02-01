@@ -44,7 +44,7 @@ export default function StoreListComponent(): JSX.Element {
 
     // 북마크 관련
     const { regions } = useBookmark();
-    const { star, onClickStar } = Bookmark();
+    const { star, handleClickStar } = Bookmark();
     const isBookmarked = (region: string, storeId: string) => {
         return regions[region]?.some((store) => store.storeId === storeId) ?? false;
     };
@@ -165,7 +165,8 @@ export default function StoreListComponent(): JSX.Element {
                                             <A.StoreEtc>{el.INDUTYPE_NM}</A.StoreEtc>
                                             <A.StoreEtc>{el.REFINE_ROADNM_ADDR}</A.StoreEtc>
                                         </div>
-                                        <A.BookMark onClick={() => onClickStar(el.SIGUN_NM, el.BIZREGNO, el.CMPNM_NM, el.REFINE_ROADNM_ADDR)} star={star[el.BIZREGNO] ?? isBookmarked(el.SIGUN_NM, el.BIZREGNO)} />
+                                        {/* 시군명, 사업자등록번호, 업장명, 도로명 주소, 위도, 경도 */}
+                                        <A.BookMark onClick={() => handleClickStar(el.SIGUN_NM, el.BIZREGNO, el.CMPNM_NM, el.REFINE_ROADNM_ADDR, el.REFINE_WGS84_LAT, el.REFINE_WGS84_LOGT)} star={star[el.BIZREGNO] ?? isBookmarked(el.SIGUN_NM, el.BIZREGNO)} />
                                     </A.StoreList>
                                 );
                             })

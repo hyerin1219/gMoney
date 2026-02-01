@@ -105,7 +105,7 @@ const floating = keyframes`
 `;
 
 export const LogoImg = styled.img`
-    width: 250px;
+    width: 230px;
     animation: ${floating} 2s ease-in-out infinite;
 
     @media (max-width: 1110px) {

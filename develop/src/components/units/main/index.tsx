@@ -36,7 +36,7 @@ export default function Main() {
 
                 {/* 지역별 지역화폐 */}
                 <div>
-                    <A.SubTitle>지역별 지역화폐</A.SubTitle>
+                    <A.SubTitle>지역별 현황</A.SubTitle>
                     <Region />
                 </div>
 

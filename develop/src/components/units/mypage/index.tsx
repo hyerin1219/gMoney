@@ -3,12 +3,15 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useEffect, useState, useMemo } from 'react';
 import { useBookmark } from '../../../hooks/useBookMark';
 import { useRouter } from 'next/router';
+import { Bookmark } from '../storeList/bookMark';
 
 export default function MyPageComponent(): JSX.Element | null {
     const { user } = useAuth();
     const { regions } = useBookmark();
     const [activeRegion, setActiveRegion] = useState<string | null>(null);
     const router = useRouter();
+
+    const { handleDeleteBookmark } = Bookmark();
 
     // regions가 없을 때를 대비해 빈 배열로  처리
     const regionList = useMemo(() => (regions ? Object.keys(regions) : []), [regions]);
@@ -37,7 +40,7 @@ export default function MyPageComponent(): JSX.Element | null {
                 </A.Title>
 
                 {regionList.length === 0 ? (
-                    <p>즐겨찾기한 가게가 없습니다.</p>
+                    <A.NullStoreBox>즐겨찾기한 가게가 없습니다.</A.NullStoreBox>
                 ) : (
                     <>
                         {/* 지역 버튼 선택 탭 */}
@@ -56,6 +59,13 @@ export default function MyPageComponent(): JSX.Element | null {
                                         <A.BookMarkList key={store.storeId}>
                                             <A.Start src="/images/icon_star.png" alt="star" />
                                             {store.name} | {store.address}
+                                            <A.DeletedButton
+                                                onClick={() => {
+                                                    handleDeleteBookmark(activeRegion, store.storeId);
+                                                }}
+                                            >
+                                                삭제
+                                            </A.DeletedButton>
                                         </A.BookMarkList>
                                     ))}
                                 </ul>

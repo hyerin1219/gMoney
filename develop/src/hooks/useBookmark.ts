@@ -31,7 +31,7 @@ export function useBookmark() {
         };
 
         fetchBookmarks();
-    }, [user, db]);
+    }, [user, db, regions]);
 
     return { regions };
 }

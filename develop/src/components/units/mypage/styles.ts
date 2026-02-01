@@ -24,6 +24,7 @@ export const BookMark = styled.div`
 `;
 
 export const BookMarkList = styled.li`
+    position: relative;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -74,4 +75,20 @@ export const RegionsButton = styled.button<{ active: boolean }>`
         background-color: #c56b43;
         color: #e3e8ff;
     }
+`;
+
+export const NullStoreBox = styled.div`
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+`;
+
+export const DeletedButton = styled.button`
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 `;
