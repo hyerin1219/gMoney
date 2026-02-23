@@ -181,7 +181,7 @@ export const Card = styled.img<ICardProps>`
 
     @media (max-width: 1035px) {
         width: ${({ count }) => {
-            if (count === 1) return '40%';
+            if (count === 1) return '30%';
             if (count === 2) return '35%';
             if (count === 3) return '20%';
         }};
