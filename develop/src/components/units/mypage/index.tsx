@@ -36,14 +36,16 @@ export default function MyPageComponent(): JSX.Element | null {
         <section className="Wrap">
             <A.Content>
                 <A.Title>
-                    <strong>{user?.nickname}</strong>님의 즐겨찾기
+                    <strong>{user?.nickname}</strong>님의 페이지
                 </A.Title>
 
+                {/* 즐겨찾기 */}
                 {regionList.length === 0 ? (
                     <A.NullStoreBox>즐겨찾기한 가게가 없습니다.</A.NullStoreBox>
                 ) : (
                     <>
                         {/* 지역 버튼 선택 탭 */}
+                        <A.SubTitle>즐겨찾기</A.SubTitle>
                         <A.RegionsButtonMark>
                             {regionList.map((region) => (
                                 <A.RegionsButton key={region} active={activeRegion === region} onClick={() => setActiveRegion(region)}>
@@ -57,7 +59,7 @@ export default function MyPageComponent(): JSX.Element | null {
                                 <ul>
                                     {regions[activeRegion].map((store) => (
                                         <A.BookMarkList key={store.storeId}>
-                                            <A.Start src="/images/icon_star.png" alt="star" />
+                                            <A.Star src="/images/icon_star.png" alt="star" />
                                             {store.name} | {store.address}
                                             <A.DeletedButton
                                                 onClick={() => {
@@ -73,6 +75,9 @@ export default function MyPageComponent(): JSX.Element | null {
                         )}
                     </>
                 )}
+
+                {/* 차별거래 신고 */}
+                <A.SubTitle>차별거래 신고 내역</A.SubTitle>
             </A.Content>
         </section>
     );

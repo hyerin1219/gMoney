@@ -11,12 +11,17 @@ export const Title = styled.h3`
     font-size: 1.5rem;
     font-weight: 700;
     color: #2d3748;
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
+    margin-bottom: 30px;
 `;
 
+export const SubTitle = styled.p`
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+`;
+
+// 즐겨찾기 관련
 export const BookMark = styled.div`
-    min-height: 500px;
+    min-height: 400px;
     margin-top: 32px;
     display: flex;
     flex-direction: column;
@@ -33,7 +38,6 @@ export const BookMarkList = styled.li`
     border-radius: 12px;
     border: 1px solid #e2e8f0;
     transition: all 0.2s ease-in-out;
-    // cursor: pointer;
     margin: 5px 0;
 
     &:hover {
@@ -43,7 +47,7 @@ export const BookMarkList = styled.li`
     }
 `;
 
-export const Start = styled.img`
+export const Star = styled.img`
     width: 24px;
     height: 24px;
     object-fit: contain;
@@ -79,7 +83,7 @@ export const RegionsButton = styled.button<{ active: boolean }>`
 
 export const NullStoreBox = styled.div`
     width: 100%;
-    min-height: 500px;
+    min-height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,3 +96,5 @@ export const DeletedButton = styled.button`
     top: 50%;
     transform: translateY(-50%);
 `;
+
+// 차별거래 신고 관련
