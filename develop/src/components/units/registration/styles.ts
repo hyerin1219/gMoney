@@ -139,8 +139,52 @@ export const MarginBox = styled.div`
     margin: 0.5em 0;
 `;
 
-export const AddressModal = styled(Modal)``;
+export const AddressModal = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const AddressModalContent = styled.div`
+    max-width: 600px;
+    width: 80%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: right;
+
+    @media (max-width: 520px) {
+        width: 90%;
+    }
+`;
 
 export const AddressSearchInput = styled(DaumPostcode)``;
 
+export const AddressModalCloseButton = styled.button`
+    font-size: 16px;
+    margin-bottom: 16px;
+`;
+
+export const CategoryButton = styled.button<{ isSelected: boolean }>`
+    padding: 6px 14px;
+    font-size: 1em;
+    border-radius: 20px;
+    transition: all 0.2s ease-in-out;
+    margin: 5px;
+
+    // 클릭되었을 때
+    background-color: ${(props) => (props.isSelected ? '#243d34' : '#d2e4c1')};
+    color: ${(props) => (props.isSelected ? '#ffffff' : '#333')};
+
+    &:hover {
+        background-color: #243d34;
+        color: #fff;
+    }
+`;
 export const GMoneyBox = styled.div``;

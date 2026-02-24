@@ -10,12 +10,13 @@ import { useAuth } from '../../../hooks/useAuth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { firebaseApp } from '../../../common/libraries/firebase';
 import { useAlert } from '../../common/alert/AlertProvider';
+import { INDUTYPE } from '../../../common/stores/indutpye';
 
 interface IFormData {
     name: string;
-    category: string;
     content: string;
     addressDetail: string;
+    title: string;
 }
 
 export default function RegistrationComponent(): JSX.Element {
@@ -27,6 +28,7 @@ export default function RegistrationComponent(): JSX.Element {
         address: '',
     });
     const { user } = useAuth();
+    const [category, setCategory] = useState('');
 
     // 로그아웃 감지 시 메인으로 이동
     useEffect(() => {
@@ -54,9 +56,10 @@ export default function RegistrationComponent(): JSX.Element {
             const registrationStore = collection(getFirestore(firebaseApp), 'registrationStore');
             await addDoc(registrationStore, {
                 id: user,
+                title: data.title,
                 content: data.content,
                 name: data.name,
-                category: data.category,
+                category,
                 storeAddress: {
                     ...storeAddress,
                     addressDetail: data.addressDetail,
@@ -65,7 +68,7 @@ export default function RegistrationComponent(): JSX.Element {
             triggerAlert('등록이 완료되었습니다.');
 
             setTimeout(() => {
-                void router.push('/');
+                void router.push('/registrationListPage');
             }, 2500); // alert 시간과 맞추기
         } catch (error) {
             if (error instanceof Error) alert(error.message);
@@ -74,13 +77,6 @@ export default function RegistrationComponent(): JSX.Element {
 
     return (
         <section className="Wrap">
-            {/* 우편번호 모달 */}
-            {isOpen && (
-                <A.AddressModal>
-                    <A.AddressSearchInput onComplete={onCompleteAddressSearch} />
-                </A.AddressModal>
-            )}
-
             {/* form  */}
             <A.MainBox>
                 <form onSubmit={handleSubmit(onClickSubmit)}>
@@ -91,7 +87,17 @@ export default function RegistrationComponent(): JSX.Element {
                     <A.ContentBox>
                         <A.ContentList>
                             <A.ListTitle>
-                                <A.GuideBoxEm>*</A.GuideBoxEm>상호
+                                <A.GuideBoxEm>*</A.GuideBoxEm>제목
+                            </A.ListTitle>
+                            <A.ListBox>
+                                <A.ListInput type="text" {...register('title')}></A.ListInput>
+                                <A.ErrorBox>{formState.errors.title?.message}</A.ErrorBox>
+                            </A.ListBox>
+                        </A.ContentList>
+
+                        <A.ContentList>
+                            <A.ListTitle>
+                                <A.GuideBoxEm>*</A.GuideBoxEm>상호명
                             </A.ListTitle>
                             <A.ListBox>
                                 <A.ListInput type="text" {...register('name')}></A.ListInput>
@@ -100,13 +106,14 @@ export default function RegistrationComponent(): JSX.Element {
                         </A.ContentList>
 
                         <A.ContentList>
-                            <A.ListTitle>
-                                <A.GuideBoxEm>*</A.GuideBoxEm>업종
-                            </A.ListTitle>
-                            <A.ListBox>
-                                <A.ListInput type="text" {...register('category')}></A.ListInput>
+                            <A.ListTitle>업종</A.ListTitle>
 
-                                <A.ErrorBox>{formState.errors.category?.message}</A.ErrorBox>
+                            <A.ListBox>
+                                {INDUTYPE.map((el) => (
+                                    <A.CategoryButton type="button" isSelected={category === el.title} onClick={() => setCategory(el.title)} key={el.title}>
+                                        {el.title}
+                                    </A.CategoryButton>
+                                ))}
                             </A.ListBox>
                         </A.ContentList>
 
@@ -148,6 +155,18 @@ export default function RegistrationComponent(): JSX.Element {
                     </A.submitButton>
                 </form>
             </A.MainBox>
+
+            {/* 우편번호 모달 */}
+            {isOpen && (
+                <A.AddressModal>
+                    <A.AddressModalContent>
+                        <A.AddressModalCloseButton type="button" onClick={() => setIsOpen(false)}>
+                            닫기
+                        </A.AddressModalCloseButton>
+                        <A.AddressSearchInput onComplete={onCompleteAddressSearch} />
+                    </A.AddressModalContent>
+                </A.AddressModal>
+            )}
         </section>
     );
 }
