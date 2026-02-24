@@ -17,7 +17,8 @@ export default function LayoutHeader(): JSX.Element {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const Menu = [
-        { menu: '차별거래신고', link: '/registrationPage' },
+        { menu: '차별거래 신고하기', link: '/registrationPage' },
+        { menu: '차별거래 신고 내역', link: '/registrationListPage' },
         { menu: '가맹점 찾기', link: '/storeSearchPage' },
         { menu: '마이 페이지', link: '/myPage' },
     ];
