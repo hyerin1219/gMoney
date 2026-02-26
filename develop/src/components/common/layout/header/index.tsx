@@ -12,16 +12,35 @@ export default function LayoutHeader(): JSX.Element {
     const { user, login, logout } = useAuth();
 
     const [open, setOpen] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    // 메뉴
+    const [active, setActive] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const Menu = [
-        { menu: '차별거래 신고하기', link: '/registrationPage' },
-        { menu: '차별거래 신고 내역', link: '/registrationListPage' },
-        { menu: '가맹점 찾기', link: '/storeSearchPage' },
-        { menu: '마이 페이지', link: '/myPage' },
+        {
+            MainMenu: '차별거래신고',
+            subMenu: [
+                { SubMenu: '차별거래 신고하기', link: '/registrationPage' },
+                { SubMenu: '차별거래 신고 내역', link: '/registrationListPage' },
+            ],
+        },
+        { MainMenu: '가맹점 찾기', link: '/storeSearchPage' },
+        { MainMenu: '마이 페이지', link: '/myPage' },
     ];
+
+    useEffect(() => {
+        // 페이지 이동이 완료되면 모든 메뉴 상태를 초기화
+        const handleRouteChange = () => {
+            setIsMobileMenuOpen(false);
+            setActive(false);
+            setOpen(false);
+        };
+
+        router.events.on('routeChangeComplete', handleRouteChange);
+        return () => router.events.off('routeChangeComplete', handleRouteChange);
+    }, [router.events]);
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -51,28 +70,64 @@ export default function LayoutHeader(): JSX.Element {
                 {/* pc 메뉴 */}
                 <A.MenuBox>
                     {Menu.map((el) => (
-                        <A.MenuItem key={el.menu} onClick={() => router.push(el.link)}>
-                            {el.menu}
-                        </A.MenuItem>
+                        <div key={el.MainMenu}>
+                            {el.subMenu ? (
+                                <A.SubMenuContent>
+                                    <A.MenuItem onClick={() => setActive((prev) => !prev)}>{el.MainMenu}</A.MenuItem>
+                                    {active && (
+                                        <A.SubMenuBox>
+                                            {el.subMenu.map((el) => (
+                                                <A.SubMenuItem onClick={() => router.push(el.link)}>{el.SubMenu}</A.SubMenuItem>
+                                            ))}
+                                        </A.SubMenuBox>
+                                    )}
+                                </A.SubMenuContent>
+                            ) : (
+                                <A.MenuItem onClick={() => router.push(el.link)}>{el.MainMenu}</A.MenuItem>
+                            )}
+                        </div>
                     ))}
                 </A.MenuBox>
 
                 {/* 모바일 메뉴 */}
+
                 <A.MobileDrawer onClick={() => setIsMobileMenuOpen(false)} isMobileMenuOpen={isMobileMenuOpen}>
                     <A.MobileBox onClick={(e) => e.stopPropagation()} isMobileMenuOpen={isMobileMenuOpen}>
-                        <A.CloseButton onClick={() => setIsMobileMenuOpen(false)}></A.CloseButton>
+                        <A.CloseButton onClick={() => setIsMobileMenuOpen(false)} />
 
                         <A.MobileMenuBox>
                             {Menu.map((el) => (
-                                <A.MobileMenuItem
-                                    key={el.menu}
-                                    onClick={() => {
-                                        router.push(el.link);
-                                        setIsMobileMenuOpen(false);
-                                    }}
-                                >
-                                    {el.menu}
-                                </A.MobileMenuItem>
+                                <div style={{ width: '100%' }} key={el.MainMenu}>
+                                    {el.subMenu ? (
+                                        <>
+                                            <A.MobileMenuItem onClick={() => setActive((prev) => !prev)}>{el.MainMenu}</A.MobileMenuItem>
+
+                                            {active &&
+                                                el.subMenu.map((sub) => (
+                                                    <A.MobileSubMenuItem
+                                                        key={sub.SubMenu}
+                                                        onClick={() => {
+                                                            router.push(sub.link);
+                                                            setIsMobileMenuOpen(false);
+                                                            setActive(false);
+                                                        }}
+                                                    >
+                                                        {sub.SubMenu}
+                                                    </A.MobileSubMenuItem>
+                                                ))}
+                                        </>
+                                    ) : (
+                                        <A.MobileMenuItem
+                                            onClick={() => {
+                                                router.push(el.link!);
+                                                setIsMobileMenuOpen(false);
+                                                setActive(false);
+                                            }}
+                                        >
+                                            {el.MainMenu}
+                                        </A.MobileMenuItem>
+                                    )}
+                                </div>
                             ))}
                         </A.MobileMenuBox>
                     </A.MobileBox>

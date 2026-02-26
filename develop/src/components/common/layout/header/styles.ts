@@ -104,6 +104,33 @@ export const MenuItem = styled.button`
         font-size: 15px;
     }
 `;
+
+export const SubMenuItem = styled.button`
+    font-size: 16px;
+
+    @media (max-width: 530px) {
+        font-size: 15px;
+    }
+`;
+
+export const SubMenuContent = styled.div`
+    position: relative;
+`;
+export const SubMenuBox = styled.div`
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: max-content;
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.2);
+    transform: translateX(-50%);
+`;
 export const FlexBox = styled.div`
     display: flex;
     align-items: center;
@@ -212,9 +239,9 @@ export const CloseButton = styled.button`
 export const MobileMenuBox = styled.div`
     display: flex;
     flex-direction: column;
-    justify-center center;
+    justify-content: center;
     align-items: flex-start;
-    
+    width: 100%;
     margin-top: 30px;
 `;
 export const MobileMenuItem = styled.button`
@@ -230,5 +257,22 @@ export const MobileMenuItem = styled.button`
     }
     @media (max-width: 530px) {
         font-size: 15px;
+    }
+`;
+export const MobileSubMenuItem = styled.button`
+    width: 100%;
+    font-size: 16px;
+    padding: 15px 10px;
+    border-radius: 5px;
+    text-align: left;
+    padding-left: 20px;
+    background-color: #f9f9f9;
+
+    &:hover {
+        background-color: #333333;
+        color: #fff;
+    }
+    @media (max-width: 530px) {
+        font-size: 14px;
     }
 `;
