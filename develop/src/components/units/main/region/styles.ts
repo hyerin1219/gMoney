@@ -109,15 +109,10 @@ export const LogoImg = styled.img`
     animation: ${floating} 2s ease-in-out infinite;
 
     @media (max-width: 1110px) {
+        /* width: 200px; */
         width: 200px;
-    }
-
-    @media (max-width: 1035px) {
-        width: 180px;
-    }
-
-    @media (max-width: 600px) {
-        width: 150px;
+        height: 150px;
+        object-fit: contain;
     }
 `;
 
@@ -152,11 +147,12 @@ export const CardBox = styled.div<ILogoProps>`
     border-color: ${({ bgColor }) => bgColor || 'transparent'};
 
     @media (max-width: 1035px) {
-        padding-bottom: 120px;
+        // padding-bottom: 120px;
+        height: 500px;
     }
 
     @media (max-width: 600px) {
-        padding-bottom: 100px;
+        // padding-bottom: 100px;
     }
 `;
 const fadeInUp = keyframes`
