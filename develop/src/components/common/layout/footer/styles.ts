@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Space } from 'antd';
 
-export const FooterWrapper = styled.div`
+export const FooterWrapper = styled.footer`
     background-color: #2a2f33;
     background-color: #0a2422;
 `;

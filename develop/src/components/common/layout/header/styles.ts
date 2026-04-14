@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.header`
     position: relative;
     z-index: 99;
     width: 100%;
@@ -88,7 +88,7 @@ export const UserBox = styled.button`
     }
 `;
 
-export const MenuBox = styled.div`
+export const MenuBox = styled.ul`
     display: flex;
     gap: 20px;
 
@@ -96,7 +96,7 @@ export const MenuBox = styled.div`
         display: none;
     }
 `;
-export const MenuItem = styled.button`
+export const MenuItem = styled.div`
     color: #edebe5;
     font-size: 18px;
 
@@ -105,8 +105,9 @@ export const MenuItem = styled.button`
     }
 `;
 
-export const SubMenuItem = styled.button`
+export const SubMenuItem = styled.div`
     font-size: 16px;
+    color: #000;
 
     @media (max-width: 530px) {
         font-size: 15px;
@@ -116,7 +117,7 @@ export const SubMenuItem = styled.button`
 export const SubMenuContent = styled.div`
     position: relative;
 `;
-export const SubMenuBox = styled.div`
+export const SubMenuBox = styled.ul`
     position: absolute;
     left: 50%;
     top: 100%;
@@ -236,7 +237,7 @@ export const CloseButton = styled.button`
     }
 `;
 
-export const MobileMenuBox = styled.div`
+export const MobileMenuBox = styled.ul`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -244,7 +245,7 @@ export const MobileMenuBox = styled.div`
     width: 100%;
     margin-top: 30px;
 `;
-export const MobileMenuItem = styled.button`
+export const MobileMenuItem = styled.li`
     width: 100%;
     font-size: 20px;
     padding: 15px 10px;
@@ -259,7 +260,8 @@ export const MobileMenuItem = styled.button`
         font-size: 15px;
     }
 `;
-export const MobileSubMenuItem = styled.button`
+export const MobileSubMenuItem = styled.li`
+    display: block;
     width: 100%;
     font-size: 16px;
     padding: 15px 10px;
@@ -267,6 +269,8 @@ export const MobileSubMenuItem = styled.button`
     text-align: left;
     padding-left: 20px;
     background-color: #f9f9f9;
+    margin-bottom: 10px;
+    cursor: pointer;
 
     &:hover {
         background-color: #333333;

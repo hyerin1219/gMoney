@@ -1,12 +1,14 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const Content = styled.div`
+export const Contents = styled.div`
     display: flex;
     flex-direction: column;
     gap: 80px;
     width: 100%;
 `;
+
+export const Content = styled.article``;
 
 export const TitleBox = styled.div`
     display: flex;
@@ -55,7 +57,7 @@ export const Title = styled.h2`
     }
 `;
 
-export const SubTitle = styled.p`
+export const SubTitle = styled.h3`
     flex-shrink: 0;
     font-size: 25px;
     font-weight: bold;
@@ -93,7 +95,7 @@ export const CategoryBox = styled.div`
     width: 100%;
     padding: 15px;
 `;
-export const CategoryContainer = styled.div`
+export const CategoryContainer = styled.ul`
     display: flex;
     width: fit-content;
     animation: ${scrollLeft} 20s linear infinite;
@@ -103,7 +105,7 @@ export const CategoryContainer = styled.div`
     }
 `;
 
-export const CategoryCard = styled.div`
+export const CategoryCard = styled.li`
     flex: 0 0 auto;
     width: 155px;
     margin-right: 50px;
@@ -114,10 +116,8 @@ export const CategoryIconBox = styled.div`
     height: 100px;
     border-radius: 50px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background-color: #c56b43;
-    background-color: #edebe5;
 
-    // background-color: #af6545;
+    background-color: #edebe5;
 `;
 
 export const CategoryIcon = styled.img`
@@ -151,7 +151,7 @@ export const MenuListBox = styled.div`
         flex-direction: column;
     }
 `;
-export const MenuSubBox = styled.p`
+export const MenuSubBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -188,7 +188,7 @@ export const Contact = styled.div`
     }
 `;
 
-export const Search = styled.button`
+export const Search = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -220,7 +220,7 @@ export const Search = styled.button`
     }
 `;
 
-export const Report = styled.button`
+export const Report = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -252,7 +252,7 @@ export const Report = styled.button`
     }
 `;
 
-export const MenuTitle = styled.p`
+export const MenuTitle = styled.h3`
     display: flex;
     justify-content: center;
     align-items: center;
