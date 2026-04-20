@@ -1,6 +1,16 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
+export const ScrollSection = styled.div`
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
 export const Contents = styled.div`
     display: flex;
     flex-direction: column;
@@ -23,9 +33,11 @@ export const TitleBox = styled.div`
 
 export const TitleImg = styled.img`
     width: 400px;
+    transition: transform 0.5s ease;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
 
-    @media (max-width: 600px) {
-        width: 280px;
+    &:hover {
+        transform: scale(1.05) rotate(-2deg);
     }
 `;
 
@@ -78,17 +90,6 @@ const scrollLeft = keyframes`
   }
 `;
 
-const card = keyframes`
-  0% {
-    transform: translate(-50% , 0);
-  }
- 50% {
-    transform: translate(-50% , 12%);
-  }
-   100% {
-    transform: translate(-50% ,0);
-  }
-`;
 export const Category = styled.div``;
 export const CategoryBox = styled.div`
     overflow: hidden;
@@ -115,20 +116,24 @@ export const CategoryIconBox = styled.div`
     position: relative;
     height: 100px;
     border-radius: 50px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-
     background-color: #edebe5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+
+    &:hover {
+        background-color: #fff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    }
 `;
 
 export const CategoryIcon = styled.img`
     position: absolute;
     top: -10px;
     left: 50%;
-
     height: 90px;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
-
-    animation: ${card} 3s linear infinite;
+    transform: translateX(-50%);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 `;
 
 export const CategoryLabel = styled.p`
@@ -138,7 +143,7 @@ export const CategoryLabel = styled.p`
     margin-top: 10px;
 `;
 
-// menu
+// ====================== 메뉴
 
 export const MenuListBox = styled.div`
     display: flex;
@@ -162,94 +167,72 @@ export const MenuSubBox = styled.div`
     }
 `;
 
-export const Contact = styled.div`
+const shine = keyframes`
+  0% { left: -100%; }
+  100% { left: 100%; }
+`;
+
+const MenuBase = styled.div`
     position: relative;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    margin: 0 auto;
     padding: 30px;
-    border-radius: 12px;
-    background-color: #ffec86;
+    border-radius: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+        transform: skewX(-25deg);
+    }
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        &::after {
+            animation: ${shine} 0.6s focus;
+        }
+    }
+
+    &:active {
+        transform: translateY(-2px);
+    }
+`;
+
+export const Contact = styled(MenuBase)`
+    flex-direction: column;
+    width: 50%;
+    background: #ffec86;
     color: #333;
-    font-weight: bold;
     font-size: 30px;
-    box-shadow: 0 6px 8px rgba(191, 164, 24, 0.5);
+    font-weight: bold;
 
     @media (max-width: 600px) {
         width: 100%;
     }
-
-    @media (max-width: 400px) {
-        padding: 20px;
-        font-size: 20px;
-    }
 `;
 
-export const Search = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+export const Search = styled(MenuBase)`
     width: 100%;
-    padding: 30px;
-    border-radius: 12px;
     background-color: #ff9393;
     color: #fff;
     font-weight: bold;
-    font-size: 30px;
-
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 6px rgba(215, 113, 113, 0.4);
-
-    &:hover {
-        background-color: #ff7b7b;
-        box-shadow: 0 6px 8px rgba(215, 113, 113, 0.5);
-        transform: translateY(-2px);
-    }
-
-    &:active {
-        box-shadow: 0 2px 3px rgba(215, 113, 113, 0.4);
-        transform: translateY(0);
-    }
-
-    @media (max-width: 400px) {
-        padding: 20px;
-        font-size: 20px;
-    }
+    cursor: pointer;
 `;
 
-export const Report = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+export const Report = styled(MenuBase)`
     width: 100%;
-    padding: 30px;
-    border-radius: 12px;
     background-color: #67d7fb;
     color: #fff;
     font-weight: bold;
-    font-size: 30px;
-
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 6px rgba(5, 148, 194, 0.4);
-
-    &:hover {
-        background-color: #4fc0e8;
-        box-shadow: 0 6px 8px rgba(5, 148, 194, 0.5);
-        transform: translateY(-2px);
-    }
-
-    &:active {
-        box-shadow: 0 2px 3px rgba(5, 148, 194, 0.4);
-        transform: translateY(0);
-    }
-
-    @media (max-width: 400px) {
-        padding: 20px;
-        font-size: 20px;
-    }
+    cursor: pointer;
 `;
 
 export const MenuTitle = styled.h3`

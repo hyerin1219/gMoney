@@ -11,15 +11,13 @@ declare const window: typeof globalThis & {
 export default function LayoutHeader(): JSX.Element {
     const router = useRouter();
     const { user, login, logout } = useAuth();
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const [open, setOpen] = useState(false);
-
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    // 메뉴
-    const [active, setActive] = useState(false);
+    const [activeMenu, setActiveMenu] = useState<number | null>(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const Menu = [
+    const MenuData = [
         {
             MainMenu: '차별거래신고',
             subMenu: [
@@ -31,114 +29,74 @@ export default function LayoutHeader(): JSX.Element {
         { MainMenu: '마이 페이지', link: '/myPage' },
     ];
 
-    useEffect(() => {
-        // 페이지 이동이 완료되면 모든 메뉴 상태를 초기화
-        const handleRouteChange = () => {
-            setIsMobileMenuOpen(false);
-            setActive(false);
-            setOpen(false);
-        };
+    // 메뉴 닫기 핸들러
+    const closeAll = () => {
+        setIsMobileMenuOpen(false);
+        setActiveMenu(null);
+        setOpen(false);
+    };
 
-        router.events.on('routeChangeComplete', handleRouteChange);
-        return () => router.events.off('routeChangeComplete', handleRouteChange);
+    useEffect(() => {
+        router.events.on('routeChangeComplete', closeAll);
+        return () => router.events.off('routeChangeComplete', closeAll);
     }, [router.events]);
-
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-                setOpen(false);
-                setIsMobileMenuOpen(false);
-            }
-        };
-
-        if (open) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [open]);
 
     return (
         <A.HeaderWrapper>
             <A.HeaderContent>
                 <A.FlexBox>
-                    <A.HamMenuButton onClick={() => setIsMobileMenuOpen(true)}></A.HamMenuButton>
-                    <Link href={`/`}>
+                    <A.HamMenuButton onClick={() => setIsMobileMenuOpen(true)} />
+                    <Link href="/">
                         <A.PageLogo>경기 지역 화폐</A.PageLogo>
                     </Link>
                 </A.FlexBox>
 
-                {/* pc 메뉴 */}
+                {/* PC 메뉴: Hover 시 열리도록 구현 */}
                 <A.MenuBox>
-                    {Menu.map((el) => (
-                        <li key={el.MainMenu}>
-                            {el.subMenu ? (
-                                <A.SubMenuContent>
-                                    <A.MenuItem>
-                                        <button onClick={() => setActive((prev) => !prev)}>{el.MainMenu}</button>
-                                    </A.MenuItem>
-                                    {active && (
-                                        <A.SubMenuBox>
-                                            {el.subMenu.map((el, idx) => (
-                                                <A.SubMenuItem key={idx}>
-                                                    <Link href={`${el.link}`}>{el.SubMenu}</Link>
-                                                </A.SubMenuItem>
-                                            ))}
-                                        </A.SubMenuBox>
-                                    )}
-                                </A.SubMenuContent>
-                            ) : (
-                                <A.MenuItem>
-                                    <Link href={`${el.link}`}>{el.MainMenu}</Link>
-                                </A.MenuItem>
+                    {MenuData.map((el, idx) => (
+                        <li key={el.MainMenu} onMouseEnter={() => el.subMenu && setActiveMenu(idx)} onMouseLeave={() => setActiveMenu(null)} style={{ position: 'relative' }}>
+                            <A.MenuItem>{el.link ? <Link href={el.link}>{el.MainMenu}</Link> : <span>{el.MainMenu}</span>}</A.MenuItem>
+
+                            {el.subMenu && activeMenu === idx && (
+                                <A.SubMenuBox>
+                                    {el.subMenu.map((sub, sIdx) => (
+                                        <A.SubMenuItem key={sIdx}>
+                                            <Link href={sub.link}>{sub.SubMenu}</Link>
+                                        </A.SubMenuItem>
+                                    ))}
+                                </A.SubMenuBox>
                             )}
                         </li>
                     ))}
                 </A.MenuBox>
 
-                {/* 모바일 메뉴 */}
-                <A.MobileDrawer onClick={() => setIsMobileMenuOpen(false)} isMobileMenuOpen={isMobileMenuOpen}>
-                    <A.MobileBox onClick={(e) => e.stopPropagation()} isMobileMenuOpen={isMobileMenuOpen}>
-                        <A.CloseButton onClick={() => setIsMobileMenuOpen(false)} />
+                {/* 모바일 메뉴 슬라이더 */}
+                <A.MobileDrawer isMobileMenuOpen={isMobileMenuOpen} onClick={closeAll}>
+                    <A.MobileBox isMobileMenuOpen={isMobileMenuOpen} onClick={(e) => e.stopPropagation()}>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <A.CloseButton onClick={closeAll} />
+                        </div>
 
                         <A.MobileMenuBox>
-                            {Menu.map((el) => (
-                                <li style={{ width: '100%' }} key={el.MainMenu}>
+                            {MenuData.map((el, idx) => (
+                                <li key={el.MainMenu} style={{ width: '100%' }}>
                                     {el.subMenu ? (
-                                        <div>
+                                        <>
                                             <A.MobileMenuItem>
-                                                <button onClick={() => setActive((prev) => !prev)}>{el.MainMenu}</button>
+                                                <button onClick={() => setActiveMenu(activeMenu === idx ? null : idx)}>{el.MainMenu}</button>
                                             </A.MobileMenuItem>
-
-                                            <ul>
-                                                {active &&
-                                                    el.subMenu.map((sub) => (
-                                                        <li
-                                                            key={sub.SubMenu}
-                                                            onClick={() => {
-                                                                setIsMobileMenuOpen(false);
-                                                                setActive(false);
-                                                            }}
-                                                        >
-                                                            <Link key={sub.SubMenu} href={`/${sub.link}`}>
-                                                                {sub.SubMenu}
-                                                            </Link>
-                                                        </li>
+                                            {activeMenu === idx && (
+                                                <A.MobileSubMenuBox>
+                                                    {el.subMenu.map((sub) => (
+                                                        <A.MobileSubMenuItem key={sub.SubMenu}>
+                                                            <Link href={sub.link}>{sub.SubMenu}</Link>
+                                                        </A.MobileSubMenuItem>
                                                     ))}
-                                            </ul>
-                                        </div>
+                                                </A.MobileSubMenuBox>
+                                            )}
+                                        </>
                                     ) : (
-                                        <A.MobileMenuItem
-                                            onClick={() => {
-                                                router.push(el.link!);
-                                                setIsMobileMenuOpen(false);
-                                                setActive(false);
-                                            }}
-                                        >
-                                            {el.MainMenu}
-                                        </A.MobileMenuItem>
+                                        <A.MobileMenuItem onClick={() => router.push(el.link!)}>{el.MainMenu}</A.MobileMenuItem>
                                     )}
                                 </li>
                             ))}
@@ -146,14 +104,14 @@ export default function LayoutHeader(): JSX.Element {
                     </A.MobileBox>
                 </A.MobileDrawer>
 
-                {/* 로그인 */}
+                {/* 로그인 영역 */}
                 <A.LoginWrap>
                     {user ? (
                         <A.LoginBox ref={dropdownRef}>
-                            <A.UserBox onClick={() => setOpen((prev) => !prev)}>{user.nickname}</A.UserBox> 님
+                            <A.UserBox onClick={() => setOpen(!open)}>{user.nickname}</A.UserBox>
                             {open && (
                                 <A.LogOutBox>
-                                    <Link href={`/myPage`}>마이 페이지</Link>
+                                    <A.LogoutButton onClick={() => router.push('/myPage')}>마이 페이지</A.LogoutButton>
                                     <A.LogoutButton onClick={logout}>로그아웃</A.LogoutButton>
                                 </A.LogOutBox>
                             )}

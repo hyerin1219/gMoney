@@ -52,9 +52,10 @@ export const LogOutBox = styled.div`
 
 export const LogoutButton = styled.button`
     font-size: 15px;
-    padding: 5px 0;
+    padding: 3px 0;
+    margin: 3px 0;
     border-bottom: 2px solid transparent;
-
+    color: #333;
     :hover {
         border-color: #243d34;
     }
@@ -79,7 +80,7 @@ export const KakaoButton = styled.button`
 `;
 
 export const UserBox = styled.button`
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #edebe5;
 
@@ -98,19 +99,34 @@ export const MenuBox = styled.ul`
 `;
 export const MenuItem = styled.div`
     color: #edebe5;
-    font-size: 18px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
 
-    @media (max-width: 530px) {
-        font-size: 15px;
+    button {
+        background: none;
+        border: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    &:hover {
+        color: #fff;
     }
 `;
 
-export const SubMenuItem = styled.div`
-    font-size: 16px;
-    color: #000;
+export const SubMenuItem = styled.li`
+    font-size: 14px;
+    color: #333;
+    padding: 10px 20px;
+    transition: all 0.2s;
 
-    @media (max-width: 530px) {
-        font-size: 15px;
+    &:hover {
+        color: #243d34;
+        font-weight: bold;
     }
 `;
 
@@ -120,17 +136,17 @@ export const SubMenuContent = styled.div`
 export const SubMenuBox = styled.ul`
     position: absolute;
     left: 50%;
-    top: 100%;
+    top: calc(100% + 5px);
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: max-content;
-    padding: 15px;
-    margin-top: 10px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    text-align: center;
+    padding: 8px 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     transform: translateX(-50%);
+    z-index: 100;
 `;
 export const FlexBox = styled.div`
     display: flex;
@@ -245,38 +261,38 @@ export const MobileMenuBox = styled.ul`
     width: 100%;
     margin-top: 30px;
 `;
-export const MobileMenuItem = styled.li`
+export const MobileMenuItem = styled.div`
     width: 100%;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 600;
     padding: 15px 10px;
-    border-radius: 5px;
-    text-align: left;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
 
-    &:hover {
-        background-color: #333333;
-        color: #fff;
-    }
-    @media (max-width: 530px) {
-        font-size: 15px;
+    button {
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        font: inherit;
     }
 `;
-export const MobileSubMenuItem = styled.li`
-    display: block;
+export const MobileSubMenuBox = styled.ul`
+    background-color: #f8f9fa;
     width: 100%;
-    font-size: 16px;
-    padding: 15px 10px;
-    border-radius: 5px;
-    text-align: left;
-    padding-left: 20px;
-    background-color: #f9f9f9;
-    margin-bottom: 10px;
-    cursor: pointer;
+    overflow: hidden;
+`;
 
-    &:hover {
-        background-color: #333333;
-        color: #fff;
-    }
-    @media (max-width: 530px) {
-        font-size: 14px;
+export const MobileSubMenuItem = styled.li`
+    padding: 12px 25px;
+    font-size: 15px;
+    color: #666;
+    border-bottom: 1px solid #f1f1f1;
+
+    &:active {
+        background-color: #e9ecef;
     }
 `;
